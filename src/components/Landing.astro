@@ -14,14 +14,7 @@ import CopyButton from './CopyButton.astro';
 
 import BrandIcon from './BrandIcon.astro';
 import tmdbLogo from '../assets/badges/tmdb-short.svg';
-import grid from '../assets/screens/iphone/01-poster-grid-view.jpeg';
-import gallery from '../assets/screens/iphone/02-featured-library-card.jpeg';
-import list from '../assets/screens/iphone/03-library-list-view.jpeg';
-import detail from '../assets/screens/iphone/04-anime-detail-overview.jpeg';
-import manage from '../assets/screens/iphone/05-watch-management-sheet.jpeg';
-import stats from '../assets/screens/iphone/06-library-stats-overview.jpeg';
-import ipadGrid from '../assets/screens/ipad/01-grid-view-inspector.jpeg';
-import ipadStats from '../assets/screens/ipad/04-library-stats-and-settings.jpeg';
+import { screens } from '../assets/screens';
 
 import {
   BLOG_URL,
@@ -89,11 +82,11 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="hero-stage">
-        <Petals count={10} />
+        <Petals count={14} fade="edges" />
         <div class="hero-devices">
-          <Phone class="hp hp-left" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 210px, 34vw" eager />
-          <Phone class="hp hp-right" src={stats} alt={t.alt.stats} sizes="(min-width: 960px) 200px, 32vw" eager />
-          <Phone class="hp hp-center" src={grid} alt={t.alt.grid} sizes="(min-width: 960px) 250px, 40vw" eager />
+          <Phone class="hp hp-left" {...screens.detail} alt={t.alt.detail} sizes="(min-width: 960px) 210px, 34vw" eager />
+          <Phone class="hp hp-right" {...screens.stats} alt={t.alt.stats} sizes="(min-width: 960px) 200px, 32vw" eager />
+          <Phone class="hp hp-center" {...screens.grid} alt={t.alt.grid} sizes="(min-width: 960px) 250px, 40vw" eager />
         </div>
         <div class="hero-plank" aria-hidden="true"></div>
       </div>
@@ -111,9 +104,9 @@ const year = new Date().getFullYear();
           <ul class="points">{v.collect.points?.map((p) => <li>{p}</li>)}</ul>
         </div>
         <div class="trio">
-          <Phone class="t1" src={list} alt={t.alt.list} sizes="(min-width: 960px) 220px, 30vw" />
-          <Phone class="t2" src={grid} alt={t.alt.grid} sizes="(min-width: 960px) 240px, 34vw" />
-          <Phone class="t3" src={gallery} alt={t.alt.featured} sizes="(min-width: 960px) 220px, 30vw" />
+          <Phone class="t1" {...screens.list} alt={t.alt.list} sizes="(min-width: 960px) 220px, 30vw" />
+          <Phone class="t2" {...screens.grid} alt={t.alt.grid} sizes="(min-width: 960px) 240px, 34vw" />
+          <Phone class="t3" {...screens.gallery} alt={t.alt.featured} sizes="(min-width: 960px) 220px, 30vw" />
         </div>
       </div>
     </section>
@@ -125,13 +118,23 @@ const year = new Date().getFullYear();
           <p class="mono vol-label"><b>{label(2)}</b><i></i>{v.track.spine}</p>
           <h2 id={`${ids[1]}-title`}><Phrases text={v.track.title} /></h2>
           <p class="body">{v.track.body}</p>
-          <ul class="statuses">
-            {v.track.statuses.map((s, i) => <li data-status={i}>{s}</li>)}
-          </ul>
+          <div class="statuses" role="list">
+            {
+              [0, 2].map((start) => (
+                <span class="pair">
+                  {v.track.statuses.slice(start, start + 2).map((s, i) => (
+                    <span role="listitem" data-status={start + i}>
+                      {s}
+                    </span>
+                  ))}
+                </span>
+              ))
+            }
+          </div>
         </div>
         <div class="duo">
-          <Phone class="d1" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 250px, 42vw" />
-          <Phone class="d2" src={manage} alt={t.alt.manage} sizes="(min-width: 960px) 250px, 42vw" />
+          <Phone class="d1" {...screens.detail} alt={t.alt.detail} sizes="(min-width: 960px) 250px, 42vw" />
+          <Phone class="d2" {...screens.manage} alt={t.alt.manage} sizes="(min-width: 960px) 250px, 42vw" />
         </div>
       </div>
     </section>
@@ -160,8 +163,8 @@ const year = new Date().getFullYear();
           <p class="body">{v.reflect.body}</p>
         </div>
         <div class="reflect-stage">
-          <Tablet class="rt" src={ipadStats} alt={t.alt.ipadStats} sizes="(min-width: 960px) 560px, 80vw" />
-          <Phone class="rp" src={stats} alt={t.alt.stats} sizes="(min-width: 960px) 190px, 32vw" />
+          <Tablet class="rt" {...screens.ipadStats} alt={t.alt.ipadStats} sizes="(min-width: 960px) 560px, 80vw" />
+          <Phone class="rp" {...screens.stats} alt={t.alt.stats} sizes="(min-width: 960px) 190px, 32vw" />
         </div>
       </div>
     </section>
@@ -174,7 +177,7 @@ const year = new Date().getFullYear();
           <h2 id={`${ids[4]}-title`}><Phrases text={v.everywhere.title} /></h2>
           <p class="body">{v.everywhere.body}</p>
         </div>
-        <Tablet class="sync-tablet" src={ipadGrid} alt={t.alt.ipadGrid} sizes="(min-width: 1240px) 1100px, 92vw" />
+        <Tablet class="sync-tablet" {...screens.ipadGrid} alt={t.alt.ipadGrid} sizes="(min-width: 1240px) 1100px, 92vw" />
         <div class="sync-foot">
           <ul class="points">{v.everywhere.points?.map((p) => <li>{p}</li>)}</ul>
           <ExportFormats label={v.everywhere.exportLabel} />
@@ -526,6 +529,13 @@ const year = new Date().getFullYear();
     }
   }
 
+  /*
+   * The hero has no frame for petals to fall out of, so start them above the
+   * stage and let them fade in from thin air.
+   */
+  .hero-stage :global(.petals) {
+    inset: -14% 0 4%;
+  }
 
   /* The phones stand in the plank: nothing shows below its top edge. */
   .hero-devices {
@@ -779,16 +789,19 @@ const year = new Date().getFullYear();
     translate: 0 12%;
   }
 
-  .statuses {
+  /* Chips wrap in pairs, so a narrow column gets 2 + 2 rather than 3 + 1. */
+  .statuses,
+  .pair {
     display: flex;
     flex-wrap: wrap;
     gap: 0.55rem;
-    margin: 1.8rem 0 0;
-    padding: 0;
-    list-style: none;
   }
 
-  .statuses li {
+  .statuses {
+    margin-top: 1.8rem;
+  }
+
+  .statuses [role='listitem'] {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -800,7 +813,7 @@ const year = new Date().getFullYear();
     font-weight: 560;
   }
 
-  .statuses li::before {
+  .statuses [role='listitem']::before {
     content: '';
     width: 10px;
     height: 10px;

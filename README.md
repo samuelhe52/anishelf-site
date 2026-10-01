@@ -42,7 +42,7 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
 
 | Asset | Source |
 | --- | --- |
-| Screenshots | `AniShelf/.app-store-assets/screenshots/{ios,ipad}/` |
+| Screenshots (light, and dark in `dark/`) | `AniShelf/.app-store-assets/screenshots/{ios,ipad}/` |
 | iPhone 16 Pro hardware render (Black Titanium) | Pixelmator Pro export. Its display outline is the screen mask in `Phone.astro` |
 | 13-inch iPad Pro (M4) hardware render | Pixelmator Pro export, turned to landscape. Its display outline, rotated to match, is the screen mask in `Tablet.astro` |
 | iOS status bar icons (signal, Wi-Fi, battery) | Cropped from a Pixelmator Pro status bar export for the reminder Lock Screen |
@@ -51,7 +51,10 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
 | TMDB logo | TMDB's [logos and attribution](https://www.themoviedb.org/about/logos-attribution) page |
 
 When the app screenshots change, copy them over the files in
-`src/assets/screens/` (keep the file names) and run `npm run og`.
+`src/assets/screens/` (keep the file names, and put the dark versions in each
+`dark/` folder) and run `npm run og`. `src/assets/screens.ts` pairs each light
+screenshot with its dark twin, which pages show when the visitor prefers dark
+mode.
 
 ## Deployment
 
