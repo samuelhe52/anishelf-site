@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Phone from './Phone.astro';
 import iconLight from '../assets/brand/icon-light.png';
 import iconDark from '../assets/brand/icon-dark.png';
+import statusIcons from '../assets/devices/status-bar-icons.png';
 import { plain, strings, type Locale } from '../i18n';
 
 interface Props {
@@ -24,23 +25,7 @@ const items = [
 <Phone class={className}>
   <div class="lock" role="img" aria-label={`${plain(r.title)} ${items.map((i) => `${i.title}: ${i.body}`).join(' ')}`}>
     <Image class="wall" src={iconDark} alt="" widths={[480, 900]} sizes="(min-width: 900px) 320px, 80vw" loading="lazy" />
-    <div class="status" aria-hidden="true">
-      <svg viewBox="0 0 18 12" width="18" height="12">
-        <rect x="0" y="7.5" width="3.2" height="4.5" rx="1" />
-        <rect x="4.9" y="5.2" width="3.2" height="6.8" rx="1" />
-        <rect x="9.8" y="2.7" width="3.2" height="9.3" rx="1" />
-        <rect x="14.7" y="0" width="3.2" height="12" rx="1" />
-      </svg>
-      <svg viewBox="0 0 16 12" width="16" height="12">
-        <path d="M1.3 4.3a9.5 9.5 0 0 1 13.4 0M3.8 6.8a6 6 0 0 1 8.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        <circle cx="8" cy="10" r="1.7" />
-      </svg>
-      <svg viewBox="0 0 27 12" width="27" height="12">
-        <rect x="0.5" y="0.5" width="23" height="11" rx="3.5" fill="none" stroke="currentColor" stroke-opacity="0.4" />
-        <rect x="2" y="2" width="20" height="8" rx="2.2" />
-        <path d="M25 4.2v3.6a2 2 0 0 0 0-3.6z" fill-opacity="0.45" />
-      </svg>
-    </div>
+    <Image class="status" src={statusIcons} alt="" aria-hidden="true" />
     <div class="clock" aria-hidden="true">
       <span class="date">{r.lockDate}</span>
       <span class="time">23:15</span>
@@ -108,19 +93,19 @@ const items = [
     filter: saturate(1.15) brightness(0.82);
   }
 
+  /*
+   * Signal, Wi-Fi, and battery from the iOS status bar export, recolored
+   * white. They sit at x 722-923 and y 63-97 of the 1009×2193 display, level
+   * with the Dynamic Island. The Lock Screen shows no time in the status bar.
+   */
   .status {
     position: absolute;
-    top: calc(26 * var(--pt));
-    right: calc(30 * var(--pt));
-    display: flex;
-    align-items: center;
-    gap: calc(6 * var(--pt));
-  }
-
-  .status svg {
-    width: auto;
-    height: calc(12 * var(--pt));
-    fill: currentColor;
+    top: calc(63 / 2193 * 100cqh);
+    left: calc(722 / 1009 * 100cqw);
+    width: calc(201 / 1009 * 100cqw);
+    height: auto;
+    max-width: none;
+    filter: brightness(0) invert(1);
   }
 
   .clock {
