@@ -1,4 +1,4 @@
-// Renders public/og/og-<locale>.png from the /og/<locale>/ template pages.
+// Renders public/og/og-<locale>.png from the /og-template/<locale>/ pages.
 // Usage: npm run og   (requires `npx playwright install chromium` once)
 import { mkdir } from 'node:fs/promises';
 import { build, preview } from 'astro';
@@ -20,7 +20,7 @@ try {
   });
   await mkdir(new URL('../public/og/', import.meta.url), { recursive: true });
   for (const locale of locales) {
-    await page.goto(`http://localhost:${port}/og/${locale}/`, { waitUntil: 'networkidle' });
+    await page.goto(`http://localhost:${port}/og-template/${locale}/`, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     const path = new URL(`../public/og/og-${locale}.png`, import.meta.url).pathname;
     await page.screenshot({ path, clip: { x: 0, y: 0, width: 1200, height: 630 } });

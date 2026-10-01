@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import BrandIcon from '../components/BrandIcon.astro';
+import { htmlLang, localeName, localePath, locales } from '../i18n';
+---
+
+<Base locale="en" noindex>
+  <main id="main" class="lost">
+    <BrandIcon size={96} />
+    <h1>This page isn’t on the shelf.</h1>
+    <p lang="zh-Hans">这一页不在书架上。</p>
+    <p lang="ja">このページは本棚にありません。</p>
+    <nav aria-label="Language">
+      {
+        locales.map((l) => (
+          <a href={localePath(l)} hreflang={htmlLang[l]} lang={htmlLang[l]}>
+            {localeName[l]}
+          </a>
+        ))
+      }
+    </nav>
+  </main>
+</Base>
+
+<style>
+  .lost {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1rem;
+    min-height: 100vh;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .lost :global(img) {
+    border-radius: 22.37%;
+    box-shadow: var(--shadow-2);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+  }
+
+  p {
+    color: var(--ink-soft);
+  }
+
+  p[lang='zh-Hans'] {
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  }
+
+  p[lang='ja'] {
+    font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  nav a {
+    color: var(--sky-deep);
+    font-weight: 560;
+  }
+</style>

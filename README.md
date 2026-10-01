@@ -21,7 +21,7 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
   same `Strings` type, so a missing translation fails `npm run check`.
 - `src/components/Landing.astro` is the page. `src/pages/{,zh/,ja/}index.astro`
   render it per locale, and only the CJK pages load their CJK serif font.
-- `src/pages/og/[lang]/` is the 1200×630 social preview template.
+- `src/pages/og-template/[lang]/` is the 1200×630 social preview template.
   `npm run og` screenshots it into `public/og/`. Normal builds delete the
   template pages from `dist/`.
 - `src/assets/` holds the source images. Astro generates the AVIF/WebP/JPEG
