@@ -89,7 +89,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="hero-stage">
-        <Petals count={10} />
+        <Petals count={14} fade="edges" />
         <div class="hero-devices">
           <Phone class="hp hp-left" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 210px, 34vw" eager />
           <Phone class="hp hp-right" src={stats} alt={t.alt.stats} sizes="(min-width: 960px) 200px, 32vw" eager />
@@ -526,6 +526,13 @@ const year = new Date().getFullYear();
     }
   }
 
+  /*
+   * The hero has no frame for petals to fall out of, so start them above the
+   * stage and let them fade in from thin air.
+   */
+  .hero-stage :global(.petals) {
+    inset: -14% 0 4%;
+  }
 
   /* The phones stand in the plank: nothing shows below its top edge. */
   .hero-devices {

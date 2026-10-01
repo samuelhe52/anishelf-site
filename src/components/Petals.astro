@@ -2,9 +2,15 @@
 interface Props {
   count?: number;
   seed?: number;
+  /**
+   * Where petals fade out. `bottom` suits a framed box whose top edge reads as
+   * where they come from. `edges` suits open space: they fade in and out of the
+   * air on every side.
+   */
+  fade?: 'bottom' | 'edges';
 }
 
-const { count = 9, seed = 7 } = Astro.props;
+const { count = 9, seed = 7, fade = 'bottom' } = Astro.props;
 
 // Deterministic pseudo-random layout so builds are reproducible.
 let state = seed;
@@ -24,7 +30,7 @@ const petals = Array.from({ length: count }, () => ({
 }));
 ---
 
-<div class="petals" aria-hidden="true">
+<div class:list={['petals', `fade-${fade}`]} aria-hidden="true">
   {
     petals.map((p) => (
       <span
@@ -47,6 +53,17 @@ const petals = Array.from({ length: count }, () => ({
     overflow: hidden;
     pointer-events: none;
     container-type: size;
+  }
+
+  /* Fade petals out rather than cutting them off at the box's edge. */
+  .fade-bottom {
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent);
+  }
+
+  .fade-edges {
+    -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent);
+    mask-image: radial-gradient(closest-side, #000 55%, transparent);
   }
 
   .fall {
