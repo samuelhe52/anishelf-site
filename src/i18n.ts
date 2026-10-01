@@ -68,7 +68,14 @@ export type Strings = {
     };
     reflect: Volume;
     everywhere: Volume & { exportLabel: string };
-    terminal: Volume & { install: string; copy: string; copied: string; agents: string; readOnly: string };
+    terminal: Volume & {
+      install: string;
+      /** Copy button on the install command, then its label once copied. */
+      copy: string;
+      copied: string;
+      agents: string;
+      readOnly: string;
+    };
   };
   notes: {
     title: string;
