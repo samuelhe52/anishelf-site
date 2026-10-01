@@ -1,0 +1,25 @@
+---
+import { getImage } from 'astro:assets';
+import iconLight from '../assets/brand/icon-light.png';
+import iconDark from '../assets/brand/icon-dark.png';
+
+interface Props {
+  size?: number;
+  alt?: string;
+  lazy?: boolean;
+  class?: string;
+}
+
+const { size = 40, alt = '', lazy = false, class: className = 'brand-icon' } = Astro.props;
+// Render at 2x for Retina; the dark variant follows the system appearance like the app icon.
+const opts = { width: size * 2, height: size * 2, format: 'webp' } as const;
+const [light, dark] = await Promise.all([
+  getImage({ src: iconLight, ...opts }),
+  getImage({ src: iconDark, ...opts }),
+]);
+---
+
+<picture class={className}>
+  <source srcset={dark.src} media="(prefers-color-scheme: dark)" type="image/webp" />
+  <img src={light.src} alt={alt} width={size} height={size} loading={lazy ? 'lazy' : 'eager'} decoding="async" />
+</picture>

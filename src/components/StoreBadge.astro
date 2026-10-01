@@ -1,0 +1,46 @@
+---
+import enBlack from '../assets/badges/appstore-en-us-black.svg';
+import enWhite from '../assets/badges/appstore-en-us-white.svg';
+import zhBlack from '../assets/badges/appstore-zh-cn-black.svg';
+import zhWhite from '../assets/badges/appstore-zh-cn-white.svg';
+import jaBlack from '../assets/badges/appstore-ja-jp-black.svg';
+import jaWhite from '../assets/badges/appstore-ja-jp-white.svg';
+import { APP_STORE_URL, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  height?: number;
+}
+
+const { locale, height = 54 } = Astro.props;
+const badges = {
+  en: [enBlack, enWhite, 'Download on the App Store'],
+  zh: [zhBlack, zhWhite, '在 App Store 下载'],
+  ja: [jaBlack, jaWhite, 'App Store からダウンロード'],
+} as const;
+const [black, white, label] = badges[locale];
+const width = Math.round((black.width / black.height) * height);
+---
+
+<a class="badge" href={APP_STORE_URL} rel="noopener">
+  <picture>
+    <source srcset={white.src} media="(prefers-color-scheme: dark)" />
+    <img src={black.src} alt={label} width={width} height={height} />
+  </picture>
+</a>
+
+<style>
+  .badge {
+    display: inline-block;
+    border-radius: 10px;
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  .badge:hover {
+    transform: translateY(-2px);
+  }
+
+  .badge img {
+    display: block;
+  }
+</style>

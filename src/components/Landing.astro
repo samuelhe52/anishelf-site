@@ -1,0 +1,1063 @@
+---
+import Base from '../layouts/Base.astro';
+import Phone from './Phone.astro';
+import Tablet from './Tablet.astro';
+import StoreBadge from './StoreBadge.astro';
+import LangSwitch from './LangSwitch.astro';
+import Petals from './Petals.astro';
+import Shelf from './Shelf.astro';
+import ReminderMock from './ReminderMock.astro';
+import ExportFormats from './ExportFormats.astro';
+import Terminal from './Terminal.astro';
+
+import BrandIcon from './BrandIcon.astro';
+import tmdbLogo from '../assets/badges/tmdb-short.svg';
+import grid from '../assets/screens/iphone/01-poster-grid-view.jpeg';
+import gallery from '../assets/screens/iphone/02-featured-library-card.jpeg';
+import list from '../assets/screens/iphone/03-library-list-view.jpeg';
+import detail from '../assets/screens/iphone/04-anime-detail-overview.jpeg';
+import manage from '../assets/screens/iphone/05-watch-management-sheet.jpeg';
+import stats from '../assets/screens/iphone/06-library-stats-overview.jpeg';
+import ipadGrid from '../assets/screens/ipad/01-grid-view-inspector.jpeg';
+import ipadStats from '../assets/screens/ipad/04-library-stats-and-settings.jpeg';
+
+import {
+  BLOG_URL,
+  CLI_SKILL_URL,
+  CLI_URL,
+  CLI_VERSION,
+  CONTACT_EMAIL,
+  GITHUB_URL,
+  PRIVACY_URL,
+  TESTFLIGHT_URL,
+  APP_STORE_URL,
+  X_URL,
+  strings,
+  type Locale,
+} from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = strings[locale];
+const v = t.volumes;
+const ids = ['collect', 'track', 'remind', 'reflect', 'sync', 'terminal'];
+const label = (n: number) => t.volumeLabel(n);
+const year = new Date().getFullYear();
+---
+
+<Base locale={locale}>
+  <header class="top wrap rise">
+    <a class="brand" href="#main" aria-label="AniShelf">
+      <BrandIcon />
+      <span>AniShelf</span>
+    </a>
+    <nav class="links" aria-label="AniShelf">
+      <a href="#volumes">{t.nav.features}</a>
+      <a href="#terminal">{t.nav.cli}</a>
+      <a href={GITHUB_URL} rel="noopener">GitHub</a>
+    </nav>
+    <div class="actions">
+      <LangSwitch locale={locale} />
+      <a class="get" href={APP_STORE_URL} rel="noopener">{t.nav.download}</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="mono kicker rise" style="--i:1"><span class="dot" aria-hidden="true"></span>{t.hero.kicker}</p>
+        <h1 class="rise" style="--i:2">
+          {t.hero.titleLines.map((line, i) => <span class:list={['line', { accent: i === 1 }]}>{line}</span>)}
+        </h1>
+        <p class="lede rise" style="--i:3">{t.hero.lede}</p>
+        <div class="cta rise" style="--i:4">
+          <StoreBadge locale={locale} />
+          <a class="tf" href={TESTFLIGHT_URL} rel="noopener">{t.hero.testflight}<span aria-hidden="true"> →</span></a>
+        </div>
+        <ul class="facts mono rise" style="--i:5">
+          {t.hero.facts.map((f) => <li>{f}</li>)}
+        </ul>
+      </div>
+
+      <div class="hero-stage" aria-hidden="false">
+        <Petals count={10} />
+        <span class="vertical" aria-hidden="true">{t.hero.spine}</span>
+        <Phone class="hp hp-left" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 210px, 34vw" eager />
+        <Phone class="hp hp-right" src={stats} alt={t.alt.stats} sizes="(min-width: 960px) 200px, 32vw" eager />
+        <Phone class="hp hp-center" src={grid} alt={t.alt.grid} sizes="(min-width: 960px) 250px, 40vw" eager />
+        <div class="hero-plank" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <Shelf locale={locale} ids={ids} />
+
+    <!-- Vol. 01 — Collect -->
+    <section class="vol" id={ids[0]} aria-labelledby={`${ids[0]}-title`}>
+      <div class="wrap vol-grid">
+        <div class="vol-copy reveal">
+          <p class="mono vol-label"><b>{label(1)}</b><i></i>{v.collect.spine}</p>
+          <h2 id={`${ids[0]}-title`}>{v.collect.title}</h2>
+          <p class="body">{v.collect.body}</p>
+          <ul class="points">{v.collect.points?.map((p) => <li>{p}</li>)}</ul>
+        </div>
+        <div class="trio">
+          <Phone class="t1" src={list} alt={t.alt.list} sizes="(min-width: 960px) 220px, 30vw" />
+          <Phone class="t2" src={grid} alt={t.alt.grid} sizes="(min-width: 960px) 240px, 34vw" />
+          <Phone class="t3" src={gallery} alt={t.alt.featured} sizes="(min-width: 960px) 220px, 30vw" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Vol. 02 — Track -->
+    <section class="vol vol-tint" id={ids[1]} aria-labelledby={`${ids[1]}-title`}>
+      <div class="wrap vol-grid flip">
+        <div class="vol-copy reveal">
+          <p class="mono vol-label"><b>{label(2)}</b><i></i>{v.track.spine}</p>
+          <h2 id={`${ids[1]}-title`}>{v.track.title}</h2>
+          <p class="body">{v.track.body}</p>
+          <ul class="statuses">
+            {v.track.statuses.map((s, i) => <li data-status={i}>{s}</li>)}
+          </ul>
+        </div>
+        <div class="duo">
+          <Phone class="d1" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 250px, 42vw" />
+          <Phone class="d2" src={manage} alt={t.alt.manage} sizes="(min-width: 960px) 250px, 42vw" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Vol. 03 — Remind -->
+    <section class="vol" id={ids[2]} aria-labelledby={`${ids[2]}-title`}>
+      <div class="wrap vol-grid">
+        <div class="vol-copy reveal">
+          <p class="mono vol-label"><b>{label(3)}</b><i></i>{v.remind.spine}</p>
+          <h2 id={`${ids[2]}-title`}>{v.remind.title}</h2>
+          <p class="body">{v.remind.body}</p>
+          <p class="fine">{v.remind.source}</p>
+        </div>
+        <div class="remind-stage">
+          <ReminderMock locale={locale} />
+        </div>
+      </div>
+    </section>
+
+    <!-- Vol. 04 — Reflect -->
+    <section class="vol vol-tint" id={ids[3]} aria-labelledby={`${ids[3]}-title`}>
+      <div class="wrap vol-grid flip">
+        <div class="vol-copy reveal">
+          <p class="mono vol-label"><b>{label(4)}</b><i></i>{v.reflect.spine}</p>
+          <h2 id={`${ids[3]}-title`}>{v.reflect.title}</h2>
+          <p class="body">{v.reflect.body}</p>
+        </div>
+        <div class="reflect-stage">
+          <Tablet class="rt" src={ipadStats} alt={t.alt.ipadStats} sizes="(min-width: 960px) 560px, 80vw" />
+          <Phone class="rp" src={stats} alt={t.alt.stats} sizes="(min-width: 960px) 190px, 32vw" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Vol. 05 — Sync -->
+    <section class="vol" id={ids[4]} aria-labelledby={`${ids[4]}-title`}>
+      <div class="wrap sync">
+        <div class="sync-head reveal">
+          <p class="mono vol-label"><b>{label(5)}</b><i></i>{v.everywhere.spine}</p>
+          <h2 id={`${ids[4]}-title`}>{v.everywhere.title}</h2>
+          <p class="body">{v.everywhere.body}</p>
+        </div>
+        <Tablet class="sync-tablet" src={ipadGrid} alt={t.alt.ipadGrid} sizes="(min-width: 1240px) 1100px, 92vw" />
+        <div class="sync-foot">
+          <ul class="points">{v.everywhere.points?.map((p) => <li>{p}</li>)}</ul>
+          <ExportFormats label={v.everywhere.exportLabel} />
+        </div>
+      </div>
+    </section>
+
+    <!-- Vol. 06 — Terminal -->
+    <section class="vol vol-night" id={ids[5]} aria-labelledby={`${ids[5]}-title`}>
+      <div class="wrap vol-grid">
+        <div class="vol-copy reveal">
+          <p class="mono vol-label"><b>{label(6)}</b><i></i>{v.terminal.spine}</p>
+          <h2 id={`${ids[5]}-title`}>{v.terminal.title}</h2>
+          <p class="body">{v.terminal.body}</p>
+          <p class="fine">{v.terminal.readOnly}</p>
+          <p class="links-row">
+            <a href={CLI_URL} rel="noopener">anishelf-cli<span aria-hidden="true"> ↗</span></a>
+            <a href={CLI_SKILL_URL} rel="noopener">SKILL.md<span aria-hidden="true"> ↗</span></a>
+          </p>
+          <p class="fine agents">{v.terminal.agents}</p>
+        </div>
+        <div class="term-stage">
+          <p class="mono install-label">{v.terminal.install}</p>
+          <code class="install">uv tool install --python 3.13 git+https://github.com/samuelhe52/anishelf-cli.git@{CLI_VERSION}</code>
+          <Terminal locale={locale} />
+        </div>
+      </div>
+    </section>
+
+    <!-- Good to know -->
+    <section class="notes wrap" aria-labelledby="notes-title">
+      <h2 id="notes-title" class="reveal">{t.notes.title}</h2>
+      <ol>
+        {
+          t.notes.items.map((n, i) => (
+            <li class="reveal">
+              <span class="stamp" aria-hidden="true">{i + 1}</span>
+              <h3>{n.title}</h3>
+              <p>{n.body}</p>
+              {n.link && (
+                <a href={n.link.href} rel="noopener">
+                  {n.link.label}
+                  <span aria-hidden="true"> ↗</span>
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <!-- Outro -->
+    <section class="outro wrap" aria-labelledby="outro-title">
+      <div class="sky">
+        <Petals count={8} seed={23} />
+        <BrandIcon class="outro-icon" size={168} alt={t.alt.icon} lazy />
+        <h2 id="outro-title">{t.outro.title}</h2>
+        <p>{t.outro.body}</p>
+        <div class="cta">
+          <StoreBadge locale={locale} height={58} />
+        </div>
+        <a class="tf" href={TESTFLIGHT_URL} rel="noopener">{t.outro.testflight}<span aria-hidden="true"> →</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot wrap">
+    <div class="foot-row">
+      <a class="brand" href="#main">
+        <BrandIcon />
+        <span>AniShelf</span>
+      </a>
+      <ul class="foot-links">
+        <li><a href={PRIVACY_URL} rel="noopener">{t.footer.privacy}</a></li>
+        <li><a href={GITHUB_URL} rel="noopener">{t.footer.source}</a></li>
+        <li><a href={`mailto:${CONTACT_EMAIL}`}>{t.footer.contact}</a></li>
+        <li><a href={X_URL} rel="noopener">X</a></li>
+        <li><a href={BLOG_URL} rel="noopener">{t.footer.blog}</a></li>
+      </ul>
+    </div>
+    <div class="legal">
+      <a class="tmdb" href="https://www.themoviedb.org/" rel="noopener">
+        <img src={tmdbLogo.src} alt={t.alt.tmdb} width="150" height="20" loading="lazy" />
+      </a>
+      <p>{t.footer.tmdb}</p>
+      <p>{t.footer.apple}</p>
+      <p>{t.footer.artwork}</p>
+      <p>© {year} Samuel He · {t.footer.madeBy}</p>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  /* ---------- Header ---------- */
+
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: 1.4rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'opsz' 36;
+    font-size: 1.3rem;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .brand :global(.brand-icon img) {
+    width: 36px;
+    height: 36px;
+    border-radius: 22.37%;
+    box-shadow: var(--shadow-1);
+  }
+
+  .links {
+    display: flex;
+    gap: 1.4rem;
+    margin-left: auto;
+    font-size: 0.95rem;
+  }
+
+  .links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .links a:hover {
+    color: var(--ink);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .get {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  .get:hover {
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 860px) {
+    .links {
+      display: none;
+    }
+
+    .actions {
+      margin-left: auto;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .get {
+      display: none;
+    }
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding-block: clamp(2rem, 6vw, 4.5rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.6rem;
+    color: var(--ink-soft);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--vermilion);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--vermilion) 20%, transparent);
+  }
+
+  h1 {
+    font-size: clamp(3rem, 6.6vw, 5.9rem);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 144;
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+  }
+
+  :lang(zh) h1,
+  :lang(ja) h1 {
+    font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  .line {
+    display: block;
+  }
+
+  .accent {
+    color: var(--apricot-deep);
+    font-style: italic;
+    font-weight: 480;
+  }
+
+  :lang(zh) .accent,
+  :lang(ja) .accent {
+    font-style: normal;
+    font-weight: inherit;
+  }
+
+  .lede {
+    max-width: 34rem;
+    margin-top: 1.8rem;
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    color: var(--ink-soft);
+  }
+
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-top: 2.2rem;
+  }
+
+  .tf {
+    font-weight: 560;
+    color: var(--sky-deep);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in oklab, var(--sky) 40%, transparent);
+    padding-bottom: 2px;
+  }
+
+  .tf:hover {
+    border-bottom-color: var(--sky);
+  }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.4rem;
+    margin: 2.2rem 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--ink-faint);
+  }
+
+  .facts li::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 11px;
+    margin-right: 0.55rem;
+    border-radius: 85% 0 85% 0;
+    background: var(--apricot);
+    vertical-align: -1px;
+  }
+
+  :lang(zh) .facts,
+  :lang(ja) .facts {
+    font-family: var(--cjk-sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-stage {
+    position: relative;
+    aspect-ratio: 1 / 1.02;
+    max-height: 690px;
+    isolation: isolate;
+  }
+
+  /* Day sky behind the phones, echoing the app icon. */
+  .hero-stage::before {
+    content: '';
+    position: absolute;
+    inset: 4% -6% 3% 2%;
+    z-index: -2;
+    border-radius: 48% 52% 40% 60% / 55% 45% 55% 45%;
+    background:
+      radial-gradient(circle at 30% 25%, #ffffffb0 0 6%, transparent 30%),
+      linear-gradient(160deg, #9fd4f3, #4aa9e2 55%, #2e8fd0);
+    filter: saturate(1.05);
+    opacity: 0.9;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .hero-stage::before {
+      background:
+        radial-gradient(circle at 70% 22%, #f6c98f55 0 4%, transparent 22%),
+        linear-gradient(160deg, #26306a, #151c45 60%, #0e1333);
+    }
+  }
+
+  .vertical {
+    position: absolute;
+    top: 3%;
+    right: -3%;
+    z-index: -1;
+    writing-mode: vertical-rl;
+    font-family: 'Hiragino Mincho ProN', 'Noto Serif JP Variable', 'Yu Mincho', serif;
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: #ffffff;
+    opacity: 0.75;
+  }
+
+  .hero-stage :global(.hp) {
+    position: absolute;
+    bottom: 4%;
+  }
+
+  .hero-stage :global(.hp-center) {
+    left: 31%;
+    width: 39%;
+    z-index: 3;
+    animation: rise 1.1s var(--ease-out) 0.25s both;
+  }
+
+  .hero-stage :global(.hp-left) {
+    left: 3%;
+    width: 33%;
+    z-index: 2;
+    transform-origin: bottom right;
+    rotate: -7deg;
+    animation: rise 1.1s var(--ease-out) 0.4s both;
+  }
+
+  .hero-stage :global(.hp-right) {
+    right: 0;
+    width: 31%;
+    z-index: 1;
+    transform-origin: bottom left;
+    rotate: 5deg;
+    animation: rise 1.1s var(--ease-out) 0.55s both;
+  }
+
+  .hero-plank {
+    position: absolute;
+    left: -4%;
+    right: -6%;
+    bottom: calc(4% - 12px);
+    z-index: 4;
+    height: 12px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, color-mix(in oklab, var(--ink) 70%, var(--apricot)) 0 3px, var(--ink) 3px);
+    box-shadow: 0 18px 26px -12px rgb(23 32 58 / 0.5);
+  }
+
+  @media (max-width: 960px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-stage {
+      width: min(100%, 560px);
+      margin-inline: auto;
+    }
+  }
+
+  /* ---------- Volumes ---------- */
+
+  .vol {
+    position: relative;
+    padding-block: clamp(4.5rem, 10vw, 8rem);
+  }
+
+  .vol-tint {
+    background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--paper-2) 70%, transparent) 12%, color-mix(in oklab, var(--paper-2) 70%, transparent) 88%, transparent);
+  }
+
+  .vol-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 5.5rem);
+  }
+
+  .vol-grid.flip {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+
+  .vol-grid.flip > .vol-copy {
+    order: 2;
+  }
+
+  .vol-label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.4rem;
+    color: var(--ink-soft);
+  }
+
+  :lang(zh) .vol-label,
+  :lang(ja) .vol-label {
+    font-family: var(--font-mono), var(--cjk-sans);
+    letter-spacing: 0.14em;
+  }
+
+  .vol-label b {
+    color: var(--apricot-deep);
+    font-weight: 600;
+  }
+
+  .vol-label i {
+    flex: 0 0 2.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.4;
+  }
+
+  h2 {
+    font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 120;
+  }
+
+  :lang(zh) h2,
+  :lang(ja) h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  }
+
+  .body {
+    max-width: 32rem;
+    margin-top: 1.4rem;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+  }
+
+  .fine {
+    max-width: 32rem;
+    margin-top: 1.2rem;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+  }
+
+  .points {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 32rem;
+    margin: 1.8rem 0 0;
+    padding: 1.4rem 0 0;
+    border-top: 1px solid var(--rule);
+    list-style: none;
+  }
+
+  .points li {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 12px;
+    border-radius: 85% 0 85% 0;
+    background: var(--sky);
+  }
+
+  @media (max-width: 860px) {
+    .vol-grid,
+    .vol-grid.flip {
+      grid-template-columns: 1fr;
+    }
+
+    .vol-grid.flip > .vol-copy {
+      order: 0;
+    }
+  }
+
+  /* Vol. 01: three phones fanned like a hand of cards. */
+  .trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: end;
+    gap: 0;
+    padding-inline: 4%;
+  }
+
+  .trio :global(.t1) {
+    rotate: -5deg;
+    translate: 12% 4%;
+  }
+
+  .trio :global(.t2) {
+    z-index: 2;
+    scale: 1.1;
+    translate: 0 -6%;
+  }
+
+  .trio :global(.t3) {
+    rotate: 5deg;
+    translate: -12% 4%;
+  }
+
+  /* Vol. 02 */
+  .duo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6%;
+    width: min(100%, 560px);
+    margin-inline: auto;
+  }
+
+  .duo :global(.d2) {
+    translate: 0 12%;
+  }
+
+  .statuses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 1.8rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .statuses li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    font-size: 0.92rem;
+    font-weight: 560;
+  }
+
+  .statuses li::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
+
+  .statuses [data-status='0']::before {
+    border: 1.5px solid var(--ink-faint);
+  }
+
+  .statuses [data-status='1']::before {
+    background: #f08a2c;
+  }
+
+  .statuses [data-status='2']::before {
+    background: #34b45a;
+  }
+
+  .statuses [data-status='3']::before {
+    background: var(--ink-faint);
+  }
+
+  /* Vol. 03 */
+  .remind-stage {
+    position: relative;
+    padding-block: 1rem;
+  }
+
+  .remind-stage::before {
+    content: '';
+    position: absolute;
+    inset: 12% 8%;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in oklab, var(--apricot) 35%, transparent), transparent);
+    filter: blur(20px);
+  }
+
+  /* Vol. 04 */
+  .reflect-stage {
+    position: relative;
+    padding: 0 0 12% 14%;
+  }
+
+  .reflect-stage :global(.rp) {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30%;
+    rotate: -4deg;
+  }
+
+  /* Vol. 05 */
+  .sync {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .sync-head {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .sync-head .body {
+    max-width: 40rem;
+  }
+
+  .sync :global(.sync-tablet) {
+    width: min(100%, 1100px);
+    margin-inline: auto;
+  }
+
+  .sync-foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 2rem 4rem;
+  }
+
+  .sync-foot .points {
+    margin: 0;
+    max-width: 36rem;
+  }
+
+  @media (max-width: 860px) {
+    .sync-foot {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Vol. 06: the night shelf. */
+  .vol-night {
+    --paper: #0d1226;
+    --card: #182040;
+    --ink: #f3ebdc;
+    --ink-soft: #b7bdd2;
+    --ink-faint: #8990ad;
+    --rule: rgb(243 235 220 / 0.14);
+    --apricot-deep: #f6b27c;
+    --sky-deep: #9ad3f7;
+
+    margin-block: clamp(2rem, 5vw, 4rem);
+    background:
+      radial-gradient(1px 1px at 12% 22%, #fff9 50%, transparent),
+      radial-gradient(1px 1px at 78% 14%, #fff8 50%, transparent),
+      radial-gradient(1.5px 1.5px at 64% 70%, #fff7 50%, transparent),
+      radial-gradient(1px 1px at 32% 84%, #fff6 50%, transparent),
+      radial-gradient(1px 1px at 90% 58%, #fff8 50%, transparent),
+      radial-gradient(ellipse at 80% 0%, #26306a, transparent 60%),
+      #0d1226;
+    color: var(--ink);
+  }
+
+  .vol-night a {
+    color: var(--sky-deep);
+  }
+
+  .links-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  .agents {
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--apricot);
+  }
+
+  .term-stage {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .install-label {
+    color: var(--ink-faint);
+  }
+
+  .install {
+    display: block;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border: 1px dashed var(--rule);
+    border-radius: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: #f2a066;
+  }
+
+  /* ---------- Notes ---------- */
+
+  .notes {
+    padding-block: clamp(4rem, 9vw, 7rem);
+  }
+
+  .notes ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: 1.2rem;
+    margin: 2.4rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .notes li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1.6rem 1.4rem 1.5rem;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--card);
+    box-shadow: var(--shadow-1);
+  }
+
+  .notes h3 {
+    font-size: 1.3rem;
+    font-variation-settings: 'SOFT' 100, 'opsz' 36;
+    font-weight: 600;
+  }
+
+  :lang(zh) .notes h3,
+  :lang(ja) .notes h3 {
+    font-size: 1.12rem;
+  }
+
+  .notes p {
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+
+  .notes a {
+    margin-top: auto;
+    padding-top: 0.4rem;
+    font-weight: 560;
+    color: var(--sky-deep);
+    text-decoration: none;
+  }
+
+  /* A little hanko seal. */
+  .stamp {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.3rem;
+    border: 1.5px solid var(--vermilion);
+    border-radius: 6px;
+    color: var(--vermilion);
+    font-family: var(--font-display);
+    font-weight: 700;
+    rotate: -6deg;
+  }
+
+  /* ---------- Outro ---------- */
+
+  .outro {
+    padding-bottom: clamp(4rem, 8vw, 6rem);
+  }
+
+  .sky {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    padding: clamp(3.5rem, 8vw, 6rem) 1.5rem;
+    border-radius: clamp(24px, 4vw, 40px);
+    overflow: hidden;
+    text-align: center;
+    background:
+      radial-gradient(circle at 20% 15%, #ffffffa0 0 4%, transparent 26%),
+      linear-gradient(180deg, #7cc4ef, #bfe2f6 55%, var(--paper));
+    color: #17203a;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .sky {
+      background:
+        radial-gradient(circle at 78% 18%, #f6c98f40 0 3%, transparent 20%),
+        linear-gradient(180deg, #232c63, #171e47 60%, var(--paper));
+      color: var(--ink);
+    }
+  }
+
+  .sky :global(.petals) {
+    z-index: -1;
+  }
+
+  .sky :global(.outro-icon img) {
+    width: clamp(110px, 14vw, 168px);
+    height: auto;
+    border-radius: 22.37%;
+    box-shadow: 0 30px 50px -20px rgb(23 32 58 / 0.55);
+  }
+
+  .sky h2 {
+    margin-top: 1rem;
+    font-size: clamp(2.6rem, 6vw, 4.8rem);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 144;
+  }
+
+  .sky p {
+    max-width: 30rem;
+    color: inherit;
+    opacity: 0.8;
+  }
+
+  .sky .cta {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .sky .tf {
+    color: inherit;
+    border-bottom-color: currentColor;
+    opacity: 0.85;
+  }
+
+  /* ---------- Footer ---------- */
+
+  .foot {
+    padding-block: 2.5rem 3rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .foot-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem 2rem;
+  }
+
+  .foot-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.93rem;
+  }
+
+  .foot-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .foot-links a:hover {
+    color: var(--ink);
+    text-decoration: underline;
+  }
+
+  .legal {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 2rem;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+
+  .tmdb {
+    width: fit-content;
+    margin-bottom: 0.5rem;
+  }
+
+  .tmdb img {
+    width: 150px;
+    height: auto;
+  }
+</style>

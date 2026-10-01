@@ -1,0 +1,99 @@
+---
+interface Props {
+  count?: number;
+  seed?: number;
+}
+
+const { count = 9, seed = 7 } = Astro.props;
+
+// Deterministic pseudo-random layout so builds are reproducible.
+let state = seed;
+const rand = () => {
+  state = (state * 9301 + 49297) % 233280;
+  return state / 233280;
+};
+
+const petals = Array.from({ length: count }, () => ({
+  x: `${Math.round(rand() * 100)}%`,
+  y: `${Math.round(10 + rand() * 75)}%`,
+  scale: (0.55 + rand() * 0.75).toFixed(2),
+  duration: `${(11 + rand() * 9).toFixed(1)}s`,
+  delay: `${(-rand() * 20).toFixed(1)}s`,
+  sway: `${(1.8 + rand() * 1.8).toFixed(1)}s`,
+  turn: `${Math.round(rand() * 360)}deg`,
+}));
+---
+
+<div class="petals" aria-hidden="true">
+  {
+    petals.map((p) => (
+      <span
+        class="fall"
+        style={`--x:${p.x};--y:${p.y};--d:${p.duration};--delay:${p.delay}`}
+      >
+        <span
+          class="petal"
+          style={`--s:${p.scale};--sway:${p.sway};--turn:${p.turn};--delay:${p.delay}`}
+        />
+      </span>
+    ))
+  }
+</div>
+
+<style>
+  .petals {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    container-type: size;
+  }
+
+  .fall {
+    position: absolute;
+    left: var(--x);
+    top: -6%;
+    animation: fall var(--d) linear infinite;
+    animation-delay: var(--delay);
+  }
+
+  .petal {
+    display: block;
+    width: 13px;
+    height: 20px;
+    border-radius: 85% 0 85% 0;
+    background: linear-gradient(140deg, #fff1d6 0%, var(--petal) 55%, #eaa45e 100%);
+    opacity: 0.85;
+    transform: scale(var(--s)) rotate(var(--turn));
+    animation: sway var(--sway) ease-in-out infinite alternate;
+    animation-delay: var(--delay);
+    box-shadow: 0 2px 6px rgb(200 120 40 / 0.18);
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(calc(100cqh + 115%)) translateX(-6vw);
+    }
+  }
+
+  @keyframes sway {
+    from {
+      transform: translateX(-14px) scale(var(--s)) rotate(var(--turn));
+    }
+    to {
+      transform: translateX(14px) scale(var(--s)) rotate(calc(var(--turn) + 160deg));
+    }
+  }
+
+  /* Drifting petals are continuous ambient motion; hold them still instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .fall {
+      top: var(--y);
+      animation: none;
+    }
+
+    .petal {
+      animation: none;
+    }
+  }
+</style>

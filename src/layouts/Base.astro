@@ -1,0 +1,94 @@
+---
+import '@fontsource-variable/fraunces/full.css';
+import '@fontsource-variable/schibsted-grotesk';
+import '@fontsource-variable/martian-mono';
+import '../styles/global.css';
+import {
+  APP_STORE_URL,
+  GITHUB_URL,
+  SITE,
+  htmlLang,
+  localePath,
+  locales,
+  ogLocale,
+  strings,
+  type Locale,
+} from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** Set for utility pages that must not be indexed, such as the OG templates. */
+  noindex?: boolean;
+}
+
+const { locale, noindex = false } = Astro.props;
+const t = strings[locale];
+const canonical = new URL(localePath(locale), SITE).href;
+const ogImage = new URL(`/og/og-${locale}.png`, SITE).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: 'AniShelf',
+  description: t.meta.description,
+  operatingSystem: 'iOS 26.0 or later',
+  applicationCategory: 'EntertainmentApplication',
+  inLanguage: ['en', 'zh-Hans', 'ja'],
+  url: canonical,
+  downloadUrl: APP_STORE_URL,
+  installUrl: APP_STORE_URL,
+  sameAs: [GITHUB_URL],
+  image: new URL('/icon-512.png', SITE).href,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@type': 'Person', name: 'Samuel He', url: 'https://github.com/samuelhe52' },
+};
+---
+
+<!doctype html>
+<html lang={htmlLang[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    {
+      locales.map((l) => (
+        <link rel="alternate" hreflang={htmlLang[l]} href={new URL(localePath(l), SITE).href} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={new URL('/', SITE).href} />
+
+    <meta name="theme-color" content="#f7f1e6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1226" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-itunes-app" content="app-id=6759359144" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AniShelf" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale[locale]} />
+    {
+      locales
+        .filter((l) => l !== locale)
+        .map((l) => <meta property="og:locale:alternate" content={ogLocale[l]} />)
+    }
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.meta.ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@SamuelHe89" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.nav.skip}</a>
+    <slot />
+  </body>
+</html>

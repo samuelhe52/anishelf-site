@@ -1,0 +1,170 @@
+---
+import { strings, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  ids: string[];
+}
+
+const { locale, ids } = Astro.props;
+const t = strings[locale];
+const vols = Object.values(t.volumes);
+// Height of each spine, in rem, so the row reads like real, uneven books.
+const heights = [15.5, 17, 14.5, 16.5, 15, 17.5];
+---
+
+<nav class="shelf wrap" aria-label={t.shelfLabel} id="volumes">
+  <p class="mono label">{t.shelfLabel}</p>
+  <ol class="row">
+    {
+      vols.map((v, i) => (
+        <li style={`--h:${heights[i]}rem;--c:var(--spine-${i + 1})`} data-tone={[2, 4, 6].includes(i + 1) ? 'light' : 'dark'}>
+          <a class="spine" href={`#${ids[i]}`}>
+            <span class="no">{String(i + 1).padStart(2, '0')}</span>
+            <span class="title">{v.spine}</span>
+            <span class="mark" aria-hidden="true" />
+          </a>
+        </li>
+      ))
+    }
+    <li class="filler" aria-hidden="true" style="--h:13rem;--c:var(--paper-2)" />
+    <li class="filler lean" aria-hidden="true" style="--h:15.5rem;--c:var(--sky-wash)" />
+  </ol>
+  <div class="plank" aria-hidden="true"></div>
+</nav>
+
+<style>
+  .shelf {
+    position: relative;
+    padding-top: 1rem;
+  }
+
+  .label {
+    margin-bottom: 1.2rem;
+    color: var(--ink-faint);
+  }
+
+  .row {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(4px, 0.8vw, 10px);
+    height: 18.5rem;
+    margin: 0;
+    padding: 0 0 0 clamp(0.5rem, 3vw, 2.5rem);
+    list-style: none;
+  }
+
+  li {
+    flex: 0 1 clamp(3rem, 7vw, 5.25rem);
+    height: min(var(--h), 100%);
+  }
+
+  .spine {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 0.85rem 0 1rem;
+    border-radius: 5px 5px 2px 2px;
+    background:
+      linear-gradient(90deg, rgb(0 0 0 / 0.12), transparent 18%, transparent 82%, rgb(0 0 0 / 0.16)),
+      var(--c);
+    color: #fbf6ec;
+    text-decoration: none;
+    box-shadow:
+      inset 0 0 0 1px rgb(0 0 0 / 0.06),
+      0 1px 0 rgb(0 0 0 / 0.08);
+    transition:
+      transform 0.45s var(--ease-out),
+      box-shadow 0.45s var(--ease-out);
+  }
+
+  [data-tone='light'] .spine {
+    color: #1d2238;
+  }
+
+  /* Pulling a book off the shelf. */
+  .spine:hover,
+  .spine:focus-visible {
+    transform: translateY(-1.1rem);
+    box-shadow:
+      inset 0 0 0 1px rgb(0 0 0 / 0.06),
+      0 18px 26px -14px rgb(23 32 58 / 0.55);
+  }
+
+  .no {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid currentColor;
+    width: 58%;
+    text-align: center;
+  }
+
+  .title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-top: 0.7rem;
+    writing-mode: vertical-rl;
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'opsz' 48;
+    font-size: clamp(1rem, 1.9vw, 1.45rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  :lang(zh) .title,
+  :lang(ja) .title {
+    letter-spacing: 0.22em;
+  }
+
+  .mark {
+    width: 9px;
+    height: 14px;
+    border-radius: 85% 0 85% 0;
+    background: currentColor;
+    opacity: 0.6;
+  }
+
+  .filler {
+    flex-basis: clamp(1.6rem, 3vw, 2.6rem);
+    border-radius: 5px 5px 2px 2px;
+    background:
+      linear-gradient(90deg, rgb(0 0 0 / 0.06), transparent 30%, transparent 70%, rgb(0 0 0 / 0.08)),
+      var(--c);
+    box-shadow: inset 0 0 0 1px var(--rule);
+  }
+
+  .lean {
+    transform-origin: bottom left;
+    transform: rotate(9deg) translateX(4px);
+  }
+
+  .plank {
+    height: 14px;
+    margin-inline: calc(-1 * clamp(0.5rem, 2vw, 1.5rem));
+    border-radius: 3px;
+    background: linear-gradient(180deg, color-mix(in oklab, var(--ink) 70%, var(--apricot)) 0 3px, var(--ink) 3px);
+    box-shadow: 0 16px 24px -12px rgb(23 32 58 / 0.45);
+  }
+
+  @media (max-width: 640px) {
+    .row {
+      height: 15rem;
+      padding-left: 0;
+    }
+
+    li {
+      height: calc(min(var(--h), 100%) * 0.84);
+    }
+
+    .filler.lean {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,169 @@
+---
+import { Image } from 'astro:assets';
+import iconLight from '../assets/brand/icon-light.png';
+import iconDark from '../assets/brand/icon-dark.png';
+import { strings, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const r = strings[locale].volumes.remind;
+
+// Titles mirror entries visible in the app screenshots.
+const items = [
+  { title: 'さよならララ', body: r.airsIn('S01E08', 15), time: r.now },
+  { title: 'きみが死ぬまで恋をしたい', body: r.airsNow('S01E07'), time: '2h' },
+  { title: 'スーパーの裏でヤニ吸うふたり', body: r.airsIn('S01E02', 30), time: '1d' },
+];
+---
+
+<div class="lock" role="img" aria-label={`${r.title} ${items.map((i) => `${i.title}: ${i.body}`).join(' ')}`}>
+  <Image class="wall" src={iconDark} alt="" widths={[480, 900]} sizes="(min-width: 900px) 420px, 90vw" loading="lazy" />
+  <div class="clock" aria-hidden="true">
+    <span class="date">{locale === 'en' ? 'Saturday, August 8' : locale === 'zh' ? '8月8日 星期六' : '8月8日(土)'}</span>
+    <span class="time">23:15</span>
+  </div>
+  <ul class="stack" aria-hidden="true">
+    {
+      items.map((n, i) => (
+        <li class="note" style={`--i:${i}`}>
+          <Image class="app" src={iconLight} alt="" width={64} height={64} />
+          <div class="text">
+            <div class="head">
+              <strong>{n.title}</strong>
+              <span>{n.time}</span>
+            </div>
+            <p>{n.body}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .lock {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 400px);
+    aspect-ratio: 9 / 13;
+    margin-inline: auto;
+    padding: 1.4rem 0.9rem;
+    border-radius: 44px;
+    overflow: hidden;
+    background: #11152b;
+    box-shadow:
+      var(--shadow-2),
+      0 0 0 9px var(--bezel);
+    color: #fff;
+    font-family: -apple-system, 'SF Pro Text', var(--font-body);
+  }
+
+  .wall {
+    position: absolute;
+    inset: -8%;
+    z-index: -1;
+    width: 116%;
+    height: 116%;
+    object-fit: cover;
+    filter: saturate(1.15) brightness(0.8);
+  }
+
+  .clock {
+    display: grid;
+    justify-items: center;
+    margin-top: 0.6rem;
+    text-shadow: 0 1px 12px rgb(0 0 0 / 0.25);
+  }
+
+  .date {
+    font-size: 0.95rem;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+
+  .time {
+    font-family: 'Fraunces Variable', serif;
+    font-variation-settings: 'SOFT' 100, 'opsz' 144;
+    font-size: clamp(4rem, 13vw, 5.4rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .stack {
+    position: absolute;
+    inset: auto 0.75rem 1.4rem;
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .note {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 0.7rem;
+    align-items: center;
+    padding: 0.75rem 0.85rem;
+    border-radius: 22px;
+    background: rgb(245 240 255 / 0.2);
+    backdrop-filter: blur(22px) saturate(1.6);
+    -webkit-backdrop-filter: blur(22px) saturate(1.6);
+    box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.25);
+    font-size: 0.86rem;
+    line-height: 1.3;
+  }
+
+  .app {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .head strong {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: 'Hiragino Sans', -apple-system, var(--font-body);
+    font-weight: 600;
+  }
+
+  .head span {
+    flex: none;
+    opacity: 0.65;
+    font-size: 0.78rem;
+  }
+
+  .text p {
+    opacity: 0.92;
+  }
+
+  @supports (animation-timeline: view()) {
+    .note {
+      animation: drop linear both;
+      animation-timeline: view();
+      animation-range: entry calc(10% + var(--i) * 8%) cover calc(35% + var(--i) * 8%);
+    }
+  }
+
+  @keyframes drop {
+    from {
+      opacity: 0;
+      transform: translateY(-14px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

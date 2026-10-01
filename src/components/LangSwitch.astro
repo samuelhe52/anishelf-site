@@ -1,0 +1,67 @@
+---
+import { htmlLang, localeName, localePath, localeShort, locales, strings, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<nav class="lang" aria-label={strings[locale].nav.language}>
+  {
+    locales.map((l) => (
+      <a
+        href={localePath(l)}
+        hreflang={htmlLang[l]}
+        lang={htmlLang[l]}
+        aria-current={l === locale ? 'page' : undefined}
+        title={localeName[l]}
+      >
+        <span aria-hidden="true">{localeShort[l]}</span>
+        <span class="sr-only">{localeName[l]}</span>
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .lang {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--card) 70%, transparent);
+  }
+
+  .lang a {
+    min-width: 2.1rem;
+    padding: 0.28rem 0.55rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    color: var(--ink-soft);
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+
+  .lang a[lang='zh-Hans'],
+  .lang a[lang='ja'] {
+    font-family: var(--cjk-sans);
+    font-size: 0.78rem;
+  }
+
+  .lang a:hover {
+    color: var(--ink);
+  }
+
+  .lang a[aria-current='page'] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+</style>
