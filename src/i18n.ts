@@ -98,7 +98,7 @@ const en: Strings = {
   meta: {
     title: 'AniShelf — Track every anime you watch',
     description:
-      'AniShelf is a free, native iPhone, iPad, and Mac app for tracking anime series and films: episode progress, ratings, broadcast reminders, iCloud Sync, and export.',
+      'AniShelf is a free iPhone, iPad, and Mac app for tracking anime series and films: episode progress, ratings, broadcast reminders, iCloud Sync, and export.',
     ogAlt: 'AniShelf app icon beside the headline “Every anime you’ve watched, all in one place.”',
   },
   nav: {
@@ -111,7 +111,7 @@ const en: Strings = {
   hero: {
     kicker: 'For iPhone, iPad & Mac',
     titleLines: ['Every anime', 'you’ve watched,', 'all in one place.'],
-    lede: 'AniShelf is a native library for anime series and films. Track every episode, score and remember what you finish, and get a nudge when the next one airs.',
+    lede: 'AniShelf is a library for anime series and films. Track every episode, score and remember what you finish, and get a nudge when the next one airs.',
     testflight: 'Or join the TestFlight beta',
     facts: ['Free', 'No account', 'Open source'],
   },
@@ -120,7 +120,7 @@ const en: Strings = {
   volumes: {
     collect: {
       spine: 'Collect',
-      title: 'Build the library you actually watched.',
+      title: 'Find any anime and add it in seconds.',
       body: 'Search The Movie Database in English, Chinese, or Japanese. Add a whole series, a single season, or a film, or paste a list of titles and TMDb IDs to add them all at once.',
       points: [
         'Three ways to browse: a poster grid, a detailed list, and a gallery of large cards',
@@ -152,7 +152,7 @@ const en: Strings = {
     everywhere: {
       spine: 'Sync',
       title: 'One library, every device.',
-      body: 'iCloud Sync keeps your library, progress, and preferences in step across iPhone, iPad, and Mac. On iPad and Mac, the inspector puts details right beside your library.',
+      body: 'iCloud Sync keeps your library, progress, and preferences in step across iPhone, iPad, and Mac. On iPad and Mac, a side panel shows details right beside your library.',
       points: [
         'Private iCloud database. No AniShelf account to create.',
         'Full backups you can restore at any time',
@@ -218,7 +218,7 @@ const en: Strings = {
     detail: 'Anime detail page with TMDb score, episodes, and studio',
     manage: 'Watch management with status, dates, episode progress, and notes',
     stats: 'Library statistics with counts by watch status and favorites',
-    ipadGrid: 'AniShelf on iPad with the poster grid and an inspector showing anime details',
+    ipadGrid: 'AniShelf on iPad with the poster grid and a side panel showing anime details',
     ipadStats: 'AniShelf on iPad showing library statistics and settings',
     tmdb: 'The Movie Database (TMDB) logo',
   },
@@ -228,7 +228,7 @@ const zh: Strings = {
   meta: {
     title: 'AniShelf — 记录你看过的每一部动画',
     description:
-      'AniShelf 是一款免费的原生 iPhone、iPad 与 Mac 应用，用来记录番剧和动画电影：精确到集的进度、评分、新番播出提醒、iCloud 同步与导出。',
+      'AniShelf 是一款免费的 iPhone、iPad 与 Mac 应用，用来记录番剧和动画电影：精确到集的进度、评分、新番播出提醒、iCloud 同步与导出。',
     ogAlt: 'AniShelf 应用图标与标题“你看过的每一部动画，都收藏在这里。”',
   },
   nav: {
@@ -241,7 +241,7 @@ const zh: Strings = {
   hero: {
     kicker: '适用于 iPhone、iPad 与 Mac',
     titleLines: ['你看过的', '每一部|动画，', '都收藏|在这里。'],
-    lede: 'AniShelf 是一个原生的番剧与动画电影资料库。逐集记录进度，为看完的作品评分、写下感想，新一集播出时还会提醒你。',
+    lede: 'AniShelf 是一个番剧与动画电影资料库。逐集记录进度，为看完的作品评分、写下感想，新一集播出时还会提醒你。',
     testflight: '或加入 TestFlight 测试版',
     facts: ['免费', '无需注册', '开源'],
   },
@@ -250,7 +250,7 @@ const zh: Strings = {
   volumes: {
     collect: {
       spine: '收藏',
-      title: '收好你|真正看过的|每一部。',
+      title: '想追的|动画，|搜一下就能加入。',
       body: '用中文、英文或日文搜索 TMDb。可以添加整部系列、单独某一季或一部电影；也能粘贴一串标题或 TMDb ID，一次性批量添加。',
       points: [
         '三种浏览方式：海报网格、详细列表和大卡片图库',
@@ -282,7 +282,7 @@ const zh: Strings = {
     everywhere: {
       spine: '同步',
       title: '同一个资料库，|每台设备。',
-      body: 'iCloud 同步让资料库、观看进度和设置在 iPhone、iPad 与 Mac 之间保持一致。在 iPad 和 Mac 上，检查器把详情放在资料库旁边。',
+      body: 'iCloud 同步让资料库、观看进度和设置在 iPhone、iPad 与 Mac 之间保持一致。在 iPad 和 Mac 上，详情会显示在资料库旁边的侧边栏里。',
       points: [
         '数据存放在你私有的 iCloud 数据库，无需注册 AniShelf 账号',
         '完整备份，随时恢复',
@@ -350,7 +350,7 @@ const zh: Strings = {
     detail: '动画详情页，显示 TMDb 评分、集数和制作公司',
     manage: '观看管理：状态、日期、观看进度与笔记',
     stats: '资料库统计：各观看状态与收藏的数量',
-    ipadGrid: 'iPad 上的 AniShelf：海报网格与显示动画详情的检查器',
+    ipadGrid: 'iPad 上的 AniShelf：海报网格与显示动画详情的侧边栏',
     ipadStats: 'iPad 上的 AniShelf：资料库统计与设置',
     tmdb: 'The Movie Database（TMDB）标志',
   },
@@ -360,7 +360,7 @@ const ja: Strings = {
   meta: {
     title: 'AniShelf — 観たアニメを、ぜんぶ記録',
     description:
-      'AniShelf は、アニメシリーズや劇場版を記録できる無料のネイティブ iPhone・iPad・Mac アプリです。エピソード単位の進捗、スコア、放送リマインダー、iCloud同期、エクスポートに対応。',
+      'AniShelf は、アニメシリーズや劇場版を記録できる無料の iPhone・iPad・Mac アプリです。エピソード単位の進捗、スコア、放送リマインダー、iCloud同期、エクスポートに対応。',
     ogAlt: 'AniShelf のアプリアイコンと見出し「観てきたアニメを、ひとつのライブラリに。」',
   },
   nav: {
@@ -373,7 +373,7 @@ const ja: Strings = {
   hero: {
     kicker: 'iPhone・iPad・Mac 対応',
     titleLines: ['観てきた|アニメを、', 'ひとつの|ライブラリに。'],
-    lede: 'AniShelf は、アニメシリーズと劇場版のためのネイティブなライブラリ。1話ずつ進捗を残し、観終えた作品にはスコアと感想を。次の話が放送されるときは、そっとお知らせします。',
+    lede: 'AniShelf は、アニメシリーズと劇場版のためのライブラリ。1話ずつ進捗を残し、観終えた作品にはスコアと感想を。次の話が放送されるときは、そっとお知らせします。',
     testflight: 'TestFlight ベータに参加する',
     facts: ['無料', 'アカウント不要', 'オープンソース'],
   },
@@ -382,7 +382,7 @@ const ja: Strings = {
   volumes: {
     collect: {
       spine: '集める',
-      title: '本当に観た|作品だけの、|ライブラリを。',
+      title: '気になるアニメは、|検索して|すぐ追加。',
       body: 'The Movie Database を日本語・英語・中国語で検索。シリーズ全体、特定のシーズン、劇場版を追加できます。タイトルや TMDb ID をまとめて貼り付ければ、一括追加も。',
       points: [
         'グリッド、リスト、大きなカードのギャラリー。3つの表示で眺められます',
@@ -414,7 +414,7 @@ const ja: Strings = {
     everywhere: {
       spine: '同期',
       title: 'どのデバイスでも、|同じライブラリ。',
-      body: 'iCloud同期で、ライブラリ、進捗、設定を iPhone・iPad・Mac で同じ状態に保ちます。iPad と Mac ではインスペクタで、ライブラリの横に詳細を表示できます。',
+      body: 'iCloud同期で、ライブラリ、進捗、設定を iPhone・iPad・Mac で同じ状態に保ちます。iPad と Mac では、ライブラリの横にサイドパネルで詳細を表示できます。',
       points: [
         'データはあなた専用の iCloud データベースに保存。AniShelf のアカウントは不要',
         'いつでも復元できるフルバックアップ',
@@ -480,7 +480,7 @@ const ja: Strings = {
     detail: 'TMDb スコア、エピソード数、制作会社を表示した作品の詳細',
     manage: '視聴状況、日付、エピソードの進捗、ノートを編集する視聴管理',
     stats: '視聴状況ごとの数とお気に入りを表示したライブラリの統計',
-    ipadGrid: 'iPad の AniShelf。ポスターのグリッドと作品の詳細を表示するインスペクタ',
+    ipadGrid: 'iPad の AniShelf。ポスターのグリッドと、作品の詳細を表示するサイドパネル',
     ipadStats: 'iPad の AniShelf。ライブラリの統計と設定',
     tmdb: 'The Movie Database（TMDB）のロゴ',
   },
