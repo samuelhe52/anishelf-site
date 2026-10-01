@@ -11,7 +11,7 @@ export const CLI_VERSION = 'v0.2.0';
 export const CLI_SKILL_URL =
   'https://github.com/samuelhe52/anishelf-cli/blob/main/skills/anishelf-cli/SKILL.md';
 export const PRIVACY_URL = 'https://github.com/samuelhe52/AniShelf/blob/main/PRIVACY_POLICY.md';
-export const TMDB_KEY_URL = 'https://www.themoviedb.org/settings/api';
+export const TMDB_KEY_URL = 'https://developer.themoviedb.org/docs/getting-started';
 export const CONTACT_EMAIL = 'samuelhe52@outlook.com';
 export const X_URL = 'https://x.com/SamuelHe89';
 export const BLOG_URL = 'https://blog.konakona.dev';

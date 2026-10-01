@@ -124,8 +124,10 @@ const heights = [15.5, 17, 14.5, 16.5, 15, 17.5];
     white-space: nowrap;
   }
 
+  /* The CJK serifs ship a single 700 weight. */
   :lang(zh) .title,
   :lang(ja) .title {
+    font-weight: 700;
     letter-spacing: 0.22em;
   }
 

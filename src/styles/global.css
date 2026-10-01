@@ -8,14 +8,14 @@
   --card: #fffaf1;
   --ink: #17203a;
   --ink-soft: #4b5571;
-  --ink-faint: #8a90a3;
+  --ink-faint: #5f657a;
   --rule: rgb(23 32 58 / 0.14);
 
   --sky: #2b93d6;
   --sky-deep: #1a6fa8;
   --sky-wash: #cfe7f6;
   --apricot: #f2a066;
-  --apricot-deep: #c8622a;
+  --apricot-deep: #ad4f1c;
   --petal: #f6c98f;
   --vermilion: #d9442b;
   --sage: #5f9c83;
@@ -72,12 +72,12 @@
 }
 
 :root:lang(zh) {
-  --cjk-serif: 'Noto Serif SC Variable', 'Songti SC', 'STSong', serif;
+  --cjk-serif: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
   --cjk-sans: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
 }
 
 :root:lang(ja) {
-  --cjk-serif: 'Noto Serif JP Variable', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --cjk-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --cjk-sans: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Noto Sans JP', sans-serif;
 }
 

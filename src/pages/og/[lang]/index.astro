@@ -1,0 +1,190 @@
+---
+// Social preview template. scripts/render-og.mjs screenshots this page at
+// 1200×630; the page itself is removed from production builds.
+import '@fontsource/noto-serif-sc/700.css';
+import '@fontsource/noto-serif-jp/700.css';
+import Base from '../../../layouts/Base.astro';
+import BrandIcon from '../../../components/BrandIcon.astro';
+import Phone from '../../../components/Phone.astro';
+import Petals from '../../../components/Petals.astro';
+import Phrases from '../../../components/Phrases.astro';
+import { locales, strings, type Locale } from '../../../i18n';
+import grid from '../../../assets/screens/iphone/01-poster-grid-view.jpeg';
+import detail from '../../../assets/screens/iphone/04-anime-detail-overview.jpeg';
+import stats from '../../../assets/screens/iphone/06-library-stats-overview.jpeg';
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang as Locale;
+const t = strings[locale];
+---
+
+<Base locale={locale} noindex>
+  <div class="og">
+    <div class="copy">
+      <div class="brand">
+        <BrandIcon size={64} />
+        <span>AniShelf</span>
+      </div>
+      <h1>
+        {t.hero.titleLines.map((line, i) => <span class:list={['line', { accent: i === 1 }]}><Phrases text={line} /></span>)}
+      </h1>
+      <p class="mono">{t.hero.kicker}<br />{t.hero.facts.join(' · ')}</p>
+    </div>
+    <div class="stage">
+      <Petals count={7} seed={11} />
+      <Phone class="p p-left" src={detail} alt="" sizes="220px" eager />
+      <Phone class="p p-right" src={stats} alt="" sizes="210px" eager />
+      <Phone class="p p-center" src={grid} alt="" sizes="250px" eager />
+      <div class="plank"></div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  :global(.skip-link) {
+    display: none;
+  }
+
+  :global(body) {
+    overflow: hidden;
+  }
+
+  :global(.petals .fall),
+  :global(.petals .petal) {
+    animation: none !important;
+  }
+
+  :global(.petals .fall) {
+    top: var(--y) !important;
+  }
+
+  .og {
+    display: grid;
+    grid-template-columns: 590px 1fr;
+    width: 1200px;
+    height: 630px;
+    padding: 56px 0 0 72px;
+    overflow: hidden;
+    color-scheme: light;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'opsz' 48;
+    font-size: 38px;
+    font-weight: 620;
+  }
+
+  .brand :global(img) {
+    width: 64px;
+    height: 64px;
+    border-radius: 22.37%;
+    box-shadow: var(--shadow-1);
+  }
+
+  h1 {
+    font-size: 76px;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 144;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+  }
+
+  :lang(zh) h1,
+  :lang(ja) h1 {
+    font-size: 64px;
+    line-height: 1.22;
+  }
+
+  .mono {
+    line-height: 2;
+  }
+
+  .line {
+    display: block;
+  }
+
+  .accent {
+    color: var(--apricot-deep);
+    font-style: italic;
+    font-weight: 480;
+  }
+
+  :lang(zh) .accent,
+  :lang(ja) .accent {
+    font-style: normal;
+    font-weight: inherit;
+  }
+
+  .mono {
+    margin-top: auto;
+    margin-bottom: 64px;
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+
+  .stage {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .stage::before {
+    content: '';
+    position: absolute;
+    inset: 30px -20px 90px 30px;
+    z-index: -2;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 25%, #ffffffb0 0 6%, transparent 30%),
+      linear-gradient(160deg, #9fd4f3, #4aa9e2 55%, #2e8fd0);
+  }
+
+  .stage :global(.p) {
+    position: absolute;
+  }
+
+  .stage :global(.p-center) {
+    top: 88px;
+    left: 175px;
+    width: 200px;
+    z-index: 3;
+  }
+
+  .stage :global(.p-left) {
+    top: 148px;
+    left: 30px;
+    width: 172px;
+    z-index: 2;
+    rotate: -7deg;
+  }
+
+  .stage :global(.p-right) {
+    top: 168px;
+    left: 352px;
+    width: 162px;
+    z-index: 1;
+    rotate: 5deg;
+  }
+
+  .plank {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 522px;
+    z-index: 4;
+    height: 14px;
+    background: var(--ink);
+    box-shadow: 0 18px 26px -12px rgb(23 32 58 / 0.5);
+  }
+</style>

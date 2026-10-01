@@ -3,7 +3,10 @@ import { rm } from 'node:fs/promises';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-/** The /og/ pages exist only so scripts/render-og.mjs can screenshot them. */
+/**
+ * The /og/ pages exist only so scripts/render-og.mjs can screenshot them.
+ * @type {import('astro').AstroIntegration}
+ */
 const dropOgPages = {
   name: 'drop-og-pages',
   hooks: {
