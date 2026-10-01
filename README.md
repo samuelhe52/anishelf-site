@@ -43,6 +43,7 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
 | Asset | Source |
 | --- | --- |
 | Screenshots | `AniShelf/.app-store-assets/screenshots/{ios,ipad}/` |
+| iPhone 16 Pro hardware render (Black Titanium) | Pixelmator Pro export. Its display outline is the screen mask in `Phone.astro` |
 | App icons (light and dark) | `AniShelf/MyAnimeList/Resources/Assets.xcassets/AppIcon.appiconset/` |
 | App Store badges | Apple Marketing Tools (`toolbox.marketingtools.apple.com`), localized for en-us, zh-cn, and ja-jp |
 | TMDB logo | TMDB's [logos and attribution](https://www.themoviedb.org/about/logos-attribution) page |

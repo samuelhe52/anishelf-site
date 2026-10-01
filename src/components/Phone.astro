@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Picture } from 'astro:assets';
+import hardware from '../assets/devices/iphone-16-pro.png';
 
 interface Common {
   class?: string;
@@ -11,6 +12,7 @@ interface Common {
 interface Shot extends Common {
   src: ImageMetadata;
   alt: string;
+  /** Rendered width of the phone, for both the screenshot and the hardware. */
   sizes: string;
   eager?: boolean;
 }
@@ -18,14 +20,27 @@ interface Shot extends Common {
 /** Custom display content from the default slot, laid out in `cqw` units. */
 interface Custom extends Common {
   src?: never;
+  sizes?: string;
 }
 
 type Props = Shot | Custom;
 
 const props = Astro.props;
+const sizes = props.sizes ?? '320px';
+const loading = props.src && props.eager ? 'eager' : 'lazy';
 ---
 
 <figure class:list={['phone', props.class]} style={props.style}>
+  <Picture
+    src={hardware}
+    alt=""
+    formats={['avif', 'webp']}
+    widths={[400, 700, 1095]}
+    sizes={sizes}
+    loading={loading}
+    decoding="async"
+    aria-hidden="true"
+  />
   <div class="screen">
     {
       props.src ? (
@@ -34,8 +49,8 @@ const props = Astro.props;
           alt={props.alt}
           formats={['avif', 'webp']}
           widths={[320, 480, 720, 1000]}
-          sizes={props.sizes}
-          loading={props.eager ? 'eager' : 'lazy'}
+          sizes={sizes}
+          loading={loading}
           fetchpriority={props.eager ? 'high' : 'auto'}
           decoding="async"
         />
@@ -48,70 +63,45 @@ const props = Astro.props;
 
 <style>
   /*
-   * iPhone 16 Pro proportions, in screenshot pixels: the 1206×2622 display has
-   * 186px (62pt) corners and sits inside a 44px border, an 18px metal band
-   * plus 26px of black glass. Every value below is that geometry as a share of
-   * the phone's own box, so the frame scales freely and never crops the shot.
+   * Apple's iPhone 16 Pro product render (Black Titanium), 1095×2268. The
+   * display sits 43px in from each side and 37px from the top, and is exactly
+   * the screenshots' 1206×2622 shape, so nothing gets cropped.
    */
   .phone {
     position: relative;
     margin: 0;
-    aspect-ratio: 1294 / 2710;
-    border-radius: 17.77% / 8.49%;
-    background: var(--device-band);
-    box-shadow:
-      var(--shadow-2),
-      inset 0 0 0 1px var(--device-edge);
+    aspect-ratio: 1095 / 2268;
   }
 
-  /* Black glass around the display. */
-  .phone::before {
-    content: '';
-    position: absolute;
-    inset: 0.66% 1.39%;
-    border-radius: 16.85% / 7.93%;
-    background: var(--bezel);
-    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.35);
-  }
-
-  /* Action and volume buttons on the left, the side button on the right. */
-  .phone::after {
-    content: '';
-    position: absolute;
-    inset: 0 -0.85%;
-    background:
-      linear-gradient(
-          transparent 20.1%,
-          var(--device-key) 20.1% 25.4%,
-          transparent 25.4% 28.7%,
-          var(--device-key) 28.7% 38.1%,
-          transparent 38.1% 39.4%,
-          var(--device-key) 39.4% 48.8%,
-          transparent 48.8%
-        )
-        left / 0.84% 100% no-repeat,
-      linear-gradient(transparent 30.1%, var(--device-key) 30.1% 44.8%, transparent 44.8%) right / 0.84% 100%
-        no-repeat;
-    pointer-events: none;
-  }
-
-  .screen {
-    position: absolute;
-    inset: 1.62% 3.4%;
-    border-radius: 15.42% / 7.09%;
-    /*
-     * Round the content with clip-path, which every engine honors, rather than
-     * overflow: hidden, which would make a scroll container and detach the
-     * scroll-driven animations inside.
-     */
-    clip-path: inset(0 round 15.42% / 7.09%);
-    background: #000;
-    container-type: size;
-  }
-
-  .screen :global(picture) {
+  .phone :global(picture) {
     display: block;
     height: 100%;
+  }
+
+  .phone > :global(picture:first-child) {
+    position: absolute;
+    inset: 0;
+  }
+
+  .phone > :global(picture:first-child img) {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 2px 3px rgb(23 32 58 / 0.12)) drop-shadow(0 26px 24px rgb(23 32 58 / 0.24));
+  }
+
+  /*
+   * Masked with the render's own display outline: continuous-curvature
+   * corners and a cutout that lets the hardware's Dynamic Island show through.
+   * A mask, unlike overflow: hidden, keeps scroll-driven animations inside
+   * attached to the page.
+   */
+  .screen {
+    position: absolute;
+    inset: 1.63% 3.93% 1.68%;
+    background: #000;
+    container-type: size;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 37 1009 2193' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' d='M 64.01 2149.71 C 44 2113.96 44 2066.29 44 1970.94 L 43.99 296.04 C 43.99 200.70 43.99 153.03 64.01 117.28 C 78.16 92.02 99.02 71.16 124.28 57.01 C 160.03 37 207.70 37 303.04 37 L 793.95 37.00 C 889.29 37.00 936.96 37.00 972.71 57.01 C 997.97 71.16 1018.83 92.02 1032.98 117.28 C 1053 153.03 1053 200.70 1053 296.05 L 1053 1970.94 C 1053 2066.29 1053 2113.96 1032.98 2149.71 C 1018.83 2174.97 997.97 2195.83 972.71 2209.98 C 936.96 2230 889.29 2230 793.95 2230 L 303.05 2230 C 207.70 2230 160.03 2230 124.28 2209.98 C 99.02 2195.83 78.16 2174.97 64.01 2149.71 Z M 437 163.02 C 412.14 163.02 392 142.87 392 118.02 C 392 93.17 412.14 73.02 437 73.02 L 660 73.02 C 684.85 73.02 705 93.17 705 118.02 C 705 142.87 684.85 163.02 660 163.02 L 437 163.02 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 37 1009 2193' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' d='M 64.01 2149.71 C 44 2113.96 44 2066.29 44 1970.94 L 43.99 296.04 C 43.99 200.70 43.99 153.03 64.01 117.28 C 78.16 92.02 99.02 71.16 124.28 57.01 C 160.03 37 207.70 37 303.04 37 L 793.95 37.00 C 889.29 37.00 936.96 37.00 972.71 57.01 C 997.97 71.16 1018.83 92.02 1032.98 117.28 C 1053 153.03 1053 200.70 1053 296.05 L 1053 1970.94 C 1053 2066.29 1053 2113.96 1032.98 2149.71 C 1018.83 2174.97 997.97 2195.83 972.71 2209.98 C 936.96 2230 889.29 2230 793.95 2230 L 303.05 2230 C 207.70 2230 160.03 2230 124.28 2209.98 C 99.02 2195.83 78.16 2174.97 64.01 2149.71 Z M 437 163.02 C 412.14 163.02 392 142.87 392 118.02 C 392 93.17 412.14 73.02 437 73.02 L 660 73.02 C 684.85 73.02 705 93.17 705 118.02 C 705 142.87 684.85 163.02 660 163.02 L 437 163.02 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
   }
 
   .screen :global(img) {
@@ -120,15 +110,9 @@ const props = Astro.props;
     object-fit: cover;
   }
 
-  /* Dynamic Island: 126×37pt, 11pt from the top. */
-  .screen::after {
-    content: '';
-    position: absolute;
-    top: 1.26%;
-    left: 34.33%;
-    width: 31.34%;
-    height: 4.27%;
-    border-radius: 999px;
-    background: #000;
+  @media (prefers-color-scheme: dark) {
+    .phone > :global(picture:first-child img) {
+      filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.35)) drop-shadow(0 26px 24px rgb(0 0 0 / 0.55));
+    }
   }
 </style>
