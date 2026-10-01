@@ -177,7 +177,7 @@ const year = new Date().getFullYear();
     </section>
 
     <!-- Vol. 06 — Terminal -->
-    <section class="vol vol-night" id={ids[5]} aria-labelledby={`${ids[5]}-title`}>
+    <section class="vol vol-tint" id={ids[5]} aria-labelledby={`${ids[5]}-title`}>
       <div class="wrap vol-grid">
         <div class="vol-copy reveal">
           <p class="mono vol-label"><b>{label(6)}</b><i></i>{v.terminal.spine}</p>
@@ -256,7 +256,7 @@ const year = new Date().getFullYear();
       <p>{t.footer.tmdb}</p>
       <p>{t.footer.apple}</p>
       <p>{t.footer.artwork}</p>
-      <p>© {year} Samuel He · {t.footer.madeBy}</p>
+      <p>© {year} Samuel He</p>
     </div>
   </footer>
 </Base>
@@ -363,10 +363,9 @@ const year = new Date().getFullYear();
 
   .dot {
     width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--vermilion);
-    box-shadow: 0 0 0 4px color-mix(in oklab, var(--vermilion) 20%, transparent);
+    height: 12px;
+    border-radius: 85% 0 85% 0;
+    background: var(--sky);
   }
 
   h1 {
@@ -803,30 +802,9 @@ const year = new Date().getFullYear();
     }
   }
 
-  /* Vol. 06: the night shelf. */
-  .vol-night {
-    --paper: #0d1226;
-    --card: #182040;
-    --ink: #f3ebdc;
-    --ink-soft: #b7bdd2;
-    --ink-faint: #8990ad;
-    --rule: rgb(243 235 220 / 0.14);
-    --apricot-deep: #f6b27c;
-    --sky-deep: #9ad3f7;
+  /* Vol. 06 */
 
-    margin-block: clamp(2rem, 5vw, 4rem);
-    background:
-      radial-gradient(1px 1px at 12% 22%, #fff9 50%, transparent),
-      radial-gradient(1px 1px at 78% 14%, #fff8 50%, transparent),
-      radial-gradient(1.5px 1.5px at 64% 70%, #fff7 50%, transparent),
-      radial-gradient(1px 1px at 32% 84%, #fff6 50%, transparent),
-      radial-gradient(1px 1px at 90% 58%, #fff8 50%, transparent),
-      radial-gradient(ellipse at 80% 0%, #26306a, transparent 60%),
-      #0d1226;
-    color: var(--ink);
-  }
-
-  .vol-night a {
+  .links-row a {
     color: var(--sky-deep);
   }
 
@@ -858,11 +836,12 @@ const year = new Date().getFullYear();
     padding: 0.75rem 1rem;
     border: 1px dashed var(--rule);
     border-radius: 10px;
+    background: var(--card);
     overflow-wrap: anywhere;
     font-family: var(--font-mono);
     font-size: 0.76rem;
     line-height: 1.7;
-    color: #f2a066;
+    color: var(--apricot-deep);
   }
 
   /* ---------- Notes ---------- */

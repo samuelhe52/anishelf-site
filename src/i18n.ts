@@ -65,7 +65,7 @@ export type Strings = {
       source: string;
     };
     reflect: Volume;
-    everywhere: Volume & { exportLabel: string; devices: string };
+    everywhere: Volume & { exportLabel: string };
     terminal: Volume & { install: string; agents: string; readOnly: string };
   };
   notes: {
@@ -81,17 +81,16 @@ export type Strings = {
     tmdb: string;
     apple: string;
     artwork: string;
-    madeBy: string;
   };
   alt: Record<string, string>;
 };
 
 const en: Strings = {
   meta: {
-    title: 'AniShelf — A bookshelf for the anime you watch',
+    title: 'AniShelf — Track every anime you watch',
     description:
-      'AniShelf is a free, native iPhone and iPad app for tracking anime series and films: episode progress, ratings, broadcast reminders, iCloud Sync, and export.',
-    ogAlt: 'AniShelf app icon beside the headline “Every anime you’ve watched, on one shelf.”',
+      'AniShelf is a free, native iPhone, iPad, and Mac app for tracking anime series and films: episode progress, ratings, broadcast reminders, iCloud Sync, and export.',
+    ogAlt: 'AniShelf app icon beside the headline “Every anime you’ve watched, all in one place.”',
   },
   nav: {
     features: 'Features',
@@ -101,8 +100,8 @@ const en: Strings = {
     skip: 'Skip to content',
   },
   hero: {
-    kicker: 'For iPhone & iPad · iOS 26',
-    titleLines: ['Every anime', 'you’ve watched,', 'on one shelf.'],
+    kicker: 'For iPhone, iPad & Mac',
+    titleLines: ['Every anime', 'you’ve watched,', 'all in one place.'],
     lede: 'AniShelf is a native library for anime series and films. Track every episode, score and remember what you finish, and get a nudge when the next one airs.',
     testflight: 'Or join the TestFlight beta',
     facts: ['Free', 'No account', 'Open source'],
@@ -137,20 +136,19 @@ const en: Strings = {
     },
     reflect: {
       spine: 'Reflect',
-      title: 'Look back at the whole shelf.',
+      title: 'Look back on everything you’ve watched.',
       body: 'Library stats count what you’ve finished, what’s in progress, and what you love. It also breaks your library down into series, seasons, and films, with your total watch time.',
     },
     everywhere: {
       spine: 'Sync',
-      title: 'Same shelf, every device.',
-      body: 'iCloud Sync keeps your library, progress, and preferences in step across iPhone and iPad. On iPad, the inspector puts details right beside your library.',
+      title: 'One library, every device.',
+      body: 'iCloud Sync keeps your library, progress, and preferences in step across iPhone, iPad, and Mac. On iPad and Mac, the inspector puts details right beside your library.',
       points: [
         'Private iCloud database. No AniShelf account to create.',
         'Full backups you can restore at any time',
         'Export your library to keep, script, or analyze',
       ],
       exportLabel: 'Export as',
-      devices: 'iPhone · iPad',
     },
     terminal: {
       spine: 'Terminal',
@@ -186,8 +184,8 @@ const en: Strings = {
     ],
   },
   outro: {
-    title: 'Start your shelf.',
-    body: 'Free on the App Store for iPhone and iPad running iOS 26 or later.',
+    title: 'Start your collection.',
+    body: 'Free on the App Store. Runs on iPhone and iPad with iOS 26 or later, and on Macs with Apple silicon running macOS 26 or later.',
     testflight: 'Try new features early on TestFlight',
   },
   footer: {
@@ -197,9 +195,8 @@ const en: Strings = {
     blog: 'Blog',
     tmdb: 'This product uses the TMDB API but is not endorsed or certified by TMDB.',
     apple:
-      'Apple, the Apple logo, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.',
+      'Apple, the Apple logo, iPhone, iPad, and Mac are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.',
     artwork: 'Anime artwork shown in screenshots belongs to its respective rights holders.',
-    madeBy: 'Made with care.',
   },
   alt: {
     icon: 'AniShelf app icon',
@@ -217,10 +214,10 @@ const en: Strings = {
 
 const zh: Strings = {
   meta: {
-    title: 'AniShelf — 你的动画书架',
+    title: 'AniShelf — 记录你看过的每一部动画',
     description:
-      'AniShelf 是一款免费的原生 iPhone 与 iPad 应用，用来记录番剧和动画电影：精确到集的进度、评分、新番播出提醒、iCloud 同步与导出。',
-    ogAlt: 'AniShelf 应用图标与标题“把看过的每一部动画，都放上书架。”',
+      'AniShelf 是一款免费的原生 iPhone、iPad 与 Mac 应用，用来记录番剧和动画电影：精确到集的进度、评分、新番播出提醒、iCloud 同步与导出。',
+    ogAlt: 'AniShelf 应用图标与标题“你看过的每一部动画，都收藏在这里。”',
   },
   nav: {
     features: '功能',
@@ -230,8 +227,8 @@ const zh: Strings = {
     skip: '跳到正文',
   },
   hero: {
-    kicker: '适用于 iPhone 与 iPad · iOS 26',
-    titleLines: ['把看过的', '每一部|动画，', '都放上|书架。'],
+    kicker: '适用于 iPhone、iPad 与 Mac',
+    titleLines: ['你看过的', '每一部|动画，', '都收藏|在这里。'],
     lede: 'AniShelf 是一个原生的番剧与动画电影资料库。逐集记录进度，为看完的作品评分、写下感想，新一集播出时还会提醒你。',
     testflight: '或加入 TestFlight 测试版',
     facts: ['免费', '无需注册', '开源'],
@@ -266,20 +263,19 @@ const zh: Strings = {
     },
     reflect: {
       spine: '回顾',
-      title: '回头看看|整个书架。',
+      title: '回顾|你看过的一切。',
       body: '资料库统计会告诉你看完了多少、在看多少、收藏了多少，还能按动画系列、单季和电影分类统计，并显示总观看时长。',
     },
     everywhere: {
       spine: '同步',
-      title: '同一个书架，|每台设备。',
-      body: 'iCloud 同步让资料库、观看进度和设置在 iPhone 与 iPad 之间保持一致。在 iPad 上，检查器把详情放在资料库旁边。',
+      title: '同一个资料库，|每台设备。',
+      body: 'iCloud 同步让资料库、观看进度和设置在 iPhone、iPad 与 Mac 之间保持一致。在 iPad 和 Mac 上，检查器把详情放在资料库旁边。',
       points: [
         '数据存放在你私有的 iCloud 数据库，无需注册 AniShelf 账号',
         '完整备份，随时恢复',
         '导出资料库，留存、写脚本或做分析都可以',
       ],
       exportLabel: '导出为',
-      devices: 'iPhone · iPad',
     },
     terminal: {
       spine: '终端',
@@ -303,7 +299,7 @@ const zh: Strings = {
       },
       {
         title: '它是记录工具，不是播放器',
-        body: 'AniShelf 不提供在线播放或下载，只负责记录你在别处看过的番。“书架”也只是比喻，它不是漫画或小说阅读器。',
+        body: 'AniShelf 不提供在线播放或下载，只负责记录你在别处看过的番。它也不是漫画或小说阅读器。',
       },
       {
         title: '默认保护隐私',
@@ -317,8 +313,8 @@ const zh: Strings = {
     ],
   },
   outro: {
-    title: '开始整理|你的书架。',
-    body: '在 App Store 免费下载，支持 iOS 26 及以上版本的 iPhone 与 iPad。',
+    title: '开始整理|你的收藏。',
+    body: '在 App Store 免费下载。支持 iOS 26 及以上版本的 iPhone 与 iPad，以及搭载 Apple 芯片、运行 macOS 26 及以上版本的 Mac。',
     testflight: '在 TestFlight 抢先体验新功能',
   },
   footer: {
@@ -328,9 +324,8 @@ const zh: Strings = {
     blog: '博客',
     tmdb: '本产品使用 TMDB API，但未经 TMDB 认可或认证。',
     apple:
-      'Apple、Apple 标志、iPhone 和 iPad 是 Apple Inc. 在美国和其他国家/地区注册的商标。App Store 是 Apple Inc. 的服务商标。',
+      'Apple、Apple 标志、iPhone、iPad 和 Mac 是 Apple Inc. 在美国和其他国家/地区注册的商标。App Store 是 Apple Inc. 的服务商标。',
     artwork: '截图中的动画作品图像版权归各自权利人所有。',
-    madeBy: '用心制作。',
   },
   alt: {
     icon: 'AniShelf 应用图标',
@@ -348,10 +343,10 @@ const zh: Strings = {
 
 const ja: Strings = {
   meta: {
-    title: 'AniShelf — 観たアニメのための本棚',
+    title: 'AniShelf — 観たアニメを、ぜんぶ記録',
     description:
-      'AniShelf は、アニメシリーズや劇場版を記録できる無料のネイティブ iPhone・iPad アプリです。エピソード単位の進捗、スコア、放送リマインダー、iCloud同期、エクスポートに対応。',
-    ogAlt: 'AniShelf のアプリアイコンと見出し「観てきたアニメを、ひとつの本棚に。」',
+      'AniShelf は、アニメシリーズや劇場版を記録できる無料のネイティブ iPhone・iPad・Mac アプリです。エピソード単位の進捗、スコア、放送リマインダー、iCloud同期、エクスポートに対応。',
+    ogAlt: 'AniShelf のアプリアイコンと見出し「観てきたアニメを、ひとつのライブラリに。」',
   },
   nav: {
     features: '機能',
@@ -361,8 +356,8 @@ const ja: Strings = {
     skip: '本文へスキップ',
   },
   hero: {
-    kicker: 'iPhone・iPad 対応 · iOS 26',
-    titleLines: ['観てきた|アニメを、', 'ひとつの|本棚に。'],
+    kicker: 'iPhone・iPad・Mac 対応',
+    titleLines: ['観てきた|アニメを、', 'ひとつの|ライブラリに。'],
     lede: 'AniShelf は、アニメシリーズと劇場版のためのネイティブなライブラリ。1話ずつ進捗を残し、観終えた作品にはスコアと感想を。次の話が放送されるときは、そっとお知らせします。',
     testflight: 'TestFlight ベータに参加する',
     facts: ['無料', 'アカウント不要', 'オープンソース'],
@@ -397,20 +392,19 @@ const ja: Strings = {
     },
     reflect: {
       spine: 'ふり返る',
-      title: '本棚全体を、|ふり返る。',
+      title: 'これまでの視聴を、|ふり返る。',
       body: 'ライブラリの統計で、観終えた作品、視聴中の作品、お気に入りの数がひと目でわかります。シリーズ・シーズン・映画の内訳と、合計の再生時間も確認できます。',
     },
     everywhere: {
       spine: '同期',
-      title: 'どのデバイスでも、|同じ本棚。',
-      body: 'iCloud同期で、ライブラリ、進捗、設定を iPhone と iPad で同じ状態に保ちます。iPad ではインスペクタで、ライブラリの横に詳細を表示できます。',
+      title: 'どのデバイスでも、|同じライブラリ。',
+      body: 'iCloud同期で、ライブラリ、進捗、設定を iPhone・iPad・Mac で同じ状態に保ちます。iPad と Mac ではインスペクタで、ライブラリの横に詳細を表示できます。',
       points: [
         'データはあなた専用の iCloud データベースに保存。AniShelf のアカウントは不要',
         'いつでも復元できるフルバックアップ',
         'ライブラリをエクスポートして、保存・スクリプト・分析に',
       ],
       exportLabel: 'エクスポート形式',
-      devices: 'iPhone · iPad',
     },
     terminal: {
       spine: 'ターミナル',
@@ -446,8 +440,8 @@ const ja: Strings = {
     ],
   },
   outro: {
-    title: 'あなたの本棚を、|はじめよう。',
-    body: 'App Store で無料。iOS 26 以降の iPhone・iPad に対応しています。',
+    title: 'あなたのコレクションを、|はじめよう。',
+    body: 'App Store で無料。iOS 26 以降の iPhone・iPad と、macOS 26 以降の Apple シリコン搭載 Mac に対応しています。',
     testflight: 'TestFlight で新機能をいち早く',
   },
   footer: {
@@ -457,9 +451,8 @@ const ja: Strings = {
     blog: 'ブログ',
     tmdb: '本製品は TMDB API を使用していますが、TMDB による承認・認定を受けたものではありません。',
     apple:
-      'Apple、Appleのロゴ、iPhone、iPad は、米国およびその他の国や地域で登録された Apple Inc. の商標です。App Store は Apple Inc. のサービスマークです。',
+      'Apple、Appleのロゴ、iPhone、iPad、Mac は、米国およびその他の国や地域で登録された Apple Inc. の商標です。App Store は Apple Inc. のサービスマークです。',
     artwork: 'スクリーンショット内のアニメ画像の権利は、各権利者に帰属します。',
-    madeBy: '心を込めて制作。',
   },
   alt: {
     icon: 'AniShelf のアプリアイコン',
