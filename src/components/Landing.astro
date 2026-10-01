@@ -739,6 +739,30 @@ const year = new Date().getFullYear();
     translate: -12% 4%;
   }
 
+  /* Dealt out from under the middle card as the section scrolls in. */
+  @supports (animation-timeline: view()) {
+    .trio :global(:is(.t1, .t3)) {
+      animation: deal linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+
+    .trio :global(.t1) {
+      --deal: 88%;
+    }
+
+    .trio :global(.t3) {
+      --deal: -88%;
+    }
+  }
+
+  @keyframes deal {
+    from {
+      rotate: 0deg;
+      translate: var(--deal) 0;
+    }
+  }
+
   /* Vol. 02 */
   .duo {
     display: grid;
