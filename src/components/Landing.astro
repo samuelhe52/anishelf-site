@@ -208,7 +208,7 @@ const year = new Date().getFullYear();
     </section>
 
     <!-- Good to know -->
-    <section class="notes wrap" aria-labelledby="notes-title">
+    <section class="notes wrap" id="notes" aria-labelledby="notes-title">
       <h2 id="notes-title" class="reveal">{t.notes.title}</h2>
       <ol>
         {
@@ -230,7 +230,7 @@ const year = new Date().getFullYear();
     </section>
 
     <!-- Outro -->
-    <section class="outro wrap" aria-labelledby="outro-title">
+    <section class="outro wrap" id="download" aria-labelledby="outro-title">
       <div class="sky">
         <Petals count={8} seed={23} />
         <BrandIcon class="outro-icon" size={168} alt={t.alt.icon} lazy />
