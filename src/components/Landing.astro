@@ -9,6 +9,7 @@ import Shelf from './Shelf.astro';
 import ReminderMock from './ReminderMock.astro';
 import ExportFormats from './ExportFormats.astro';
 import Terminal from './Terminal.astro';
+import Phrases from './Phrases.astro';
 
 import BrandIcon from './BrandIcon.astro';
 import tmdbLogo from '../assets/badges/tmdb-short.svg';
@@ -71,12 +72,12 @@ const year = new Date().getFullYear();
       <div class="hero-copy">
         <p class="mono kicker rise" style="--i:1"><span class="dot" aria-hidden="true"></span>{t.hero.kicker}</p>
         <h1 class="rise" style="--i:2">
-          {t.hero.titleLines.map((line, i) => <span class:list={['line', { accent: i === 1 }]}>{line}</span>)}
+          {t.hero.titleLines.map((line, i) => <span class:list={['line', { accent: i === 1 }]}><Phrases text={line} /></span>)}
         </h1>
         <p class="lede rise" style="--i:3">{t.hero.lede}</p>
         <div class="cta rise" style="--i:4">
           <StoreBadge locale={locale} />
-          <a class="tf" href={TESTFLIGHT_URL} rel="noopener">{t.hero.testflight}<span aria-hidden="true"> →</span></a>
+          <a class="tf" href={TESTFLIGHT_URL} rel="noopener">{t.hero.testflight}<span aria-hidden="true">&nbsp;→</span></a>
         </div>
         <ul class="facts mono rise" style="--i:5">
           {t.hero.facts.map((f) => <li>{f}</li>)}
@@ -85,7 +86,6 @@ const year = new Date().getFullYear();
 
       <div class="hero-stage" aria-hidden="false">
         <Petals count={10} />
-        <span class="vertical" aria-hidden="true">{t.hero.spine}</span>
         <Phone class="hp hp-left" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 210px, 34vw" eager />
         <Phone class="hp hp-right" src={stats} alt={t.alt.stats} sizes="(min-width: 960px) 200px, 32vw" eager />
         <Phone class="hp hp-center" src={grid} alt={t.alt.grid} sizes="(min-width: 960px) 250px, 40vw" eager />
@@ -100,7 +100,7 @@ const year = new Date().getFullYear();
       <div class="wrap vol-grid">
         <div class="vol-copy reveal">
           <p class="mono vol-label"><b>{label(1)}</b><i></i>{v.collect.spine}</p>
-          <h2 id={`${ids[0]}-title`}>{v.collect.title}</h2>
+          <h2 id={`${ids[0]}-title`}><Phrases text={v.collect.title} /></h2>
           <p class="body">{v.collect.body}</p>
           <ul class="points">{v.collect.points?.map((p) => <li>{p}</li>)}</ul>
         </div>
@@ -117,7 +117,7 @@ const year = new Date().getFullYear();
       <div class="wrap vol-grid flip">
         <div class="vol-copy reveal">
           <p class="mono vol-label"><b>{label(2)}</b><i></i>{v.track.spine}</p>
-          <h2 id={`${ids[1]}-title`}>{v.track.title}</h2>
+          <h2 id={`${ids[1]}-title`}><Phrases text={v.track.title} /></h2>
           <p class="body">{v.track.body}</p>
           <ul class="statuses">
             {v.track.statuses.map((s, i) => <li data-status={i}>{s}</li>)}
@@ -135,7 +135,7 @@ const year = new Date().getFullYear();
       <div class="wrap vol-grid">
         <div class="vol-copy reveal">
           <p class="mono vol-label"><b>{label(3)}</b><i></i>{v.remind.spine}</p>
-          <h2 id={`${ids[2]}-title`}>{v.remind.title}</h2>
+          <h2 id={`${ids[2]}-title`}><Phrases text={v.remind.title} /></h2>
           <p class="body">{v.remind.body}</p>
           <p class="fine">{v.remind.source}</p>
         </div>
@@ -150,7 +150,7 @@ const year = new Date().getFullYear();
       <div class="wrap vol-grid flip">
         <div class="vol-copy reveal">
           <p class="mono vol-label"><b>{label(4)}</b><i></i>{v.reflect.spine}</p>
-          <h2 id={`${ids[3]}-title`}>{v.reflect.title}</h2>
+          <h2 id={`${ids[3]}-title`}><Phrases text={v.reflect.title} /></h2>
           <p class="body">{v.reflect.body}</p>
         </div>
         <div class="reflect-stage">
@@ -165,7 +165,7 @@ const year = new Date().getFullYear();
       <div class="wrap sync">
         <div class="sync-head reveal">
           <p class="mono vol-label"><b>{label(5)}</b><i></i>{v.everywhere.spine}</p>
-          <h2 id={`${ids[4]}-title`}>{v.everywhere.title}</h2>
+          <h2 id={`${ids[4]}-title`}><Phrases text={v.everywhere.title} /></h2>
           <p class="body">{v.everywhere.body}</p>
         </div>
         <Tablet class="sync-tablet" src={ipadGrid} alt={t.alt.ipadGrid} sizes="(min-width: 1240px) 1100px, 92vw" />
@@ -181,12 +181,12 @@ const year = new Date().getFullYear();
       <div class="wrap vol-grid">
         <div class="vol-copy reveal">
           <p class="mono vol-label"><b>{label(6)}</b><i></i>{v.terminal.spine}</p>
-          <h2 id={`${ids[5]}-title`}>{v.terminal.title}</h2>
+          <h2 id={`${ids[5]}-title`}><Phrases text={v.terminal.title} /></h2>
           <p class="body">{v.terminal.body}</p>
           <p class="fine">{v.terminal.readOnly}</p>
           <p class="links-row">
-            <a href={CLI_URL} rel="noopener">anishelf-cli<span aria-hidden="true"> ↗</span></a>
-            <a href={CLI_SKILL_URL} rel="noopener">SKILL.md<span aria-hidden="true"> ↗</span></a>
+            <a href={CLI_URL} rel="noopener">anishelf-cli<span aria-hidden="true">&nbsp;↗</span></a>
+            <a href={CLI_SKILL_URL} rel="noopener">SKILL.md<span aria-hidden="true">&nbsp;↗</span></a>
           </p>
           <p class="fine agents">{v.terminal.agents}</p>
         </div>
@@ -211,7 +211,7 @@ const year = new Date().getFullYear();
               {n.link && (
                 <a href={n.link.href} rel="noopener">
                   {n.link.label}
-                  <span aria-hidden="true"> ↗</span>
+                  <span aria-hidden="true">&nbsp;↗</span>
                 </a>
               )}
             </li>
@@ -225,12 +225,12 @@ const year = new Date().getFullYear();
       <div class="sky">
         <Petals count={8} seed={23} />
         <BrandIcon class="outro-icon" size={168} alt={t.alt.icon} lazy />
-        <h2 id="outro-title">{t.outro.title}</h2>
+        <h2 id="outro-title"><Phrases text={t.outro.title} /></h2>
         <p>{t.outro.body}</p>
         <div class="cta">
           <StoreBadge locale={locale} height={58} />
         </div>
-        <a class="tf" href={TESTFLIGHT_URL} rel="noopener">{t.outro.testflight}<span aria-hidden="true"> →</span></a>
+        <a class="tf" href={TESTFLIGHT_URL} rel="noopener">{t.outro.testflight}<span aria-hidden="true">&nbsp;→</span></a>
       </div>
     </section>
   </main>
@@ -483,19 +483,6 @@ const year = new Date().getFullYear();
     }
   }
 
-  .vertical {
-    position: absolute;
-    top: 3%;
-    right: -3%;
-    z-index: -1;
-    writing-mode: vertical-rl;
-    font-family: 'Hiragino Mincho ProN', 'Noto Serif JP Variable', 'Yu Mincho', serif;
-    font-size: clamp(2.4rem, 5vw, 4.2rem);
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    color: #ffffff;
-    opacity: 0.75;
-  }
 
   .hero-stage :global(.hp) {
     position: absolute;
@@ -578,6 +565,7 @@ const year = new Date().getFullYear();
 
   .vol-label {
     display: flex;
+    white-space: nowrap;
     align-items: center;
     gap: 0.8rem;
     margin-bottom: 1.4rem;
@@ -870,10 +858,10 @@ const year = new Date().getFullYear();
     padding: 0.75rem 1rem;
     border: 1px dashed var(--rule);
     border-radius: 10px;
-    overflow-x: auto;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.76rem;
+    line-height: 1.7;
     color: #f2a066;
   }
 

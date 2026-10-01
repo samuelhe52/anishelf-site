@@ -1,5 +1,5 @@
 ---
-import { strings, type Locale } from '../i18n';
+import { plain, strings, type Locale } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -20,6 +20,11 @@ const lines: { comment: string; cmd: string }[] = [
   { comment: comments[3], cmd: "ani lib stats --json | jq '.scores'" },
 ];
 const t = strings[locale].volumes.terminal;
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const prompt = '<span class="p" aria-hidden="true">$ </span>';
+const body =
+  lines.map((l) => `<span class="c"># ${esc(l.comment)}</span>\n${prompt}${esc(l.cmd)}\n\n`).join('') +
+  `${prompt}<span class="cursor" aria-hidden="true"></span>`;
 ---
 
 <figure class="term">
@@ -27,18 +32,8 @@ const t = strings[locale].volumes.terminal;
     <span></span><span></span><span></span>
     <em>~ — ani</em>
   </div>
-  <pre><code>{
-    lines.map((l) => (
-      <>
-        <span class="c"># {l.comment}</span>
-        {'\n'}
-        <span class="p" aria-hidden="true">$ </span>
-        {l.cmd}
-        {'\n\n'}
-      </>
-    ))
-  }<span class="p" aria-hidden="true">$ </span><span class="cursor" aria-hidden="true"></span></code></pre>
-  <figcaption class="sr-only">{t.title}</figcaption>
+  <pre><code set:html={body} /></pre>
+  <figcaption class="sr-only">{plain(t.title)}</figcaption>
 </figure>
 
 <style>
@@ -94,16 +89,16 @@ const t = strings[locale].volumes.terminal;
     line-height: 1.7;
   }
 
-  .c {
+  pre :global(.c) {
     color: #7f88a8;
     font-family: var(--font-mono), var(--cjk-sans);
   }
 
-  .p {
+  pre :global(.p) {
     color: #f2a066;
   }
 
-  .cursor {
+  pre :global(.cursor) {
     display: inline-block;
     width: 0.6em;
     height: 1.1em;

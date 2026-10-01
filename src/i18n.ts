@@ -16,6 +16,12 @@ export const CONTACT_EMAIL = 'samuelhe52@outlook.com';
 export const X_URL = 'https://x.com/SamuelHe89';
 export const BLOG_URL = 'https://blog.konakona.dev';
 
+/**
+ * CJK headings mark phrase boundaries with `|` so lines only break between
+ * phrases (Safari has no `word-break: auto-phrase`). Strip them for plain text.
+ */
+export const plain = (s: string) => s.replaceAll('|', '');
+
 export const localePath = (locale: Locale) => (locale === 'en' ? '/' : `/${locale}/`);
 
 /** BCP 47 tags used for `lang` and `hreflang`. */
@@ -46,7 +52,6 @@ export type Strings = {
     lede: string;
     testflight: string;
     facts: string[];
-    spine: string;
   };
   shelfLabel: string;
   volumeLabel: (n: number) => string;
@@ -101,7 +106,6 @@ const en: Strings = {
     lede: 'AniShelf is a native library for anime series and films. Track every episode, score and remember what you finish, and get a nudge when the next one airs.',
     testflight: 'Or join the TestFlight beta',
     facts: ['Free', 'No account', 'Open source'],
-    spine: 'アニシェルフ',
   },
   shelfLabel: 'Browse the volumes',
   volumeLabel: (n) => `Vol. ${String(n).padStart(2, '0')}`,
@@ -195,7 +199,7 @@ const en: Strings = {
     apple:
       'Apple, the Apple logo, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.',
     artwork: 'Anime artwork shown in screenshots belongs to its respective rights holders.',
-    madeBy: 'Made by Samuel He.',
+    madeBy: 'Made with care.',
   },
   alt: {
     icon: 'AniShelf app icon',
@@ -227,18 +231,17 @@ const zh: Strings = {
   },
   hero: {
     kicker: '适用于 iPhone 与 iPad · iOS 26',
-    titleLines: ['把看过的', '每一部动画，', '都放上书架。'],
+    titleLines: ['把看过的', '每一部|动画，', '都放上|书架。'],
     lede: 'AniShelf 是一个原生的番剧与动画电影资料库。逐集记录进度，为看完的作品评分、写下感想，新一集播出时还会提醒你。',
     testflight: '或加入 TestFlight 测试版',
     facts: ['免费', '无需注册', '开源'],
-    spine: 'アニシェルフ',
   },
   shelfLabel: '按卷浏览',
   volumeLabel: (n) => `第 ${n} 卷`,
   volumes: {
     collect: {
       spine: '收藏',
-      title: '收好你真正看过的每一部。',
+      title: '收好你|真正看过的|每一部。',
       body: '用中文、英文或日文搜索 TMDb。可以添加整部系列、单独某一季或一部电影；也能粘贴一串标题或 TMDb ID，一次性批量添加。',
       points: [
         '三种浏览方式：海报网格、详细列表和大卡片图库',
@@ -254,7 +257,7 @@ const zh: Strings = {
     },
     remind: {
       spine: '提醒',
-      title: '新一集，不再错过。',
+      title: '新一集，|不再错过。',
       body: '查看连载中番剧的播出时间，并开启提醒。AniShelf 会为每一集新番安排通知，可以提前，也可以准点。',
       now: '现在',
       airsNow: (ep) => `${ep} 正在播出。`,
@@ -263,12 +266,12 @@ const zh: Strings = {
     },
     reflect: {
       spine: '回顾',
-      title: '回头看看整个书架。',
+      title: '回头看看|整个书架。',
       body: '资料库统计会告诉你看完了多少、在看多少、收藏了多少，还能按动画系列、单季和电影分类统计，并显示总观看时长。',
     },
     everywhere: {
       spine: '同步',
-      title: '同一个书架，每台设备。',
+      title: '同一个书架，|每台设备。',
       body: 'iCloud 同步让资料库、观看进度和设置在 iPhone 与 iPad 之间保持一致。在 iPad 上，检查器把详情放在资料库旁边。',
       points: [
         '数据存放在你私有的 iCloud 数据库，无需注册 AniShelf 账号',
@@ -280,7 +283,7 @@ const zh: Strings = {
     },
     terminal: {
       spine: '终端',
-      title: '在命令行里翻看资料库。',
+      title: '在命令行里|翻看资料库。',
       body: 'anishelf-cli 提供 ani 命令，以只读方式访问你已同步的 AniShelf 资料库：在任意终端里列出、搜索、统计，或导出为 JSON。',
       install: '使用 uv 安装',
       agents: '在用 AI 智能体？把 anishelf-cli 的 skill 交给它，它可以自己完成安装。',
@@ -314,7 +317,7 @@ const zh: Strings = {
     ],
   },
   outro: {
-    title: '开始整理你的书架。',
+    title: '开始整理|你的书架。',
     body: '在 App Store 免费下载，支持 iOS 26 及以上版本的 iPhone 与 iPad。',
     testflight: '在 TestFlight 抢先体验新功能',
   },
@@ -327,7 +330,7 @@ const zh: Strings = {
     apple:
       'Apple、Apple 标志、iPhone 和 iPad 是 Apple Inc. 在美国和其他国家/地区注册的商标。App Store 是 Apple Inc. 的服务商标。',
     artwork: '截图中的动画作品图像版权归各自权利人所有。',
-    madeBy: 'Samuel He 制作。',
+    madeBy: '用心制作。',
   },
   alt: {
     icon: 'AniShelf 应用图标',
@@ -359,18 +362,17 @@ const ja: Strings = {
   },
   hero: {
     kicker: 'iPhone・iPad 対応 · iOS 26',
-    titleLines: ['観てきたアニメを、', 'ひとつの本棚に。'],
+    titleLines: ['観てきた|アニメを、', 'ひとつの|本棚に。'],
     lede: 'AniShelf は、アニメシリーズと劇場版のためのネイティブなライブラリ。1話ずつ進捗を残し、観終えた作品にはスコアと感想を。次の話が放送されるときは、そっとお知らせします。',
     testflight: 'TestFlight ベータに参加する',
     facts: ['無料', 'アカウント不要', 'オープンソース'],
-    spine: 'アニシェルフ',
   },
   shelfLabel: '巻ごとに見る',
   volumeLabel: (n) => `第${n}巻`,
   volumes: {
     collect: {
       spine: '集める',
-      title: '本当に観た作品だけの、ライブラリを。',
+      title: '本当に観た|作品だけの、|ライブラリを。',
       body: 'The Movie Database を日本語・英語・中国語で検索。シリーズ全体、特定のシーズン、劇場版を追加できます。タイトルや TMDb ID をまとめて貼り付ければ、一括追加も。',
       points: [
         'グリッド、リスト、大きなカードのギャラリー。3つの表示で眺められます',
@@ -380,13 +382,13 @@ const ja: Strings = {
     },
     track: {
       spine: '記録する',
-      title: '1話ずつ、きちんと。',
+      title: '1話ずつ、|きちんと。',
       body: '作品ごとに、視聴状況、開始日と終了日、エピソードの進捗、スコア、ノートを記録。各話のあらすじやキャスト、TMDb のスコアもすぐに確認できます。',
       statuses: ['見たい', '視聴中', '視聴済', '中断'],
     },
     remind: {
       spine: '知らせる',
-      title: '新しい話を、見逃さない。',
+      title: '新しい話を、|見逃さない。',
       body: '放送中の作品の放送時間を確認して、リマインダーをオンに。新しいエピソードごとに通知を設定します。少し前にも、放送時刻ちょうどにも。',
       now: '今',
       airsNow: (ep) => `${ep}は現在放送中です。`,
@@ -395,12 +397,12 @@ const ja: Strings = {
     },
     reflect: {
       spine: 'ふり返る',
-      title: '本棚全体を、ふり返る。',
+      title: '本棚全体を、|ふり返る。',
       body: 'ライブラリの統計で、観終えた作品、視聴中の作品、お気に入りの数がひと目でわかります。シリーズ・シーズン・映画の内訳と、合計の再生時間も確認できます。',
     },
     everywhere: {
       spine: '同期',
-      title: 'どのデバイスでも、同じ本棚。',
+      title: 'どのデバイスでも、|同じ本棚。',
       body: 'iCloud同期で、ライブラリ、進捗、設定を iPhone と iPad で同じ状態に保ちます。iPad ではインスペクタで、ライブラリの横に詳細を表示できます。',
       points: [
         'データはあなた専用の iCloud データベースに保存。AniShelf のアカウントは不要',
@@ -412,7 +414,7 @@ const ja: Strings = {
     },
     terminal: {
       spine: 'ターミナル',
-      title: 'ライブラリを、コマンドラインから。',
+      title: 'ライブラリを、|コマンドラインから。',
       body: 'anishelf-cli は ani コマンドで、同期済みの AniShelf ライブラリを読み取り専用で扱えます。どのターミナルからでも一覧・検索・統計、JSON へのエクスポートが可能です。',
       install: 'uv でインストール',
       agents:
@@ -444,7 +446,7 @@ const ja: Strings = {
     ],
   },
   outro: {
-    title: 'あなたの本棚を、はじめよう。',
+    title: 'あなたの本棚を、|はじめよう。',
     body: 'App Store で無料。iOS 26 以降の iPhone・iPad に対応しています。',
     testflight: 'TestFlight で新機能をいち早く',
   },
@@ -457,7 +459,7 @@ const ja: Strings = {
     apple:
       'Apple、Appleのロゴ、iPhone、iPad は、米国およびその他の国や地域で登録された Apple Inc. の商標です。App Store は Apple Inc. のサービスマークです。',
     artwork: 'スクリーンショット内のアニメ画像の権利は、各権利者に帰属します。',
-    madeBy: 'Samuel He が制作。',
+    madeBy: '心を込めて制作。',
   },
   alt: {
     icon: 'AniShelf のアプリアイコン',

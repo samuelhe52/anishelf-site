@@ -1,0 +1,15 @@
+---
+interface Props {
+  text: string;
+}
+
+const parts = Astro.props.text.split('|');
+---
+
+{parts.length === 1 ? parts[0] : parts.map((p) => <span class="ph">{p}</span>)}
+
+<style>
+  .ph {
+    display: inline-block;
+  }
+</style>
