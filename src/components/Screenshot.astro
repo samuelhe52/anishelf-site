@@ -16,6 +16,12 @@ interface Props {
 const { src, dark, alt, widths, sizes, loading = 'lazy', fetchpriority = 'auto' } = Astro.props;
 
 /*
+ * AVIF's scale runs lower than WebP/JPEG's, so it gets a lower number for a
+ * similar look. Hero images (fetchpriority high) get a higher AVIF number.
+ */
+const quality = fetchpriority === 'high' ? { avif: 70, webp: 85, jpg: 85 } : { avif: 64, webp: 85, jpg: 85 };
+
+/*
  * Astro's <Picture> can't put a media query on its sources, so this builds the
  * same AVIF → WebP → JPEG ladder per theme. The browser takes the first
  * matching source, so it downloads only the screenshot for the active theme.
@@ -23,7 +29,7 @@ const { src, dark, alt, widths, sizes, loading = 'lazy', fetchpriority = 'auto' 
 const ladder = (image: ImageMetadata) =>
   Promise.all(
     (['avif', 'webp', 'jpg'] as const).map(async (format) => ({
-      image: await getImage({ src: image, format, widths, sizes }),
+      image: await getImage({ src: image, format, widths, sizes, quality: quality[format] }),
       type: `image/${format === 'jpg' ? 'jpeg' : format}`,
     })),
   );
