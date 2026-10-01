@@ -5,6 +5,7 @@ import Tablet from './Tablet.astro';
 import StoreBadge from './StoreBadge.astro';
 import LangSwitch from './LangSwitch.astro';
 import Petals from './Petals.astro';
+import SkyScene from './SkyScene.astro';
 import Shelf from './Shelf.astro';
 import ReminderMock from './ReminderMock.astro';
 import ExportFormats from './ExportFormats.astro';
@@ -84,6 +85,10 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="hero-stage">
+        <div class="hero-sky">
+          <SkyScene seed={7} stars={60} />
+          <div class="hero-moon" aria-hidden="true"></div>
+        </div>
         <Petals count={14} fade="edges" />
         <div class="hero-devices">
           <Phone class="hp hp-left" {...screens.detail} alt={t.alt.detail} sizes="(min-width: 960px) 210px, 34vw" eager />
@@ -237,8 +242,11 @@ const year = new Date().getFullYear();
     <!-- Outro -->
     <section class="outro wrap" id="download" aria-labelledby="outro-title">
       <div class="sky">
+        <SkyScene seed={23} />
         <Petals count={8} seed={23} />
-        <BrandIcon class="outro-icon" size={168} alt={t.alt.icon} lazy />
+        <div class="halo">
+          <BrandIcon class="outro-icon" size={168} alt={t.alt.icon} lazy />
+        </div>
         <h2 id="outro-title"><Phrases text={t.outro.title} /></h2>
         <p>{t.outro.body}</p>
         <div class="cta">
@@ -510,25 +518,39 @@ const year = new Date().getFullYear();
     isolation: isolate;
   }
 
-  /* Day sky behind the phones, echoing the app icon. */
-  .hero-stage::before {
-    content: '';
+  /* Day or night sky behind the phones, echoing the app icon. */
+  .hero-sky {
     position: absolute;
     inset: 4% -6% 3% 2%;
     z-index: -2;
+    isolation: isolate;
     border-radius: 48% 52% 40% 60% / 55% 45% 55% 45%;
-    background:
-      radial-gradient(circle at 30% 25%, #ffffffb0 0 6%, transparent 30%),
-      linear-gradient(160deg, #9fd4f3, #4aa9e2 55%, #2e8fd0);
-    filter: saturate(1.05);
-    opacity: 0.9;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12);
+  }
+
+  /* Sun by day, moon by night, with the faint rings of a halo. */
+  .hero-moon {
+    position: absolute;
+    top: 9%;
+    right: 15%;
+    width: 13%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 45%, #fffaf0);
+    box-shadow:
+      0 0 0 1.4rem rgb(255 255 255 / 0.2),
+      0 0 0 3.2rem rgb(255 255 255 / 0.1),
+      0 0 90px 40px rgb(255 255 255 / 0.6);
   }
 
   @media (prefers-color-scheme: dark) {
-    .hero-stage::before {
-      background:
-        radial-gradient(circle at 70% 22%, #f6c98f55 0 4%, transparent 22%),
-        linear-gradient(160deg, #26306a, #151c45 60%, #0e1333);
+    .hero-moon {
+      background: radial-gradient(circle at 36% 34%, #fff4dc, #f6d9a6 55%, #d9b27a);
+      box-shadow:
+        inset -10px -8px 18px rgb(120 80 60 / 0.35),
+        0 0 0 1.4rem rgb(246 201 143 / 0.07),
+        0 0 0 3.2rem rgb(246 201 143 / 0.035),
+        0 0 60px 18px rgb(246 201 143 / 0.28);
     }
   }
 
@@ -1064,18 +1086,19 @@ const year = new Date().getFullYear();
     border-radius: clamp(24px, 4vw, 40px);
     overflow: hidden;
     text-align: center;
-    background:
-      radial-gradient(circle at 20% 15%, #ffffffa0 0 4%, transparent 26%),
-      linear-gradient(180deg, #7cc4ef, #bfe2f6 55%, var(--paper));
     color: #17203a;
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.18),
+      var(--shadow-2);
   }
 
   @media (prefers-color-scheme: dark) {
     .sky {
-      background:
-        radial-gradient(circle at 78% 18%, #f6c98f40 0 3%, transparent 20%),
-        linear-gradient(180deg, #232c63, #171e47 60%, var(--paper));
       color: var(--ink);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.1),
+        inset 0 0 0 1px rgb(255 255 255 / 0.06),
+        var(--shadow-2);
     }
   }
 
@@ -1083,11 +1106,40 @@ const year = new Date().getFullYear();
     z-index: -1;
   }
 
+  /* The icon rises like a moon, with a soft glow around it. */
+  .halo {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .halo::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .halo::before {
+    inset: -55%;
+    background: radial-gradient(closest-side, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0) 70%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .halo::before {
+      background: radial-gradient(closest-side, rgb(246 201 143 / 0.28), rgb(246 201 143 / 0) 70%);
+    }
+  }
+
   .sky :global(.outro-icon img) {
+    display: block;
     width: clamp(110px, 14vw, 168px);
     height: auto;
     border-radius: 22.37%;
-    box-shadow: 0 30px 50px -20px rgb(23 32 58 / 0.55);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.25),
+      0 30px 50px -20px rgb(23 32 58 / 0.55);
   }
 
   .sky h2 {

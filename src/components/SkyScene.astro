@@ -1,0 +1,143 @@
+---
+/**
+ * The sky behind the hero phones and the outro: day sky with drifting clouds
+ * in light mode, starry night in dark mode, both with a warm horizon glow and
+ * a little film grain so the gradients don't read as flat fills. Fills its
+ * nearest positioned ancestor and clips to its border radius.
+ */
+interface Props {
+  class?: string;
+  seed?: number;
+  stars?: number;
+}
+
+const { class: className, seed = 11, stars: count = 70 } = Astro.props;
+
+// Deterministic so builds are reproducible. Stars thin out toward the horizon.
+let state = seed;
+const rand = () => {
+  state = (state * 9301 + 49297) % 233280;
+  return state / 233280;
+};
+
+const stars = Array.from({ length: count }, (_, i) => {
+  const y = Math.pow(rand(), 1.5) * 560;
+  return {
+    x: Math.round(rand() * 1000),
+    y: Math.round(y),
+    r: (0.7 + rand() * 1.4).toFixed(1),
+    o: ((0.35 + rand() * 0.65) * (1 - y / 700)).toFixed(2),
+    twinkle: i % 6 === 0,
+    delay: `${(-rand() * 6).toFixed(1)}s`,
+  };
+});
+---
+
+<div class:list={['scene', className]} aria-hidden="true">
+  <svg class="stars" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice">
+    {stars.map((s) => <circle cx={s.x} cy={s.y} r={s.r} opacity={s.o} class:list={{ twinkle: s.twinkle }} style={`animation-delay:${s.delay}`} />)}
+  </svg>
+  <div class="clouds"><i></i><i></i><i></i><i></i></div>
+</div>
+
+<style>
+  .scene {
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E") 0 0 / 160px;
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    border-radius: inherit;
+    /*
+     * Safari can leave composited children (the drifting clouds) unclipped by
+     * a rounded overflow. An opaque mask makes it clip them to the radius.
+     */
+    isolation: isolate;
+    -webkit-mask-image: linear-gradient(#000, #000);
+    mask-image: linear-gradient(#000, #000);
+    /* Film grain sits in the background, not a blended child, for the same reason. */
+    background:
+      var(--grain),
+      /* Warm horizon. */
+      radial-gradient(120% 55% at 50% 108%, #ffe2bfcc, #ffd9b200 70%),
+      linear-gradient(180deg, #5fb3e8, #8fcbef 45%, #cfe6f2 78%, #f6e6cf);
+    background-blend-mode: overlay, normal, normal;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .scene {
+      background:
+        var(--grain),
+        /* Last light on the horizon, picking up the petals. */
+        radial-gradient(120% 50% at 50% 112%, #f2a0667a, #c56f7a33 45%, transparent 75%),
+        linear-gradient(180deg, #1a2153, #262f6b 55%, #3a3a78 85%, #4a3f74);
+    }
+  }
+
+  .stars {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: #fff6e6;
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .stars {
+      display: block;
+    }
+  }
+
+  .twinkle {
+    animation: twinkle 4.5s ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    50% {
+      opacity: 0.15;
+    }
+  }
+
+  /* Soft cloud banks along the horizon, light mode only. */
+  .clouds {
+    position: absolute;
+    inset: auto -10% 0;
+    height: 45%;
+  }
+
+  .clouds i {
+    position: absolute;
+    bottom: var(--b);
+    left: var(--l);
+    width: var(--w);
+    aspect-ratio: 3.4;
+    background: radial-gradient(closest-side, #fffaf1, #fffaf1cc 45%, #fffaf100);
+    opacity: 0.85;
+    animation: drift 40s ease-in-out infinite alternate;
+  }
+
+  .clouds i:nth-child(1) { --l: -4%; --b: 4%; --w: 46%; }
+  .clouds i:nth-child(2) { --l: 30%; --b: -8%; --w: 42%; animation-duration: 52s; }
+  .clouds i:nth-child(3) { --l: 62%; --b: 8%; --w: 44%; animation-duration: 46s; }
+  .clouds i:nth-child(4) { --l: 14%; --b: 28%; --w: 22%; opacity: 0.45; animation-duration: 60s; }
+
+  @keyframes drift {
+    to {
+      translate: 4% 0;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .clouds {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .twinkle,
+    .clouds i {
+      animation: none;
+    }
+  }
+</style>
