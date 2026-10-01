@@ -300,7 +300,7 @@ const zh: Strings = {
       install: '使用 uv 安装',
       copy: '复制',
       copied: '已复制',
-      agents: '在用 AI 智能体？把 anishelf-cli 的 skill 交给它，它可以自己完成安装。',
+      agents: '在用 AI Agent？把 anishelf-cli 的 skill 交给它，它可以自己完成安装。',
       readOnly: '设计上只读，ani 不会改动你的资料库。',
     },
   },
