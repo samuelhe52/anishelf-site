@@ -86,9 +86,11 @@ const year = new Date().getFullYear();
 
       <div class="hero-stage">
         <Petals count={10} />
-        <Phone class="hp hp-left" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 210px, 34vw" eager />
-        <Phone class="hp hp-right" src={stats} alt={t.alt.stats} sizes="(min-width: 960px) 200px, 32vw" eager />
-        <Phone class="hp hp-center" src={grid} alt={t.alt.grid} sizes="(min-width: 960px) 250px, 40vw" eager />
+        <div class="hero-devices">
+          <Phone class="hp hp-left" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 210px, 34vw" eager />
+          <Phone class="hp hp-right" src={stats} alt={t.alt.stats} sizes="(min-width: 960px) 200px, 32vw" eager />
+          <Phone class="hp hp-center" src={grid} alt={t.alt.grid} sizes="(min-width: 960px) 250px, 40vw" eager />
+        </div>
         <div class="hero-plank" aria-hidden="true"></div>
       </div>
     </section>
@@ -483,6 +485,13 @@ const year = new Date().getFullYear();
   }
 
 
+  /* The phones stand in the plank: nothing shows below its top edge. */
+  .hero-devices {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(-30% -30% 4% -30%);
+  }
+
   .hero-stage :global(.hp) {
     position: absolute;
     bottom: 4%;
@@ -533,6 +542,22 @@ const year = new Date().getFullYear();
     .hero-stage {
       width: min(100%, 560px);
       margin-inline: auto;
+    }
+  }
+
+  /* Keep the fanned phones, sky, and plank clear of the screen edges. */
+  @media (max-width: 600px) {
+    .hero-stage::before {
+      inset-inline: 3% -2%;
+    }
+
+    .hero-devices {
+      inset-inline: 4%;
+    }
+
+    .hero-plank {
+      left: -2%;
+      right: -2%;
     }
   }
 
