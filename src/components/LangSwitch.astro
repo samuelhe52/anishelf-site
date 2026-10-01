@@ -65,3 +65,18 @@ const { locale } = Astro.props;
     color: var(--paper);
   }
 </style>
+
+<script>
+  // Open the other language at the section being read, not the top.
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]')) {
+    link.addEventListener('click', () => {
+      const line = innerHeight * 0.3;
+      let current = '';
+      for (const section of document.querySelectorAll('main > [id]')) {
+        if (section.getBoundingClientRect().top > line) break;
+        current = section.id;
+      }
+      link.hash = current;
+    });
+  }
+</script>

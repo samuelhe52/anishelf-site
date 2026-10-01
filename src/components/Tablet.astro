@@ -1,6 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Picture } from 'astro:assets';
+import hardware from '../assets/devices/ipad-pro-13.png';
 
 interface Props {
   src: ImageMetadata;
@@ -14,32 +15,74 @@ const { src, alt, sizes, class: className } = Astro.props;
 
 <figure class:list={['tablet', className]}>
   <Picture
-    src={src}
-    alt={alt}
+    src={hardware}
+    alt=""
     formats={['avif', 'webp']}
-    widths={[640, 960, 1400, 2000]}
+    widths={[640, 1100, 1600, 2314]}
     sizes={sizes}
     loading="lazy"
     decoding="async"
+    aria-hidden="true"
   />
+  <div class="screen">
+    <Picture
+      src={src}
+      alt={alt}
+      formats={['avif', 'webp']}
+      widths={[640, 960, 1400, 2000]}
+      sizes={sizes}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
 </figure>
 
 <style>
+  /*
+   * Apple's 13-inch iPad Pro (M4) render, turned to landscape: 2314×1773, with
+   * the display 76px from the left, 72px from the right, and 74px from the top
+   * and bottom. It is exactly the screenshots' 2752×2064 shape.
+   */
   .tablet {
+    position: relative;
     margin: 0;
-    aspect-ratio: 2752 / 2064;
-    padding: 1.7%;
-    background: var(--bezel);
-    border-radius: 4.6% / 6.1%;
-    box-shadow:
-      var(--shadow-2),
-      inset 0 0 0 1.5px rgb(255 255 255 / 0.14);
+    aspect-ratio: 2314 / 1773;
   }
 
-  .tablet :global(img) {
+  .tablet :global(picture) {
+    display: block;
+    height: 100%;
+  }
+
+  .tablet > :global(picture:first-child) {
+    position: absolute;
+    inset: 0;
+  }
+
+  .tablet > :global(picture:first-child img) {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 2px 3px rgb(23 32 58 / 0.12)) drop-shadow(0 26px 24px rgb(23 32 58 / 0.24));
+  }
+
+  /* Masked with the render's own display outline. */
+  .screen {
+    position: absolute;
+    inset: 4.17% 3.11% 4.17% 3.28%;
+    background: #000;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='76 74 2166 1625' preserveAspectRatio='none'%3E%3Cpath d='M 2166.1 1699 C 2194.04 1699 2208 1699 2218.48 1693.13 C 2225.88 1688.99 2231.99 1682.88 2236.13 1675.48 C 2242 1665 2242 1651.04 2242 1623.1 L 2242 149.9 C 2242 121.96 2242 108 2236.13 97.52 C 2231.99 90.12 2225.88 84.01 2218.48 79.87 C 2208 74 2194.04 74 2166.1 74 L 151.9 74 C 123.96 74 110 74 99.52 79.87 C 92.12 84.01 86.01 90.12 81.87 97.52 C 76 108 76 121.96 76 149.9 L 76 1623.1 C 76 1651.04 76 1665 81.87 1675.48 C 86.01 1682.88 92.12 1688.99 99.52 1693.13 C 110 1699 123.96 1699 151.9 1699 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='76 74 2166 1625' preserveAspectRatio='none'%3E%3Cpath d='M 2166.1 1699 C 2194.04 1699 2208 1699 2218.48 1693.13 C 2225.88 1688.99 2231.99 1682.88 2236.13 1675.48 C 2242 1665 2242 1651.04 2242 1623.1 L 2242 149.9 C 2242 121.96 2242 108 2236.13 97.52 C 2231.99 90.12 2225.88 84.01 2218.48 79.87 C 2208 74 2194.04 74 2166.1 74 L 151.9 74 C 123.96 74 110 74 99.52 79.87 C 92.12 84.01 86.01 90.12 81.87 97.52 C 76 108 76 121.96 76 149.9 L 76 1623.1 C 76 1651.04 76 1665 81.87 1675.48 C 86.01 1682.88 92.12 1688.99 99.52 1693.13 C 110 1699 123.96 1699 151.9 1699 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+  }
+
+  .screen :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 3.2% / 4.3%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .tablet > :global(picture:first-child img) {
+      filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.35)) drop-shadow(0 26px 24px rgb(0 0 0 / 0.55));
+    }
   }
 </style>

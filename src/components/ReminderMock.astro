@@ -1,14 +1,17 @@
 ---
 import { Image } from 'astro:assets';
+import Phone from './Phone.astro';
 import iconLight from '../assets/brand/icon-light.png';
 import iconDark from '../assets/brand/icon-dark.png';
+import statusIcons from '../assets/devices/status-bar-icons.png';
 import { plain, strings, type Locale } from '../i18n';
 
 interface Props {
   locale: Locale;
+  class?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, class: className } = Astro.props;
 const r = strings[locale].volumes.remind;
 
 // Titles mirror entries visible in the app screenshots.
@@ -19,75 +22,112 @@ const items = [
 ];
 ---
 
-<div class="lock" role="img" aria-label={`${plain(r.title)} ${items.map((i) => `${i.title}: ${i.body}`).join(' ')}`}>
-  <Image class="wall" src={iconDark} alt="" widths={[480, 900]} sizes="(min-width: 900px) 420px, 90vw" loading="lazy" />
-  <div class="clock" aria-hidden="true">
-    <span class="date">{locale === 'en' ? 'Saturday, August 8' : locale === 'zh' ? '8月8日 星期六' : '8月8日(土)'}</span>
-    <span class="time">23:15</span>
-  </div>
-  <ul class="stack" aria-hidden="true">
-    {
-      items.map((n, i) => (
-        <li class="note" style={`--i:${i}`}>
-          <Image class="app" src={iconLight} alt="" width={64} height={64} />
-          <div class="text">
-            <div class="head">
-              <strong>{n.title}</strong>
-              <span>{n.time}</span>
+<Phone class={className}>
+  <div class="lock" role="img" aria-label={`${plain(r.title)} ${items.map((i) => `${i.title}: ${i.body}`).join(' ')}`}>
+    <Image class="wall" src={iconDark} alt="" widths={[480, 900]} sizes="(min-width: 900px) 320px, 80vw" loading="lazy" />
+    <Image class="status" src={statusIcons} alt="" aria-hidden="true" />
+    <div class="clock" aria-hidden="true">
+      <span class="date">{r.lockDate}</span>
+      <span class="time">23:15</span>
+    </div>
+    <ul class="stack" aria-hidden="true">
+      {
+        items.map((n, i) => (
+          <li class="note" style={`--i:${i}`}>
+            <Image class="app" src={iconLight} alt="" width={76} height={76} />
+            <div class="text">
+              <div class="head">
+                <strong>{n.title}</strong>
+                <span>{n.time}</span>
+              </div>
+              <p>{n.body}</p>
             </div>
-            <p>{n.body}</p>
-          </div>
-        </li>
-      ))
-    }
-  </ul>
-</div>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="controls" aria-hidden="true">
+      <span>
+        <svg viewBox="0 0 24 24">
+          <path
+            fill-rule="evenodd"
+            d="M6.5 2h11v3.6l-2.3 3.6v11.3a1.5 1.5 0 0 1-1.5 1.5h-3.4a1.5 1.5 0 0 1-1.5-1.5V9.2L6.5 5.6zM12 11.6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"
+          />
+        </svg>
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24">
+          <path
+            fill-rule="evenodd"
+            d="M4.3 7h2.9l1.4-1.9c.3-.4.7-.6 1.2-.6h4.4c.5 0 .9.2 1.2.6L16.8 7h2.9c1 0 1.8.8 1.8 1.8v9.4c0 1-.8 1.8-1.8 1.8H4.3c-1 0-1.8-.8-1.8-1.8V8.8c0-1 .8-1.8 1.8-1.8zM12 9.4a3.9 3.9 0 1 0 0 7.8 3.9 3.9 0 0 0 0-7.8z"
+          />
+        </svg>
+      </span>
+    </div>
+    <span class="home" aria-hidden="true"></span>
+  </div>
+</Phone>
 
 <style>
+  /* Laid out in iOS points on the 402pt-wide display. */
   .lock {
-    position: relative;
+    --pt: calc(100cqw / 402);
+    position: absolute;
+    inset: 0;
     isolation: isolate;
-    width: min(100%, 360px);
-    aspect-ratio: 9 / 16.5;
-    margin-inline: auto;
-    padding: 1.4rem 0.9rem;
-    border-radius: 44px;
-    overflow: hidden;
-    background: #11152b;
-    box-shadow:
-      var(--shadow-2),
-      0 0 0 9px var(--bezel);
+    view-timeline: --lock;
     color: #fff;
     font-family: -apple-system, 'SF Pro Text', var(--font-body);
   }
 
   .wall {
     position: absolute;
-    inset: -8%;
+    inset: 0;
     z-index: -1;
-    width: 116%;
-    height: 116%;
+    width: 100%;
+    max-width: none;
+    height: 100%;
     object-fit: cover;
-    filter: saturate(1.15) brightness(0.8);
+    object-position: 40% 50%;
+    scale: 1.06;
+    filter: saturate(1.15) brightness(0.82);
+  }
+
+  /*
+   * Signal, Wi-Fi, and battery from the iOS status bar export, recolored
+   * white. They sit at x 722-923 and y 63-97 of the 1009×2193 display, level
+   * with the Dynamic Island. The Lock Screen shows no time in the status bar.
+   */
+  .status {
+    position: absolute;
+    top: calc(63 / 2193 * 100cqh);
+    left: calc(722 / 1009 * 100cqw);
+    width: calc(201 / 1009 * 100cqw);
+    height: auto;
+    max-width: none;
+    filter: brightness(0) invert(1);
   }
 
   .clock {
+    position: absolute;
+    top: calc(70 * var(--pt));
+    inset-inline: 0;
     display: grid;
     justify-items: center;
-    margin-top: 0.6rem;
-    text-shadow: 0 1px 12px rgb(0 0 0 / 0.25);
+    text-shadow: 0 1px calc(12 * var(--pt)) rgb(0 0 0 / 0.25);
   }
 
   .date {
-    font-size: 0.95rem;
+    font-size: calc(19 * var(--pt));
     font-weight: 600;
+    line-height: 1.3;
     opacity: 0.9;
   }
 
   .time {
     font-family: 'Fraunces Variable', serif;
     font-variation-settings: 'SOFT' 100, 'opsz' 144;
-    font-size: clamp(4rem, 13vw, 5.4rem);
+    font-size: calc(104 * var(--pt));
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.02em;
@@ -95,9 +135,9 @@ const items = [
 
   .stack {
     position: absolute;
-    inset: auto 0.75rem 1.4rem;
+    inset: auto calc(10 * var(--pt)) calc(136 * var(--pt));
     display: grid;
-    gap: 0.5rem;
+    gap: calc(8 * var(--pt));
     margin: 0;
     padding: 0;
     list-style: none;
@@ -105,29 +145,29 @@ const items = [
 
   .note {
     display: grid;
-    grid-template-columns: 38px 1fr;
-    gap: 0.7rem;
+    grid-template-columns: calc(38 * var(--pt)) minmax(0, 1fr);
+    gap: calc(10 * var(--pt));
     align-items: center;
-    padding: 0.75rem 0.85rem;
-    border-radius: 22px;
+    padding: calc(13 * var(--pt)) calc(15 * var(--pt)) calc(13 * var(--pt)) calc(13 * var(--pt));
+    border-radius: calc(24 * var(--pt));
     background: rgb(245 240 255 / 0.2);
     backdrop-filter: blur(22px) saturate(1.6);
     -webkit-backdrop-filter: blur(22px) saturate(1.6);
     box-shadow: inset 0 0 0 0.5px rgb(255 255 255 / 0.25);
-    font-size: 0.86rem;
+    font-size: calc(15 * var(--pt));
     line-height: 1.3;
   }
 
   .app {
-    width: 38px;
-    height: 38px;
-    border-radius: 9px;
+    width: 100%;
+    height: auto;
+    border-radius: 22.37%;
   }
 
   .head {
     display: flex;
     justify-content: space-between;
-    gap: 0.5rem;
+    gap: calc(8 * var(--pt));
   }
 
   .head strong {
@@ -140,19 +180,55 @@ const items = [
 
   .head span {
     flex: none;
+    font-size: calc(13 * var(--pt));
     opacity: 0.65;
-    font-size: 0.78rem;
   }
 
   .text p {
     opacity: 0.92;
   }
 
+  /* Flashlight and camera. */
+  .controls {
+    position: absolute;
+    inset: auto calc(47 * var(--pt)) calc(44 * var(--pt));
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .controls span {
+    display: grid;
+    place-items: center;
+    width: calc(50 * var(--pt));
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgb(20 22 40 / 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .controls svg {
+    width: calc(24 * var(--pt));
+    fill: currentColor;
+  }
+
+  .home {
+    position: absolute;
+    bottom: calc(8 * var(--pt));
+    left: 50%;
+    width: calc(140 * var(--pt));
+    height: calc(5 * var(--pt));
+    border-radius: 999px;
+    translate: -50% 0;
+    background: #fff;
+  }
+
+  /* Newest first, each one landing as the phone scrolls fully into view. */
   @supports (animation-timeline: view()) {
     .note {
       animation: drop linear both;
-      animation-timeline: view();
-      animation-range: entry calc(10% + var(--i) * 8%) cover calc(35% + var(--i) * 8%);
+      animation-timeline: --lock;
+      animation-range: entry calc(58% + var(--i) * 9%) entry calc(82% + var(--i) * 9%);
     }
   }
 

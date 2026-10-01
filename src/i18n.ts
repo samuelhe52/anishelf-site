@@ -59,6 +59,8 @@ export type Strings = {
     collect: Volume;
     track: Volume & { statuses: [string, string, string, string] };
     remind: Volume & {
+      /** Lock Screen date in the reminder mockup, in the system's own format. */
+      lockDate: string;
       now: string;
       airsNow: (episode: string) => string;
       airsIn: (episode: string, minutes: number) => string;
@@ -66,7 +68,14 @@ export type Strings = {
     };
     reflect: Volume;
     everywhere: Volume & { exportLabel: string };
-    terminal: Volume & { install: string; agents: string; readOnly: string };
+    terminal: Volume & {
+      install: string;
+      /** Copy button on the install command, then its label once copied. */
+      copy: string;
+      copied: string;
+      agents: string;
+      readOnly: string;
+    };
   };
   notes: {
     title: string;
@@ -129,6 +138,7 @@ const en: Strings = {
       spine: 'Remind',
       title: 'Never miss the new episode.',
       body: 'See broadcast times for currently airing shows, then turn on reminders. AniShelf schedules a notification for each new episode, early or right on time.',
+      lockDate: 'Saturday, August 8',
       now: 'now',
       airsNow: (ep) => `${ep} is airing now.`,
       airsIn: (ep, m) => `${ep} airs in ${m} minutes.`,
@@ -155,6 +165,8 @@ const en: Strings = {
       title: 'Your library, from the command line.',
       body: 'anishelf-cli gives you the ani command: read-only access to your synced AniShelf library. List, search, summarize, and export it as JSON from any terminal.',
       install: 'Install with uv',
+      copy: 'Copy',
+      copied: 'Copied',
       agents:
         'Working with an AI agent? Point it to the anishelf-cli skill and it can set itself up.',
       readOnly: 'Read-only by design. ani never writes back to your library.',
@@ -256,6 +268,7 @@ const zh: Strings = {
       spine: '提醒',
       title: '新一集，|不再错过。',
       body: '查看连载中番剧的播出时间，并开启提醒。AniShelf 会为每一集新番安排通知，可以提前，也可以准点。',
+      lockDate: '8月8日 星期六',
       now: '现在',
       airsNow: (ep) => `${ep} 正在播出。`,
       airsIn: (ep, m) => `${ep} 将在 ${m} 分钟后播出。`,
@@ -282,6 +295,8 @@ const zh: Strings = {
       title: '在命令行里|翻看资料库。',
       body: 'anishelf-cli 提供 ani 命令，以只读方式访问你已同步的 AniShelf 资料库：在任意终端里列出、搜索、统计，或导出为 JSON。',
       install: '使用 uv 安装',
+      copy: '复制',
+      copied: '已复制',
       agents: '在用 AI 智能体？把 anishelf-cli 的 skill 交给它，它可以自己完成安装。',
       readOnly: '设计上只读，ani 不会改动你的资料库。',
     },
@@ -385,6 +400,7 @@ const ja: Strings = {
       spine: '知らせる',
       title: '新しい話を、|見逃さない。',
       body: '放送中の作品の放送時間を確認して、リマインダーをオンに。新しいエピソードごとに通知を設定します。少し前にも、放送時刻ちょうどにも。',
+      lockDate: '8月8日(土)',
       now: '今',
       airsNow: (ep) => `${ep}は現在放送中です。`,
       airsIn: (ep, m) => `${ep}は${m}分後に放送されます。`,
@@ -411,6 +427,8 @@ const ja: Strings = {
       title: 'ライブラリを、|コマンドラインから。',
       body: 'anishelf-cli は ani コマンドで、同期済みの AniShelf ライブラリを読み取り専用で扱えます。どのターミナルからでも一覧・検索・統計、JSON へのエクスポートが可能です。',
       install: 'uv でインストール',
+      copy: 'コピー',
+      copied: 'コピーしました',
       agents:
         'AI エージェントと一緒に使うなら、anishelf-cli のスキルを渡すだけでセットアップできます。',
       readOnly: '読み取り専用の設計。ani がライブラリを書き換えることはありません。',

@@ -90,13 +90,21 @@ const heights = [15.5, 17, 14.5, 16.5, 15, 17.5];
     color: #1d2238;
   }
 
-  /* Pulling a book off the shelf. */
-  .spine:hover,
+  /* Pulling a book off the shelf. Touch screens would leave it pulled after a tap. */
   .spine:focus-visible {
     transform: translateY(-1.1rem);
     box-shadow:
       inset 0 0 0 1px rgb(0 0 0 / 0.06),
       0 18px 26px -14px rgb(23 32 58 / 0.55);
+  }
+
+  @media (hover: hover) {
+    .spine:hover {
+      transform: translateY(-1.1rem);
+      box-shadow:
+        inset 0 0 0 1px rgb(0 0 0 / 0.06),
+        0 18px 26px -14px rgb(23 32 58 / 0.55);
+    }
   }
 
   .no {
@@ -185,14 +193,15 @@ const heights = [15.5, 17, 14.5, 16.5, 15, 17.5];
     box-shadow: 0 16px 24px -12px rgb(23 32 58 / 0.45);
   }
 
+  /* Scale every spine, not just the tallest, so the row stays uneven. */
   @media (max-width: 640px) {
     .row {
-      height: 15rem;
+      height: calc(17.5rem * 0.8);
       padding-left: 0;
     }
 
     li {
-      height: calc(min(var(--h), 100%) * 0.84);
+      height: calc(var(--h) * 0.8);
     }
 
     .filler,

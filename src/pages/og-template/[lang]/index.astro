@@ -35,9 +35,11 @@ const t = strings[locale];
     </div>
     <div class="stage">
       <Petals count={7} seed={11} />
-      <Phone class="p p-left" src={detail} alt="" sizes="220px" eager />
-      <Phone class="p p-right" src={stats} alt="" sizes="210px" eager />
-      <Phone class="p p-center" src={grid} alt="" sizes="250px" eager />
+      <div class="devices">
+        <Phone class="p p-left" src={detail} alt="" sizes="220px" eager />
+        <Phone class="p p-right" src={stats} alt="" sizes="210px" eager />
+        <Phone class="p p-center" src={grid} alt="" sizes="250px" eager />
+      </div>
       <div class="plank"></div>
     </div>
   </div>
@@ -150,30 +152,37 @@ const t = strings[locale];
       linear-gradient(160deg, #9fd4f3, #4aa9e2 55%, #2e8fd0);
   }
 
+  /* As in the hero, the phones stand in the plank, whose top is 52px up. */
+  .devices {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(-60px -60px 52px -60px);
+  }
+
   .stage :global(.p) {
     position: absolute;
+    bottom: 52px;
   }
 
   .stage :global(.p-center) {
-    top: 88px;
     left: 175px;
     width: 200px;
     z-index: 3;
   }
 
   .stage :global(.p-left) {
-    top: 148px;
     left: 30px;
     width: 172px;
     z-index: 2;
+    transform-origin: bottom right;
     rotate: -7deg;
   }
 
   .stage :global(.p-right) {
-    top: 168px;
-    left: 352px;
+    left: 342px;
     width: 162px;
     z-index: 1;
+    transform-origin: bottom left;
     rotate: 5deg;
   }
 
