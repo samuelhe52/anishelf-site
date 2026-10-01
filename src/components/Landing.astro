@@ -125,9 +125,19 @@ const year = new Date().getFullYear();
           <p class="mono vol-label"><b>{label(2)}</b><i></i>{v.track.spine}</p>
           <h2 id={`${ids[1]}-title`}><Phrases text={v.track.title} /></h2>
           <p class="body">{v.track.body}</p>
-          <ul class="statuses">
-            {v.track.statuses.map((s, i) => <li data-status={i}>{s}</li>)}
-          </ul>
+          <div class="statuses" role="list">
+            {
+              [0, 2].map((start) => (
+                <span class="pair">
+                  {v.track.statuses.slice(start, start + 2).map((s, i) => (
+                    <span role="listitem" data-status={start + i}>
+                      {s}
+                    </span>
+                  ))}
+                </span>
+              ))
+            }
+          </div>
         </div>
         <div class="duo">
           <Phone class="d1" src={detail} alt={t.alt.detail} sizes="(min-width: 960px) 250px, 42vw" />
@@ -786,16 +796,19 @@ const year = new Date().getFullYear();
     translate: 0 12%;
   }
 
-  .statuses {
+  /* Chips wrap in pairs, so a narrow column gets 2 + 2 rather than 3 + 1. */
+  .statuses,
+  .pair {
     display: flex;
     flex-wrap: wrap;
     gap: 0.55rem;
-    margin: 1.8rem 0 0;
-    padding: 0;
-    list-style: none;
   }
 
-  .statuses li {
+  .statuses {
+    margin-top: 1.8rem;
+  }
+
+  .statuses [role='listitem'] {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -807,7 +820,7 @@ const year = new Date().getFullYear();
     font-weight: 560;
   }
 
-  .statuses li::before {
+  .statuses [role='listitem']::before {
     content: '';
     width: 10px;
     height: 10px;
