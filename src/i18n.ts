@@ -68,7 +68,7 @@ export type Strings = {
     };
     reflect: Volume;
     everywhere: Volume & { exportLabel: string };
-    terminal: Volume & { install: string; agents: string; readOnly: string };
+    terminal: Volume & { install: string; copy: string; copied: string; agents: string; readOnly: string };
   };
   notes: {
     title: string;
@@ -158,6 +158,8 @@ const en: Strings = {
       title: 'Your library, from the command line.',
       body: 'anishelf-cli gives you the ani command: read-only access to your synced AniShelf library. List, search, summarize, and export it as JSON from any terminal.',
       install: 'Install with uv',
+      copy: 'Copy',
+      copied: 'Copied',
       agents:
         'Working with an AI agent? Point it to the anishelf-cli skill and it can set itself up.',
       readOnly: 'Read-only by design. ani never writes back to your library.',
@@ -286,6 +288,8 @@ const zh: Strings = {
       title: '在命令行里|翻看资料库。',
       body: 'anishelf-cli 提供 ani 命令，以只读方式访问你已同步的 AniShelf 资料库：在任意终端里列出、搜索、统计，或导出为 JSON。',
       install: '使用 uv 安装',
+      copy: '复制',
+      copied: '已复制',
       agents: '在用 AI 智能体？把 anishelf-cli 的 skill 交给它，它可以自己完成安装。',
       readOnly: '设计上只读，ani 不会改动你的资料库。',
     },
@@ -416,6 +420,8 @@ const ja: Strings = {
       title: 'ライブラリを、|コマンドラインから。',
       body: 'anishelf-cli は ani コマンドで、同期済みの AniShelf ライブラリを読み取り専用で扱えます。どのターミナルからでも一覧・検索・統計、JSON へのエクスポートが可能です。',
       install: 'uv でインストール',
+      copy: 'コピー',
+      copied: 'コピーしました',
       agents:
         'AI エージェントと一緒に使うなら、anishelf-cli のスキルを渡すだけでセットアップできます。',
       readOnly: '読み取り専用の設計。ani がライブラリを書き換えることはありません。',

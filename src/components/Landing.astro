@@ -10,6 +10,7 @@ import ReminderMock from './ReminderMock.astro';
 import ExportFormats from './ExportFormats.astro';
 import Terminal from './Terminal.astro';
 import Phrases from './Phrases.astro';
+import CopyButton from './CopyButton.astro';
 
 import BrandIcon from './BrandIcon.astro';
 import tmdbLogo from '../assets/badges/tmdb-short.svg';
@@ -46,6 +47,7 @@ const t = strings[locale];
 const v = t.volumes;
 const ids = ['collect', 'track', 'remind', 'reflect', 'sync', 'terminal'];
 const label = (n: number) => t.volumeLabel(n);
+const install = `uv tool install --python 3.13 git+https://github.com/samuelhe52/anishelf-cli.git@${CLI_VERSION}`;
 const year = new Date().getFullYear();
 ---
 
@@ -195,8 +197,11 @@ const year = new Date().getFullYear();
           <p class="fine agents">{v.terminal.agents}</p>
         </div>
         <div class="term-stage">
-          <p class="mono install-label">{v.terminal.install}</p>
-          <code class="install">uv tool install --python 3.13 git+https://github.com/samuelhe52/anishelf-cli.git@{CLI_VERSION}</code>
+          <p class="mono install-label" id="install-label">{v.terminal.install}</p>
+          <div class="install">
+            <code>{install}</code>
+            <CopyButton text={install} label={v.terminal.copy} done={v.terminal.copied} describedby="install-label" />
+          </div>
           <Terminal locale={locale} />
         </div>
       </div>
@@ -895,12 +900,19 @@ const year = new Date().getFullYear();
   }
 
   .install {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.75rem;
     margin-bottom: 1rem;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0.75rem 0.75rem 1rem;
     border: 1px dashed var(--rule);
     border-radius: 10px;
     background: var(--card);
+  }
+
+  .install code {
+    padding-block: 0.15rem;
     overflow-wrap: anywhere;
     font-family: var(--font-mono);
     font-size: 0.76rem;
