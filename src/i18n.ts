@@ -59,6 +59,8 @@ export type Strings = {
     collect: Volume;
     track: Volume & { statuses: [string, string, string, string] };
     remind: Volume & {
+      /** Lock Screen date in the reminder mockup, in the system's own format. */
+      lockDate: string;
       now: string;
       airsNow: (episode: string) => string;
       airsIn: (episode: string, minutes: number) => string;
@@ -129,6 +131,7 @@ const en: Strings = {
       spine: 'Remind',
       title: 'Never miss the new episode.',
       body: 'See broadcast times for currently airing shows, then turn on reminders. AniShelf schedules a notification for each new episode, early or right on time.',
+      lockDate: 'Saturday, August 8',
       now: 'now',
       airsNow: (ep) => `${ep} is airing now.`,
       airsIn: (ep, m) => `${ep} airs in ${m} minutes.`,
@@ -256,6 +259,7 @@ const zh: Strings = {
       spine: '提醒',
       title: '新一集，|不再错过。',
       body: '查看连载中番剧的播出时间，并开启提醒。AniShelf 会为每一集新番安排通知，可以提前，也可以准点。',
+      lockDate: '8月8日 星期六',
       now: '现在',
       airsNow: (ep) => `${ep} 正在播出。`,
       airsIn: (ep, m) => `${ep} 将在 ${m} 分钟后播出。`,
@@ -385,6 +389,7 @@ const ja: Strings = {
       spine: '知らせる',
       title: '新しい話を、|見逃さない。',
       body: '放送中の作品の放送時間を確認して、リマインダーをオンに。新しいエピソードごとに通知を設定します。少し前にも、放送時刻ちょうどにも。',
+      lockDate: '8月8日(土)',
       now: '今',
       airsNow: (ep) => `${ep}は現在放送中です。`,
       airsIn: (ep, m) => `${ep}は${m}分後に放送されます。`,

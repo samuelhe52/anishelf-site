@@ -140,7 +140,7 @@ const year = new Date().getFullYear();
           <p class="fine">{v.remind.source}</p>
         </div>
         <div class="remind-stage">
-          <ReminderMock locale={locale} />
+          <ReminderMock class="lock-phone" locale={locale} />
         </div>
       </div>
     </section>
@@ -737,6 +737,11 @@ const year = new Date().getFullYear();
   .remind-stage {
     position: relative;
     padding-block: 1rem;
+  }
+
+  .remind-stage :global(.lock-phone) {
+    width: min(100%, 320px);
+    margin-inline: auto;
   }
 
   .remind-stage::before {
