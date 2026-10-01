@@ -98,8 +98,13 @@ const props = Astro.props;
   .screen {
     position: absolute;
     inset: 1.62% 3.4%;
-    overflow: clip;
     border-radius: 15.42% / 7.09%;
+    /*
+     * Round the content with clip-path, which every engine honors, rather than
+     * overflow: hidden, which would make a scroll container and detach the
+     * scroll-driven animations inside.
+     */
+    clip-path: inset(0 round 15.42% / 7.09%);
     background: #000;
     container-type: size;
   }
