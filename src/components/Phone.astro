@@ -1,7 +1,7 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Picture } from 'astro:assets';
-import hardware from '../assets/devices/iphone-16-pro.png';
+import hardware from '../assets/devices/iphone-16-pro-frame.png';
 import Screenshot from './Screenshot.astro';
 
 interface Common {
@@ -68,11 +68,13 @@ const loading = props.src && props.eager ? 'eager' : 'lazy';
    * Apple's iPhone 16 Pro product render (Black Titanium), 1095×2268. The
    * display sits 43px in from each side and 37px from the top, and is exactly
    * the screenshots' 1206×2622 shape, so nothing gets cropped.
+   * scripts/cut-phone-display.mjs cuts the display out of the render.
    */
   .phone {
     position: relative;
     margin: 0;
     aspect-ratio: 1095 / 2268;
+    filter: drop-shadow(0 2px 3px rgb(23 32 58 / 0.12)) drop-shadow(0 26px 24px rgb(23 32 58 / 0.24));
   }
 
   .phone :global(picture) {
@@ -80,30 +82,37 @@ const loading = props.src && props.eager ? 'eager' : 'lazy';
     height: 100%;
   }
 
+  /*
+   * The hardware sits on top, so the edge of the display comes from the
+   * render's own anti-aliasing. A masked edge turns jagged once a phone is
+   * rotated, in both Chrome and Safari.
+   */
   .phone > :global(picture:first-child) {
     position: absolute;
     inset: 0;
+    z-index: 1;
+    pointer-events: none;
   }
 
   .phone > :global(picture:first-child img) {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 2px 3px rgb(23 32 58 / 0.12)) drop-shadow(0 26px 24px rgb(23 32 58 / 0.24));
   }
 
   /*
-   * Masked with the render's own display outline: continuous-curvature
-   * corners and a cutout that lets the hardware's Dynamic Island show through.
-   * A mask, unlike overflow: hidden, keeps scroll-driven animations inside
-   * attached to the page.
+   * Scaled up from the display by 4px a side horizontally and 9px vertically,
+   * which keeps the screenshots' shape, so the masked edge hides under the
+   * bezel. The mask is the display outline, stretched to match. A mask, unlike
+   * overflow: hidden, keeps scroll-driven animations inside attached to the
+   * page.
    */
   .screen {
     position: absolute;
-    inset: 1.63% 3.93% 1.68%;
+    inset: 1.25% 3.56% 1.29%;
     background: #000;
     container-type: size;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 37 1009 2193' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' d='M 64.01 2149.71 C 44 2113.96 44 2066.29 44 1970.94 L 43.99 296.04 C 43.99 200.70 43.99 153.03 64.01 117.28 C 78.16 92.02 99.02 71.16 124.28 57.01 C 160.03 37 207.70 37 303.04 37 L 793.95 37.00 C 889.29 37.00 936.96 37.00 972.71 57.01 C 997.97 71.16 1018.83 92.02 1032.98 117.28 C 1053 153.03 1053 200.70 1053 296.05 L 1053 1970.94 C 1053 2066.29 1053 2113.96 1032.98 2149.71 C 1018.83 2174.97 997.97 2195.83 972.71 2209.98 C 936.96 2230 889.29 2230 793.95 2230 L 303.05 2230 C 207.70 2230 160.03 2230 124.28 2209.98 C 99.02 2195.83 78.16 2174.97 64.01 2149.71 Z M 437 163.02 C 412.14 163.02 392 142.87 392 118.02 C 392 93.17 412.14 73.02 437 73.02 L 660 73.02 C 684.85 73.02 705 93.17 705 118.02 C 705 142.87 684.85 163.02 660 163.02 L 437 163.02 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 37 1009 2193' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' d='M 64.01 2149.71 C 44 2113.96 44 2066.29 44 1970.94 L 43.99 296.04 C 43.99 200.70 43.99 153.03 64.01 117.28 C 78.16 92.02 99.02 71.16 124.28 57.01 C 160.03 37 207.70 37 303.04 37 L 793.95 37.00 C 889.29 37.00 936.96 37.00 972.71 57.01 C 997.97 71.16 1018.83 92.02 1032.98 117.28 C 1053 153.03 1053 200.70 1053 296.05 L 1053 1970.94 C 1053 2066.29 1053 2113.96 1032.98 2149.71 C 1018.83 2174.97 997.97 2195.83 972.71 2209.98 C 936.96 2230 889.29 2230 793.95 2230 L 303.05 2230 C 207.70 2230 160.03 2230 124.28 2209.98 C 99.02 2195.83 78.16 2174.97 64.01 2149.71 Z M 437 163.02 C 412.14 163.02 392 142.87 392 118.02 C 392 93.17 412.14 73.02 437 73.02 L 660 73.02 C 684.85 73.02 705 93.17 705 118.02 C 705 142.87 684.85 163.02 660 163.02 L 437 163.02 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 37 1009 2193' preserveAspectRatio='none'%3E%3Cpath d='M 64.01 2149.71 C 44 2113.96 44 2066.29 44 1970.94 L 43.99 296.04 C 43.99 200.70 43.99 153.03 64.01 117.28 C 78.16 92.02 99.02 71.16 124.28 57.01 C 160.03 37 207.70 37 303.04 37 L 793.95 37.00 C 889.29 37.00 936.96 37.00 972.71 57.01 C 997.97 71.16 1018.83 92.02 1032.98 117.28 C 1053 153.03 1053 200.70 1053 296.05 L 1053 1970.94 C 1053 2066.29 1053 2113.96 1032.98 2149.71 C 1018.83 2174.97 997.97 2195.83 972.71 2209.98 C 936.96 2230 889.29 2230 793.95 2230 L 303.05 2230 C 207.70 2230 160.03 2230 124.28 2209.98 C 99.02 2195.83 78.16 2174.97 64.01 2149.71 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='44 37 1009 2193' preserveAspectRatio='none'%3E%3Cpath d='M 64.01 2149.71 C 44 2113.96 44 2066.29 44 1970.94 L 43.99 296.04 C 43.99 200.70 43.99 153.03 64.01 117.28 C 78.16 92.02 99.02 71.16 124.28 57.01 C 160.03 37 207.70 37 303.04 37 L 793.95 37.00 C 889.29 37.00 936.96 37.00 972.71 57.01 C 997.97 71.16 1018.83 92.02 1032.98 117.28 C 1053 153.03 1053 200.70 1053 296.05 L 1053 1970.94 C 1053 2066.29 1053 2113.96 1032.98 2149.71 C 1018.83 2174.97 997.97 2195.83 972.71 2209.98 C 936.96 2230 889.29 2230 793.95 2230 L 303.05 2230 C 207.70 2230 160.03 2230 124.28 2209.98 C 99.02 2195.83 78.16 2174.97 64.01 2149.71 Z'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
   }
 
   .screen > :global(picture img) {
@@ -113,7 +122,7 @@ const loading = props.src && props.eager ? 'eager' : 'lazy';
   }
 
   @media (prefers-color-scheme: dark) {
-    .phone > :global(picture:first-child img) {
+    .phone {
       filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.35)) drop-shadow(0 26px 24px rgb(0 0 0 / 0.55));
     }
   }
