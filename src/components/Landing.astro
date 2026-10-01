@@ -23,6 +23,8 @@ import {
   CLI_VERSION,
   CONTACT_EMAIL,
   GITHUB_URL,
+  GUIDE_EN_URL,
+  GUIDE_URL,
   PRIVACY_URL,
   TESTFLIGHT_URL,
   APP_STORE_URL,
@@ -254,6 +256,7 @@ const year = new Date().getFullYear();
         <span>AniShelf</span>
       </a>
       <ul class="foot-links">
+        <li><a href={locale === 'zh' ? GUIDE_URL : GUIDE_EN_URL} rel="noopener">{t.footer.guide}</a></li>
         <li><a href={PRIVACY_URL} rel="noopener">{t.footer.privacy}</a></li>
         <li><a href={GITHUB_URL} rel="noopener">{t.footer.source}</a></li>
         <li><a href={`mailto:${CONTACT_EMAIL}`}>{t.footer.contact}</a></li>
