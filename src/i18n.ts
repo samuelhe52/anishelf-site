@@ -11,7 +11,10 @@ export const CLI_VERSION = 'v0.2.0';
 export const CLI_SKILL_URL =
   'https://github.com/samuelhe52/anishelf-cli/blob/main/skills/anishelf-cli/SKILL.md';
 export const PRIVACY_URL = 'https://github.com/samuelhe52/AniShelf/blob/main/PRIVACY_POLICY.md';
-export const TMDB_KEY_URL = 'https://developer.themoviedb.org/docs/getting-started';
+export const SETUP_GUIDE_URL =
+  'https://github.com/samuelhe52/AniShelf/blob/main/docs/anishelf_overview.md';
+export const SETUP_GUIDE_EN_URL =
+  'https://github.com/samuelhe52/AniShelf/blob/main/docs/anishelf_overview.en.md';
 export const CONTACT_EMAIL = 'samuelhe52@outlook.com';
 export const X_URL = 'https://x.com/SamuelHe89';
 export const BLOG_URL = 'https://blog.konakona.dev';
@@ -178,7 +181,7 @@ const en: Strings = {
       {
         title: 'Bring a free TMDb key',
         body: 'AniShelf gets its anime data from The Movie Database. You enter your own API key once, and it’s free for personal use.',
-        link: { label: 'Get a TMDb API key', href: TMDB_KEY_URL },
+        link: { label: 'Get a TMDb API key', href: SETUP_GUIDE_EN_URL },
       },
       {
         title: 'A tracker, not a player',
@@ -307,10 +310,7 @@ const zh: Strings = {
       {
         title: '准备一个免费的 TMDb 密钥',
         body: 'AniShelf 的动画数据来自 The Movie Database，首次使用需要填入你自己的 API Key，个人使用免费。',
-        link: {
-          label: '查看申请教程',
-          href: 'https://github.com/samuelhe52/AniShelf/blob/main/docs/anishelf_overview.md',
-        },
+        link: { label: '查看申请教程', href: SETUP_GUIDE_URL },
       },
       {
         title: '它是记录工具，不是播放器',
@@ -440,7 +440,7 @@ const ja: Strings = {
       {
         title: '無料の TMDb キーを用意',
         body: 'AniShelf のアニメ情報は The Movie Database から取得します。最初にご自身の API キーを一度入力してください。個人利用は無料です。',
-        link: { label: 'TMDb API キーを取得', href: TMDB_KEY_URL },
+        link: { label: 'TMDb API キーを取得', href: SETUP_GUIDE_EN_URL },
       },
       {
         title: '記録アプリです',
