@@ -1,0 +1,8 @@
+---
+import DocPage from '../components/DocPage.astro';
+import { docSlugs, type DocSlug } from '../i18n';
+
+export const getStaticPaths = () => docSlugs.map((doc) => ({ params: { doc } }));
+---
+
+<DocPage locale="en" slug={Astro.params.doc as DocSlug} />

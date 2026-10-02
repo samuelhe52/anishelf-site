@@ -2,7 +2,9 @@
 
 Marketing site for [AniShelf](https://github.com/samuelhe52/AniShelf), served at
 <https://anishelf.konakona.dev>. It's a static [Astro](https://astro.build) site with
-English (`/`), Simplified Chinese (`/zh/`), and Japanese (`/ja/`) pages.
+English (`/`), Simplified Chinese (`/zh/`), and Japanese (`/ja/`) pages, plus a
+user guide, support page, and privacy policy in each language (`/guide/`,
+`/support/`, `/privacy/`, and their `/zh/` and `/ja/` versions).
 
 ## Commands
 
@@ -21,6 +23,10 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
   same `Strings` type, so a missing translation fails `npm run check`.
 - `src/components/Landing.astro` is the page. `src/pages/{,zh/,ja/}index.astro`
   render it per locale, and only the CJK pages load their CJK serif font.
+- `src/content/docs/<locale>/{guide,support,privacy}.md` hold the long-form
+  pages. `src/components/DocPage.astro` renders them, routed by
+  `src/pages/{,zh/,ja/}[doc].astro`. A missing locale fails the build.
+- `SiteHeader.astro` and `SiteFooter.astro` are shared by every page.
 - `src/pages/og-template/[lang]/` is the 1200×630 social preview template.
   `npm run og` screenshots it into `public/og/`. Normal builds delete the
   template pages from `dist/`.
@@ -37,6 +43,21 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
   `MyAnimeList/Resources/Localizable.xcstrings`.
 - The reminder mockup copies the app's real notification format
   (`S01E08 airs in 15 minutes.`).
+
+## Docs
+
+- Give every `##` and `###` heading an explicit id, such as `## Get a TMDb API key {#api-key}`,
+  and use the same ids in all three locales. The language switch keeps the reader's
+  section, and links like `/zh/guide/#api-key` keep working when wording changes.
+- Link between pages with locale paths (`/ja/support/`, not `/support/`).
+- The English privacy policy matches `AniShelf/PRIVACY_POLICY.md` word for word,
+  apart from heading ids. When the policy changes, update the repository copy, the
+  English page, and both translations, which note that the English version prevails.
+- The user guide is adapted from `AniShelf/docs/anishelf_overview*.md` for the web.
+  It leaves download links and the feature tour to the landing page. Name app
+  controls with the app's own localized labels from `Localizable.xcstrings`.
+- In CJK Markdown, keep the colon outside bold text (`**番剧**：`). With `**番剧：**通过`,
+  the bold doesn't close. Japanese pages put UI labels in 「」 instead of bold.
 
 ## Assets
 

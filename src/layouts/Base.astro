@@ -3,13 +3,18 @@ import '@fontsource-variable/fraunces/full.css';
 import '@fontsource-variable/schibsted-grotesk';
 import '@fontsource-variable/martian-mono';
 import '../styles/global.css';
+// The Latin files every page uses above the fold, preloaded so a first visit
+// doesn't wait for the CSS to find them. They're the files the CSS points to.
+import frauncesUrl from '@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2?url';
+import schibstedUrl from '@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url';
+import martianUrl from '@fontsource-variable/martian-mono/files/martian-mono-latin-wght-normal.woff2?url';
 import {
   APP_STORE_URL,
   GITHUB_URL,
   SITE,
   htmlLang,
-  localePath,
   locales,
+  pagePath,
   ogLocale,
   strings,
   type Locale,
@@ -17,13 +22,21 @@ import {
 
 interface Props {
   locale: Locale;
+  /** Page path below the locale root, such as `privacy/`. Empty for the landing page. */
+  path?: string;
+  /** Defaults to the landing page's title and description. */
+  title?: string;
+  description?: string;
   /** Set for utility pages that must not be indexed, such as the OG templates. */
   noindex?: boolean;
 }
 
-const { locale, noindex = false } = Astro.props;
+const { locale, path = '', noindex = false } = Astro.props;
 const t = strings[locale];
-const canonical = new URL(localePath(locale), SITE).href;
+const title = Astro.props.title ?? t.meta.title;
+const description = Astro.props.description ?? t.meta.description;
+const url = (l: Locale) => new URL(pagePath(l, path), SITE).href;
+const canonical = url(locale);
 const ogImage = new URL(`/og/og-${locale}.png`, SITE).href;
 
 const jsonLd = {
@@ -49,16 +62,21 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>{t.meta.title}</title>
-    <meta name="description" content={t.meta.description} />
+    <title>{title}</title>
+    {
+      [frauncesUrl, schibstedUrl, martianUrl].map((href) => (
+        <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
+      ))
+    }
+    <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     {
       locales.map((l) => (
-        <link rel="alternate" hreflang={htmlLang[l]} href={new URL(localePath(l), SITE).href} />
+        <link rel="alternate" hreflang={htmlLang[l]} href={url(l)} />
       ))
     }
-    <link rel="alternate" hreflang="x-default" href={new URL('/', SITE).href} />
+    <link rel="alternate" hreflang="x-default" href={url('en')} />
 
     <meta name="theme-color" content="#f7f1e6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0d1226" media="(prefers-color-scheme: dark)" />
@@ -69,8 +87,8 @@ const jsonLd = {
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AniShelf" />
-    <meta property="og:title" content={t.meta.title} />
-    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={ogLocale[locale]} />
     {
@@ -85,7 +103,7 @@ const jsonLd = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:creator" content="@SamuelHe89" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {path === '' && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
     <a class="skip-link" href="#main">{t.nav.skip}</a>

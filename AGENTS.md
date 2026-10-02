@@ -12,7 +12,8 @@ from the maintainer and aren't obvious from the code:
 - AniShelf runs on iPhone, iPad, and Apple silicon Macs (as the iPad app).
   The Japanese-locale screenshots are used for every language on purpose.
 - Keep all three locales in sync. Edit copy in `src/i18n.ts`, and keep the
-  `|` phrase markers in CJK headings.
+  `|` phrase markers in CJK headings. The guide, support, and privacy pages live
+  in `src/content/docs/<locale>/`. Follow the Docs section of `README.md`.
 - After changing hero copy or screenshots, run `npm run og` and commit the
   regenerated `public/og/` images.
 - Before finishing, run `npm run check` and `npm run build`. Visually check

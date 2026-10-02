@@ -10,11 +10,7 @@ export const CLI_URL = 'https://github.com/samuelhe52/anishelf-cli';
 export const CLI_VERSION = 'v0.2.0';
 export const CLI_SKILL_URL =
   'https://github.com/samuelhe52/anishelf-cli/blob/main/skills/anishelf-cli/SKILL.md';
-export const PRIVACY_URL = 'https://github.com/samuelhe52/AniShelf/blob/main/PRIVACY_POLICY.md';
-export const GUIDE_URL = 'https://github.com/samuelhe52/AniShelf/blob/main/docs/anishelf_overview.md';
-export const GUIDE_EN_URL = 'https://github.com/samuelhe52/AniShelf/blob/main/docs/anishelf_overview.en.md';
-const API_KEY_GUIDE_URL = `${GUIDE_URL}#%E7%94%B3%E8%AF%B7-api-key`;
-const API_KEY_GUIDE_EN_URL = `${GUIDE_EN_URL}#get-an-api-key`;
+export const ISSUES_URL = 'https://github.com/samuelhe52/AniShelf/issues';
 export const CONTACT_EMAIL = 'samuelhe52@outlook.com';
 export const X_URL = 'https://x.com/SamuelHe89';
 export const BLOG_URL = 'https://blog.konakona.dev';
@@ -26,6 +22,14 @@ export const BLOG_URL = 'https://blog.konakona.dev';
 export const plain = (s: string) => s.replaceAll('|', '');
 
 export const localePath = (locale: Locale) => (locale === 'en' ? '/' : `/${locale}/`);
+
+/** Long-form pages under `src/content/docs/<locale>/`, in the order they're listed. */
+export const docSlugs = ['guide', 'support', 'privacy'] as const;
+export type DocSlug = (typeof docSlugs)[number];
+
+/** `path` is relative to the locale root: `''` for the landing page, `'privacy/'` for a doc. */
+export const pagePath = (locale: Locale, path = '') => `${localePath(locale)}${path}`;
+export const docPath = (locale: Locale, slug: DocSlug) => pagePath(locale, `${slug}/`);
 
 /** BCP 47 tags used for `lang` and `hreflang`. */
 export const htmlLang: Record<Locale, string> = { en: 'en', zh: 'zh-Hans', ja: 'ja' };
@@ -48,7 +52,17 @@ type Volume = {
 
 export type Strings = {
   meta: { title: string; description: string; ogAlt: string };
-  nav: { features: string; cli: string; download: string; language: string; skip: string };
+  nav: {
+    features: string;
+    cli: string;
+    guide: string;
+    support: string;
+    download: string;
+    language: string;
+    /** Button that opens the navigation on narrow screens. */
+    menu: string;
+    skip: string;
+  };
   hero: {
     kicker: string;
     titleLines: string[];
@@ -85,8 +99,14 @@ export type Strings = {
     items: { title: string; body: string; link?: { label: string; href: string } }[];
   };
   outro: { title: string; body: string; testflight: string };
+  docs: {
+    /** Label for the row of links between the docs. */
+    nav: string;
+    toc: string;
+  };
   footer: {
     guide: string;
+    support: string;
     privacy: string;
     source: string;
     contact: string;
@@ -108,8 +128,11 @@ const en: Strings = {
   nav: {
     features: 'Features',
     cli: 'CLI',
+    guide: 'Guide',
+    support: 'Support',
     download: 'Download',
     language: 'Language',
+    menu: 'Menu',
     skip: 'Skip to content',
   },
   hero: {
@@ -182,7 +205,7 @@ const en: Strings = {
       {
         title: 'Bring a free TMDb key',
         body: 'AniShelf gets its anime data from The Movie Database. You enter your own API key once, and it’s free for personal use.',
-        link: { label: 'How to get a free key', href: API_KEY_GUIDE_EN_URL },
+        link: { label: 'How to get a free key', href: `${docPath('en', 'guide')}#api-key` },
       },
       {
         title: 'A tracker, not a player',
@@ -204,8 +227,13 @@ const en: Strings = {
     body: 'Free on the App Store. Runs on iPhone and iPad with iOS 26 or later, and on Macs with Apple silicon running macOS 26 or later.',
     testflight: 'Try new features early on TestFlight',
   },
+  docs: {
+    nav: 'Help',
+    toc: 'On this page',
+  },
   footer: {
     guide: 'User Guide',
+    support: 'Support',
     privacy: 'Privacy Policy',
     source: 'Source on GitHub',
     contact: 'Contact',
@@ -239,8 +267,11 @@ const zh: Strings = {
   nav: {
     features: '功能',
     cli: '命令行',
+    guide: '指南',
+    support: '支持',
     download: '下载',
     language: '语言',
+    menu: '菜单',
     skip: '跳到正文',
   },
   hero: {
@@ -312,7 +343,7 @@ const zh: Strings = {
       {
         title: '准备一个免费的 TMDb 密钥',
         body: 'AniShelf 的动画数据来自 The Movie Database，首次使用需要填入你自己的 API Key，个人使用免费。',
-        link: { label: '查看申请教程', href: API_KEY_GUIDE_URL },
+        link: { label: '查看申请教程', href: `${docPath('zh', 'guide')}#api-key` },
       },
       {
         title: '它是记录工具，不是播放器',
@@ -334,8 +365,13 @@ const zh: Strings = {
     body: '在 App Store 免费下载。支持 iOS 26 及以上版本的 iPhone 与 iPad，以及搭载 Apple 芯片、运行 macOS 26 及以上版本的 Mac。',
     testflight: '在 TestFlight 抢先体验新功能',
   },
+  docs: {
+    nav: '帮助',
+    toc: '本页内容',
+  },
   footer: {
     guide: '使用指南',
+    support: '支持与反馈',
     privacy: '隐私政策',
     source: 'GitHub 源代码',
     contact: '联系',
@@ -369,8 +405,11 @@ const ja: Strings = {
   nav: {
     features: '機能',
     cli: 'CLI',
+    guide: 'ガイド',
+    support: 'サポート',
     download: 'ダウンロード',
     language: '言語',
+    menu: 'メニュー',
     skip: '本文へスキップ',
   },
   hero: {
@@ -443,7 +482,7 @@ const ja: Strings = {
       {
         title: '無料の TMDb キーを用意',
         body: 'AniShelf のアニメ情報は The Movie Database から取得します。最初にご自身の API キーを一度入力してください。個人利用は無料です。',
-        link: { label: 'キーの取得方法', href: API_KEY_GUIDE_EN_URL },
+        link: { label: 'キーの取得方法', href: `${docPath('ja', 'guide')}#api-key` },
       },
       {
         title: '記録アプリです',
@@ -465,8 +504,13 @@ const ja: Strings = {
     body: 'App Store で無料。iOS 26 以降の iPhone・iPad と、macOS 26 以降の Apple シリコン搭載 Mac に対応しています。',
     testflight: 'TestFlight で新機能をいち早く',
   },
+  docs: {
+    nav: 'ヘルプ',
+    toc: 'このページの内容',
+  },
   footer: {
-    guide: 'ユーザーガイド（英語）',
+    guide: 'ユーザーガイド',
+    support: 'サポート',
     privacy: 'プライバシーポリシー',
     source: 'GitHub のソースコード',
     contact: 'お問い合わせ',

@@ -1,0 +1,36 @@
+---
+import BrandIcon from './BrandIcon.astro';
+
+interface Props {
+  href: string;
+  label?: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a class="brand" href={href} aria-label={label}>
+  <BrandIcon />
+  <span>AniShelf</span>
+</a>
+
+<style>
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'opsz' 36;
+    font-size: 1.3rem;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .brand :global(.brand-icon img) {
+    width: 36px;
+    height: 36px;
+    border-radius: 22.37%;
+    box-shadow: var(--shadow-1);
+  }
+</style>

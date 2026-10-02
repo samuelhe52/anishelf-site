@@ -1,18 +1,20 @@
 ---
-import { htmlLang, localeName, localePath, localeShort, locales, strings, type Locale } from '../i18n';
+import { htmlLang, localeName, localeShort, locales, pagePath, strings, type Locale } from '../i18n';
 
 interface Props {
   locale: Locale;
+  /** The current page below the locale root, so switching keeps the same page. */
+  path?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, path = '' } = Astro.props;
 ---
 
 <nav class="lang" aria-label={strings[locale].nav.language}>
   {
     locales.map((l) => (
       <a
-        href={localePath(l)}
+        href={pagePath(l, path)}
         hreflang={htmlLang[l]}
         lang={htmlLang[l]}
         aria-current={l === locale ? 'page' : undefined}
@@ -67,12 +69,13 @@ const { locale } = Astro.props;
 </style>
 
 <script>
-  // Open the other language at the section being read, not the top.
+  // Open the other language at the section being read, not the top. Doc
+  // headings use the same ids in every locale.
   for (const link of document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]')) {
     link.addEventListener('click', () => {
       const line = innerHeight * 0.3;
       let current = '';
-      for (const section of document.querySelectorAll('main > [id]')) {
+      for (const section of document.querySelectorAll('main > [id], .prose > h2[id]')) {
         if (section.getBoundingClientRect().top > line) break;
         current = section.id;
       }

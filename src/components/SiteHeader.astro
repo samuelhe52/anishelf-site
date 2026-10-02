@@ -1,0 +1,221 @@
+---
+import BrandLink from './BrandLink.astro';
+import LangSwitch from './LangSwitch.astro';
+import { APP_STORE_URL, GITHUB_URL, docPath, localePath, strings, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** The current page below the locale root. Empty on the landing page. */
+  path?: string;
+}
+
+const { locale, path = '' } = Astro.props;
+const t = strings[locale];
+// On the landing page, section links stay in-page.
+const home = path === '' ? '' : localePath(locale);
+const links = [
+  { href: `${home}#volumes`, label: t.nav.features },
+  { href: `${home}#terminal`, label: t.nav.cli },
+  { href: docPath(locale, 'guide'), label: t.nav.guide },
+  { href: docPath(locale, 'support'), label: t.nav.support },
+  { href: GITHUB_URL, label: 'GitHub', external: true },
+];
+const current = (href: string) => (href === localePath(locale) + path ? 'page' : undefined);
+---
+
+<header class="top">
+  <!-- Only the landing page animates in; the docs are opened back to back. -->
+  <div class:list={['top-bar wrap', { rise: path === '' }]}>
+    <BrandLink href={home ? home : '#main'} label="AniShelf" />
+    <nav class="links" aria-label="AniShelf">
+      {
+        links.map((l) => (
+          <a href={l.href} rel={l.external ? 'noopener' : undefined} aria-current={current(l.href)}>
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="actions">
+      <LangSwitch locale={locale} path={path} />
+      <a class="get" href={APP_STORE_URL} rel="noopener">{t.nav.download}</a>
+      <button class="menu-button" type="button" popovertarget="site-menu" aria-label={t.nav.menu}>
+        <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
+          <path d="M3 6.5h14M3 13.5h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="menu" id="site-menu" popover aria-label={t.nav.menu}>
+    {
+      links.map((l) => (
+        <a href={l.href} rel={l.external ? 'noopener' : undefined} aria-current={current(l.href)}>
+          {l.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<style>
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  /*
+   * Frosted paper behind the bar, fading in once the page scrolls. At 88% the
+   * links stay above 5:1 even over the dark terminal. It reaches up past the
+   * top edge because iOS Safari paints the page under the status bar.
+   */
+  .top::before {
+    content: '';
+    position: absolute;
+    inset: -4rem 0 0;
+    z-index: -1;
+    border-bottom: 1px solid var(--rule);
+    background: color-mix(in oklab, var(--paper) 88%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .top::before {
+      animation: frost linear both;
+      animation-timeline: scroll();
+      animation-range: 0 6rem;
+    }
+  }
+
+  @keyframes frost {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-block: clamp(0.7rem, 1.5vw, 0.95rem);
+  }
+
+  .links {
+    display: flex;
+    gap: 1.4rem;
+    margin-left: auto;
+    font-size: 0.95rem;
+  }
+
+  .links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .links a:hover,
+  .links a[aria-current='page'] {
+    color: var(--ink);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .get {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.25s var(--ease-out);
+  }
+
+  .get:hover {
+    transform: translateY(-1px);
+  }
+
+  /* ---------- Menu (narrow screens) ---------- */
+
+  .menu-button {
+    display: none;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--card) 70%, transparent);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  /* The popover sits in the top layer, so it's placed against the viewport. */
+  .menu {
+    inset: auto;
+    top: calc(env(safe-area-inset-top) + 4.4rem);
+    right: max(var(--gutter), env(safe-area-inset-right));
+    min-width: 13rem;
+    margin: 0;
+    padding: 0.4rem;
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    background: var(--card);
+    color: var(--ink);
+    box-shadow: var(--shadow-2);
+  }
+
+  .menu:popover-open {
+    display: grid;
+  }
+
+  .menu a {
+    padding: 0.65rem 0.9rem;
+    border-radius: 12px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .menu a:hover,
+  .menu a:focus-visible {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .menu a[aria-current='page'] {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 860px) {
+    .links {
+      display: none;
+    }
+
+    .actions {
+      margin-left: auto;
+    }
+
+    .menu-button {
+      display: grid;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .get {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Following an in-page link leaves the page underneath, so close the menu.
+  const menu = document.getElementById('site-menu');
+  menu?.addEventListener('click', (event) => {
+    if ((event.target as Element).closest('a')) menu.hidePopover();
+  });
+</script>
