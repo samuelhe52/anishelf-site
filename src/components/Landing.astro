@@ -295,12 +295,13 @@ const year = new Date().getFullYear();
 
   /*
    * Frosted paper behind the bar, fading in once the page scrolls. At 88% the
-   * links stay above 5:1 even over the dark terminal.
+   * links stay above 5:1 even over the dark terminal. It reaches up past the
+   * top edge because iOS Safari paints the page under the status bar.
    */
   .top::before {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: -4rem 0 0;
     z-index: -1;
     border-bottom: 1px solid var(--rule);
     background: color-mix(in oklab, var(--paper) 88%, transparent);
@@ -402,6 +403,11 @@ const year = new Date().getFullYear();
   }
 
   /* ---------- Hero ---------- */
+
+  /* The hero sky bleeds past the column; keep it from widening the page. */
+  main {
+    overflow-x: clip;
+  }
 
   .hero {
     display: grid;
