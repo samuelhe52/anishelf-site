@@ -1,5 +1,6 @@
 ---
 import { getEntry, render } from 'astro:content';
+import { fade } from 'astro:transitions';
 import Base from '../layouts/Base.astro';
 import SiteHeader from './SiteHeader.astro';
 import SiteFooter from './SiteFooter.astro';
@@ -22,7 +23,7 @@ const path = `${slug}/`;
 <Base locale={locale} path={path} title={`${entry.data.title} — AniShelf`} description={entry.data.description}>
   <SiteHeader locale={locale} path={path} />
 
-  <main id="main" class="doc wrap">
+  <main id="main" class="doc wrap" transition:name="doc-content" transition:animate={fade({ duration: '160ms' })}>
     <header class="doc-head">
       <nav class="doc-nav" aria-label={t.docs.nav}>
         {
@@ -51,6 +52,10 @@ const path = `${slug}/`;
                 ))}
               </ol>
             </nav>
+            <script is:inline>
+              // Initialize direct visits before the first paint.
+              document.currentScript.parentElement.open = matchMedia('(min-width: 1000px)').matches;
+            </script>
           </details>
         )
       }
@@ -77,11 +82,13 @@ const path = `${slug}/`;
     padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3rem);
   }
 
+  /* Same height in every language, like the header above it. */
   .doc-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 0.6rem;
+    line-height: 1.6;
   }
 
   /* Each doc gets a spine color, like a volume on the landing page. */
@@ -199,7 +206,7 @@ const path = `${slug}/`;
       overflow-y: auto;
     }
 
-    /* Always expanded beside the text; the script below keeps it open. */
+    /* Always expanded beside the text; navigation initializes it before painting. */
     .toc summary {
       pointer-events: none;
       list-style: none;
@@ -299,15 +306,3 @@ const path = `${slug}/`;
     border-top: 1px solid var(--rule);
   }
 </style>
-
-<script>
-  // Keep the contents open beside the text on wide screens, collapsed above it
-  // on narrow ones.
-  const toc = document.querySelector<HTMLDetailsElement>('.toc');
-  if (toc) {
-    const wide = matchMedia('(min-width: 1000px)');
-    const sync = () => (toc.open = wide.matches);
-    sync();
-    wide.addEventListener('change', sync);
-  }
-</script>

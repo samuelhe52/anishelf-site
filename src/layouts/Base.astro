@@ -3,6 +3,7 @@ import '@fontsource-variable/fraunces/full.css';
 import '@fontsource-variable/schibsted-grotesk';
 import '@fontsource-variable/martian-mono';
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 // The Latin files every page uses above the fold, preloaded so a first visit
 // doesn't wait for the CSS to find them. They're the files the CSS points to.
 import frauncesUrl from '@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2?url';
@@ -58,11 +59,12 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={htmlLang[locale]}>
+<html lang={htmlLang[locale]} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
+    <ClientRouter fallback="swap" />
     {
       [frauncesUrl, schibstedUrl, martianUrl].map((href) => (
         <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
@@ -110,3 +112,51 @@ const jsonLd = {
     <slot />
   </body>
 </html>
+
+<script>
+  // Load new CJK heading glyphs before displaying the next page.
+  document.addEventListener('astro:before-preparation', (event) => {
+    const loader = event.loader;
+    event.loader = async () => {
+      await loader();
+      const next = event.newDocument;
+      if (event.signal.aborted || next.documentElement.lang !== document.documentElement.lang) return;
+      const family = { 'zh-Hans': 'Noto Serif SC', ja: 'Noto Serif JP' }[next.documentElement.lang];
+      if (!family) return;
+      const text = Array.from(next.querySelectorAll('h1, h2, h3, .spine .title'))
+        .map((heading) => heading.textContent).join('');
+      // A failed font request must not prevent navigation.
+      await document.fonts.load(`700 1em "${family}"`, text).catch(() => {});
+    };
+  });
+
+  const wide = matchMedia('(min-width: 1000px)');
+  const syncContents = (root: Document) => {
+    const toc = root.querySelector<HTMLDetailsElement>('.toc');
+    if (toc) toc.open = wide.matches;
+  };
+  // Prepare the incoming DOM before it is displayed, not on page-load.
+  document.addEventListener('astro:before-swap', (event) => {
+    syncContents(event.newDocument);
+    // Crossfade only between docs in the same language.
+    if (event.newDocument.documentElement.lang !== document.documentElement.lang ||
+        !document.querySelector('main.doc') || !event.newDocument.querySelector('main.doc')) {
+      event.viewTransition.skipTransition();
+    } else {
+      // Keep fading content below the header, which stays in the root snapshot
+      // so its backdrop and paper texture retain their normal appearance.
+      document.addEventListener('astro:after-swap', () => {
+        const header = document.querySelector('.top')!.getBoundingClientRect();
+        const main = document.querySelector('main.doc')!.getBoundingClientRect();
+        document.documentElement.style.setProperty('--doc-transition-top', `${Math.max(0, header.bottom - main.top)}px`);
+      }, { once: true });
+    }
+    if (event.navigationType === 'traverse' || event.newDocument.documentElement.lang === document.documentElement.lang) return;
+    // Language switches land at the section immediately; ordinary links still scroll smoothly.
+    document.addEventListener('astro:after-swap', () => {
+      document.getElementById(event.to.hash.slice(1))?.scrollIntoView({ behavior: 'instant' });
+    }, { once: true });
+  });
+  document.addEventListener('astro:page-load', () => syncContents(document));
+  wide.addEventListener('change', () => syncContents(document));
+</script>

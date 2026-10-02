@@ -233,6 +233,12 @@ p {
 
 /* ---------- Motion ---------- */
 
+/* Fade doc content without morphing its height or scroll position. */
+::view-transition-group(doc-content) {
+  animation: none;
+  clip-path: inset(var(--doc-transition-top, 0px) 0 0);
+}
+
 @keyframes rise {
   from {
     opacity: 0;

@@ -69,17 +69,19 @@ const { locale, path = '' } = Astro.props;
 </style>
 
 <script>
-  // Open the other language at the section being read, not the top. Doc
-  // headings use the same ids in every locale.
-  for (const link of document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]')) {
-    link.addEventListener('click', () => {
-      const line = innerHeight * 0.3;
-      let current = '';
-      for (const section of document.querySelectorAll('main > [id], .prose > h2[id]')) {
-        if (section.getBoundingClientRect().top > line) break;
-        current = section.id;
-      }
-      link.hash = current;
-    });
-  }
+  document.addEventListener('astro:page-load', () => {
+    // Open the other language at the section being read, not the top. Doc
+    // headings use the same ids in every locale.
+    for (const link of document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]')) {
+      link.addEventListener('click', () => {
+        const line = innerHeight * 0.3;
+        let current = '';
+        for (const section of document.querySelectorAll('main > [id], .prose > h2[id]')) {
+          if (section.getBoundingClientRect().top > line) break;
+          current = section.id;
+        }
+        link.hash = current;
+      });
+    }
+  });
 </script>

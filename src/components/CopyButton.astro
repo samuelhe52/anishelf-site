@@ -31,28 +31,30 @@ const { text, label, done, describedby } = Astro.props;
 <span class="sr-only" role="status"></span>
 
 <script>
-  for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-copy]')) {
-    const status = button.nextElementSibling;
-    let timer: ReturnType<typeof setTimeout> | undefined;
+  document.addEventListener('astro:page-load', () => {
+    for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-copy]')) {
+      const status = button.nextElementSibling;
+      let timer: ReturnType<typeof setTimeout> | undefined;
 
-    button.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(button.dataset.copy ?? '');
-      } catch {
-        // No clipboard access: select the command so it can be copied by hand.
-        const code = button.parentElement?.querySelector('code');
-        if (code) getSelection()?.selectAllChildren(code);
-        return;
-      }
-      button.dataset.state = 'done';
-      if (status) status.textContent = button.querySelector('.labels .ok')?.textContent ?? '';
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        delete button.dataset.state;
-        if (status) status.textContent = '';
-      }, 2000);
-    });
-  }
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy ?? '');
+        } catch {
+          // No clipboard access: select the command so it can be copied by hand.
+          const code = button.parentElement?.querySelector('code');
+          if (code) getSelection()?.selectAllChildren(code);
+          return;
+        }
+        button.dataset.state = 'done';
+        if (status) status.textContent = button.querySelector('.labels .ok')?.textContent ?? '';
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          delete button.dataset.state;
+          if (status) status.textContent = '';
+        }, 2000);
+      });
+    }
+  });
 </script>
 
 <style>

@@ -24,8 +24,7 @@ const current = (href: string) => (href === localePath(locale) + path ? 'page' :
 ---
 
 <header class="top">
-  <!-- Only the landing page animates in; the docs are opened back to back. -->
-  <div class:list={['top-bar wrap', { rise: path === '' }]}>
+  <div class="top-bar wrap">
     <BrandLink href={home ? home : '#main'} label="AniShelf" />
     <nav class="links" aria-label="AniShelf">
       {
@@ -94,11 +93,13 @@ const current = (href: string) => (href === localePath(locale) + path ? 'page' :
     }
   }
 
+  /* Keep the header height stable across locales. */
   .top-bar {
     display: flex;
     align-items: center;
     gap: 1.5rem;
     padding-block: clamp(0.7rem, 1.5vw, 0.95rem);
+    line-height: 1.6;
   }
 
   .links {
@@ -213,9 +214,11 @@ const current = (href: string) => (href === localePath(locale) + path ? 'page' :
 </style>
 
 <script>
-  // Following an in-page link leaves the page underneath, so close the menu.
-  const menu = document.getElementById('site-menu');
-  menu?.addEventListener('click', (event) => {
-    if ((event.target as Element).closest('a')) menu.hidePopover();
+  document.addEventListener('astro:page-load', () => {
+    // Following an in-page link leaves the page underneath, so close the menu.
+    const menu = document.getElementById('site-menu');
+    menu?.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('a')) menu.hidePopover();
+    });
   });
 </script>
