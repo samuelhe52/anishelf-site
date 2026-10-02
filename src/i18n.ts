@@ -82,6 +82,16 @@ export type Strings = {
       airsNow: (episode: string) => string;
       airsIn: (episode: string, minutes: number) => string;
       source: string;
+      /** Airing Reminders card beside the Lock Screen, worded as in the app. */
+      card: {
+        title: string;
+        subtitle: string;
+        remindMe: string;
+        /** The app's default timing preset. */
+        timing: string;
+        manage: string;
+        nextEpisode: string;
+      };
     };
     reflect: Volume;
     everywhere: Volume & { exportLabel: string };
@@ -170,6 +180,14 @@ const en: Strings = {
       airsNow: (ep) => `${ep} is airing now.`,
       airsIn: (ep, m) => `${ep} airs in ${m} minutes.`,
       source: 'Broadcast schedules are provided by TVmaze where available.',
+      card: {
+        title: 'Airing Reminders',
+        subtitle: 'Get reminders for upcoming episodes.',
+        remindMe: 'Remind Me',
+        timing: '15 minutes before',
+        manage: 'Manage Reminders',
+        nextEpisode: 'Next Episode',
+      },
     },
     reflect: {
       spine: 'Reflect',
@@ -309,6 +327,14 @@ const zh: Strings = {
       airsNow: (ep) => `${ep} 正在播出。`,
       airsIn: (ep, m) => `${ep} 将在 ${m} 分钟后播出。`,
       source: '播出时间来自 TVmaze（如有）。',
+      card: {
+        title: '播出提醒',
+        subtitle: '接收即将播出剧集的提醒。',
+        remindMe: '提醒我',
+        timing: '提前 15 分钟',
+        manage: '管理提醒',
+        nextEpisode: '下一集',
+      },
     },
     reflect: {
       spine: '回顾',
@@ -447,6 +473,14 @@ const ja: Strings = {
       airsNow: (ep) => `${ep}は現在放送中です。`,
       airsIn: (ep, m) => `${ep}は${m}分後に放送されます。`,
       source: '放送スケジュールは TVmaze から取得しています（対応作品のみ）。',
+      card: {
+        title: '放送リマインダー',
+        subtitle: '今後のエピソードのリマインダーを受け取ります。',
+        remindMe: 'リマインド',
+        timing: '15分前',
+        manage: 'リマインダーを管理',
+        nextEpisode: '次回',
+      },
     },
     reflect: {
       spine: 'ふり返る',

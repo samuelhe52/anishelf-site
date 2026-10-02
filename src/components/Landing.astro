@@ -10,6 +10,7 @@ import Petals from './Petals.astro';
 import SkyScene from './SkyScene.astro';
 import Shelf from './Shelf.astro';
 import ReminderMock from './ReminderMock.astro';
+import ReminderSettings from './ReminderSettings.astro';
 import ExportFormats from './ExportFormats.astro';
 import Terminal from './Terminal.astro';
 import Phrases from './Phrases.astro';
@@ -136,6 +137,7 @@ const install = `uv tool install --python 3.13 git+https://github.com/samuelhe52
         </div>
         <div class="remind-stage">
           <ReminderMock class="lock-phone" locale={locale} />
+          <ReminderSettings class="lock-card" locale={locale} />
         </div>
       </div>
     </section>
@@ -720,9 +722,60 @@ const install = `uv tool install --python 3.13 git+https://github.com/samuelhe52
     padding-block: 1rem;
   }
 
+  /* The phone sits right of center so the timing menu can lean against it. */
   .remind-stage :global(.lock-phone) {
-    width: min(100%, 320px);
-    margin-inline: auto;
+    width: min(62%, 320px);
+    margin-inline: auto 6%;
+  }
+
+  .remind-stage :global(.lock-card) {
+    position: absolute;
+    top: 50%;
+    right: calc(6% + min(62%, 320px) - 2.5rem);
+    z-index: 1;
+    width: min(52%, 17rem);
+    rotate: -3deg;
+    translate: 0 -72%;
+  }
+
+  /* Slides out from behind the phone as the section scrolls in. */
+  @supports (animation-timeline: view()) {
+    .remind-stage :global(.lock-card) {
+      animation: slip linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+
+  @keyframes slip {
+    from {
+      rotate: 0deg;
+      translate: 45% -72%;
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .remind-stage :global(.lock-phone) {
+      width: min(78%, 320px);
+      margin-inline: auto 2%;
+    }
+
+    .remind-stage :global(.lock-card) {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: min(86%, 17rem);
+      margin: -4.5rem auto 0 0;
+      translate: none;
+    }
+
+    @keyframes slip {
+      from {
+        rotate: 0deg;
+        opacity: 0;
+      }
+    }
   }
 
   .remind-stage::before {
