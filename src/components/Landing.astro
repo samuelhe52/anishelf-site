@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Phone from './Phone.astro';
 import Tablet from './Tablet.astro';
 import StoreBadge from './StoreBadge.astro';
+import GitHubBadge from './GitHubBadge.astro';
 import SiteHeader from './SiteHeader.astro';
 import SiteFooter from './SiteFooter.astro';
 import Petals from './Petals.astro';
@@ -51,7 +52,10 @@ const install = `uv tool install --python 3.13 git+https://github.com/samuelhe52
         </h1>
         <p class="lede rise" style="--i:3">{t.hero.lede}</p>
         <div class="cta rise" style="--i:4">
-          <StoreBadge locale={locale} />
+          <span class="stores">
+            <StoreBadge locale={locale} />
+            <GitHubBadge locale={locale} />
+          </span>
           <a class="tf" href={TESTFLIGHT_URL} rel="noopener">{t.hero.testflight}<span aria-hidden="true">&nbsp;→</span></a>
         </div>
         <ul class="facts mono rise" style="--i:5">
@@ -225,7 +229,10 @@ const install = `uv tool install --python 3.13 git+https://github.com/samuelhe52
         <h2 id="outro-title"><Phrases text={t.outro.title} /></h2>
         <p>{t.outro.body}</p>
         <div class="cta">
-          <StoreBadge locale={locale} height={58} />
+          <span class="stores">
+            <StoreBadge locale={locale} height={58} />
+            <GitHubBadge locale={locale} height={58} />
+          </span>
         </div>
         <a class="tf" href={TESTFLIGHT_URL} rel="noopener">{t.outro.testflight}<span aria-hidden="true">&nbsp;→</span></a>
       </div>
@@ -309,6 +316,11 @@ const install = `uv tool install --python 3.13 git+https://github.com/samuelhe52
     align-items: center;
     gap: 1rem 1.5rem;
     margin-top: 2.2rem;
+  }
+
+  .stores {
+    display: inline-flex;
+    gap: 0.75rem;
   }
 
   .tf {
@@ -997,6 +1009,10 @@ const install = `uv tool install --python 3.13 git+https://github.com/samuelhe52
   .sky .cta {
     justify-content: center;
     margin-top: 1rem;
+  }
+
+  .sky :global(.gh) {
+    color: inherit;
   }
 
   .sky .tf {
