@@ -106,6 +106,7 @@ body {
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  position: relative;
 }
 
 :lang(zh) body,
@@ -119,10 +120,14 @@ body {
   line-break: strict;
 }
 
-/* Paper grain over everything, kept very faint. */
+/*
+ * Paper grain over everything, kept very faint. It spans the document rather
+ * than the viewport because iOS Safari won't paint fixed layers under its
+ * toolbar, which left a grainless band there.
+ */
 body::before {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 100;
   pointer-events: none;
