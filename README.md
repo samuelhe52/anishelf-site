@@ -62,4 +62,8 @@ mode.
 
 - `/_astro/*`: content-hashed, so cache it as `public, max-age=31536000, immutable`.
 - HTML, `/og/*`, and favicons: short cache or `no-cache`.
-- Directory index (`/zh/` → `/zh/index.html`) and a 404 fallback to `/`.
+- Directory index (`/zh/` → `/zh/index.html`) and the generated `404.html` page.
+
+See [DEPLOY.md](DEPLOY.md) for origin setup, GitHub Actions
+secrets, manual deployment, and rollback. Pushes and PRs run checks; publication
+requires explicitly running the Deploy workflow on `main`.
