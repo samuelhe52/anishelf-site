@@ -114,6 +114,41 @@ const jsonLd = {
 </html>
 
 <script>
+  const anchorSelector = 'main:not(.doc) section[id], #volumes';
+  const measureAnchor = (target: HTMLElement) => {
+    const style = getComputedStyle(target);
+    const top = parseFloat(style.paddingTop);
+    const bottom = parseFloat(style.paddingBottom);
+    target.style.setProperty('--anchor-height', `${target.getBoundingClientRect().height - top - bottom}px`);
+    target.style.setProperty('--anchor-inset', `${top}px`);
+  };
+  const anchors = new ResizeObserver((entries) => {
+    entries.forEach(({ target }) => measureAnchor(target as HTMLElement));
+  });
+  const syncAnchors = () => {
+    anchors.disconnect();
+    document.querySelectorAll<HTMLElement>(anchorSelector).forEach((target) => {
+      measureAnchor(target);
+      anchors.observe(target);
+    });
+  };
+  // Measure before the router performs its native fragment scroll.
+  document.addEventListener('astro:before-swap', (event) => {
+    const swap = event.swap;
+    event.swap = () => {
+      swap();
+      syncAnchors();
+    };
+  });
+  syncAnchors();
+  document.addEventListener('astro:page-load', async () => {
+    await document.fonts.ready;
+    syncAnchors();
+    // The initial fragment may have scrolled before this module was loaded.
+    const target = document.getElementById(location.hash.slice(1));
+    if (target?.matches(anchorSelector)) target.scrollIntoView({ behavior: 'instant' });
+  }, { once: true });
+
   // Load new CJK heading glyphs before displaying the next page.
   document.addEventListener('astro:before-preparation', (event) => {
     const loader = event.loader;

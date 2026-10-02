@@ -95,6 +95,13 @@ html {
   scroll-padding-top: 6rem;
 }
 
+/* Center landing content in the space below the header. For content taller
+   than that space, keep its beginning visible. Exclude section padding. */
+main:not(.doc) section[id],
+#volumes {
+  scroll-margin-top: calc(max(0px, (100vh - 6rem - var(--anchor-height, 100vh)) / 2) - var(--anchor-inset, 0px));
+}
+
 body {
   margin: 0;
   min-height: 100vh;
