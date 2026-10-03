@@ -69,7 +69,57 @@ const { locale, path = '' } = Astro.props;
 </style>
 
 <script>
+  // Fetch the other languages' pages and their stylesheets ahead of time, so a
+  // tap switches at once. Touch screens have no hover to trigger Astro's
+  // prefetch, and the CJK font CSS would otherwise load only after the page.
+  const warmed = new Map<string, Promise<string | null>>();
+  // Resolves once the stylesheets `next` adds to this page have loaded.
+  const loadStyles = (next: Document) =>
+    Promise.all(
+      Array.from(next.querySelectorAll<HTMLLinkElement>('head link[rel=stylesheet]'))
+        .filter((link) => !document.querySelector(`link[rel=stylesheet][href="${link.getAttribute('href')}"]`))
+        .map((link) => new Promise((resolve) => {
+          const preload = Object.assign(document.createElement('link'), { rel: 'preload', as: 'style', href: link.href });
+          preload.onload = preload.onerror = resolve;
+          document.head.append(preload);
+        })),
+    );
+  const warm = (url: string) => {
+    if (warmed.has(url)) return;
+    const page = fetch(url)
+      .then((res) => (res.ok && res.headers.get('content-type')?.startsWith('text/html') ? res.text() : null))
+      .then(async (html) => {
+        if (html) await loadStyles(new DOMParser().parseFromString(html, 'text/html'));
+        return html;
+      })
+      .catch(() => null);
+    warmed.set(url, page);
+  };
+
+  document.addEventListener('astro:before-preparation', (event) => {
+    const page = warmed.get(event.to.pathname);
+    if (!page || event.formData) return;
+    const loader = event.loader;
+    event.loader = async () => {
+      const html = await page;
+      if (!html || event.signal.aborted) return loader();
+      event.newDocument = new DOMParser().parseFromString(html, 'text/html');
+      event.newDocument.querySelectorAll('noscript').forEach((el) => el.remove());
+      await loadStyles(event.newDocument);
+    };
+  });
+
   document.addEventListener('astro:page-load', () => {
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (!connection?.saveData) {
+      const idle = window.requestIdleCallback ?? ((callback: () => void) => setTimeout(callback, 200));
+      idle(() => {
+        for (const link of document.querySelectorAll<HTMLAnchorElement>('.lang a:not([aria-current])')) {
+          warm(new URL(link.href).pathname);
+        }
+      });
+    }
+
     // Open the other language at the section being read, not the top. Doc
     // headings use the same ids in every locale.
     for (const link of document.querySelectorAll<HTMLAnchorElement>('.lang a[hreflang]')) {
