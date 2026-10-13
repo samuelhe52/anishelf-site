@@ -39,6 +39,17 @@ Tap the search button at the bottom right, then search for a series or film by n
 - Touch and hold an entry for more actions. In list view, swipe an entry left or right to update its status or delete it.
 - To change many entries at once, tap **Select** at the top right of the list or grid view. You can change the status, score, favorite, and dates of the selected entries, or delete them.
 
+## Organize with categories {#categories}
+
+Categories let you group anime your own way, such as a season you're following or shows you watch with friends. They're off by default. To turn them on, open Settings › Library & Tracking and turn on **Library Categories**.
+
+- **Add anime to a category:** in list or grid view, tap **Select**, choose some anime, and tap **Category**. Pick a category to add or remove the selected anime, or tap **New Category…** to create one with them. The menu stays open, so you can pick several categories.
+- **Switch categories:** tap the title at the top of the library, or choose **Category** in the status bar's menu at the bottom center. **All** shows your whole library. Status filters and sorting still apply inside a category.
+- **Manage categories:** choose **Edit Categories…** in the title menu, or tap **Manage Categories** in Settings, to rename, delete, or reorder categories. Deleting a category doesn't remove its anime from your library.
+- **Category tabs:** turn on **Sticky Category Strip** to keep category tabs below the navigation bar in list and grid views. Tap a tab to switch. Touch and hold a tab to rename or delete it, or choose **Reorder Tabs**, drag the tabs into place, and tap **Done**.
+
+Categories sync with iCloud Sync and are included in backups.
+
 ## Track what you watch {#track}
 
 Double-tap an entry to open its detail page. There you can record:
