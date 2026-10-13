@@ -20,7 +20,7 @@ The first time you open AniShelf, it asks for a TMDb API key. The Movie Database
    - **Application Summary:** for example, “An anime library app for tracking the series and films I watch.”
    - Fill in your contact details, accept the terms, and click **Subscribe**.
 4. Go back to the [API settings page](https://www.themoviedb.org/settings/api) and copy the **API Key** near the bottom. Use the API Key, not the API Read Access Token.
-5. Paste the key into AniShelf when it asks. To change it later, open Settings.
+5. Paste the key into AniShelf when it asks. To change it later, open Settings › Metadata & Images and tap **Change API Key**.
 
 ## Add anime {#add}
 
@@ -48,7 +48,7 @@ Double-tap an entry to open its detail page. There you can record:
 - episode progress
 - your score and notes
 
-Episode progress is off by default. To turn it on, open Settings and turn on **Track Episode Progress** under Interface. The progress control then appears on the detail page while an entry is Watching. Turning the setting off hides your progress but doesn't delete it.
+Episode progress is off by default. To turn it on, open Settings and turn on **Track Episode Progress** under **Library & Tracking**. The progress control then appears on the detail page while an entry is Watching. Turning the setting off hides your progress but doesn't delete it.
 
 Scroll down for the overview, voice cast, and a summary of each episode. Tap the heart to favorite the entry, or the share button to make a poster you can send to friends. The **···** menu has more options, such as converting between a series and its seasons, or marking an entry as Dropped.
 
@@ -67,17 +67,17 @@ A badge next to the watch status shows the current watch, such as **Watch #2**, 
 
 Eligible series show their broadcast times on the detail page. For a show that’s currently airing, open the **···** menu and choose **Notifications** > **Enable**. AniShelf then schedules a notification for each new episode. Allow notifications when AniShelf asks.
 
-- **Default timing:** in Settings, under Airing Reminders, choose a **Default Timing** from 1 hour before to 1 hour after airtime. It starts at 15 minutes before.
+- **Default timing:** in Settings › Airing & Reminders, choose a **Default Timing** from 1 hour before to 1 hour after airtime. It starts at 15 minutes before.
 - **Timing for one anime:** in the same **Notifications** menu, choose **Reminder Timing**. Turn off **Use Default**, choose **Before Airtime** or **After Airtime**, then set the hours and minutes.
-- **Manage reminders:** in Settings, tap **Reminders** to see every reminder, change its timing, or remove it. **Refresh** reschedules reminders from the latest broadcast times, and **Remove All** removes every reminder on the device.
+- **Manage reminders:** in Settings › Airing & Reminders, tap **Reminders** to see every reminder, change its timing, or remove it. **Refresh** reschedules reminders from the latest broadcast times, and **Remove All** removes every reminder on the device.
 
 Broadcast schedules come from TVmaze, so some shows don’t have them. Reminders are set separately on each device.
 
 ## Sync, back up, and export {#sync}
 
-Tap the settings icon at the top right to open Settings, which also shows an overview of your library.
+Tap the settings icon at the top right to open Settings, which also shows your library statistics. These controls are in **Sync & Data**:
 
-- **iCloud Sync:** turn it on in Settings on each device, and sign in to the same Apple Account on all of them. Your library, watch progress, and settings stay in sync. The first time you turn it on, AniShelf may ask which data to keep. See [Resolve an iCloud Sync conflict](#icloud-conflict).
+- **iCloud Sync:** turn it on for each device, and sign in to the same Apple Account on all of them. Your library, watch progress, and settings stay in sync. The first time you turn it on, AniShelf may ask which data to keep. See [Resolve an iCloud Sync conflict](#icloud-conflict).
 - **Backup & Restore:** **Backup** saves your whole library and settings to a `.mallib` file. Your TMDb API key isn’t included. **Restore** replaces your current library with the backup, so make a new backup first if you want to keep what you have now.
 - **Export as...:** save your library as TXT, CSV, TSV, JSON, or XLSX to read or use in other apps.
 
@@ -87,7 +87,7 @@ Tap the settings icon at the top right to open Settings, which also shows an ove
 
 AniShelf can show titles, overviews, and other anime info in English, Chinese, or Japanese. By default, it follows your device’s language. To choose one, open Settings, turn off **Follow System** under Anime Info Language, and pick a language.
 
-The new language applies only to info that AniShelf fetches afterward. AniShelf asks whether to refresh your existing entries. Tap **Refresh** to update them now. With a large library, this can take a while. To refresh later, tap **Refresh Infos** in Settings.
+The new language applies only to info that AniShelf fetches afterward. AniShelf asks whether to refresh your existing entries. Tap **Refresh** to update them now. With a large library, this can take a while. To refresh later, tap **Refresh Infos** in Settings › Metadata & Images.
 
 With iCloud Sync on, you can also read your library from the command line with [anishelf-cli](/#terminal).
 
@@ -99,7 +99,7 @@ Access to TMDb can be unreliable on some networks. Try these steps:
 
 1. Check that you copied the API Key, not the API Read Access Token.
 2. Turn your VPN or network proxy off or on. Some proxy rules interfere with TMDb.
-3. Turn on **Use TMDb Proxy** in Settings. AniShelf then sends TMDb requests through the developer’s relay server instead of directly to TMDb.
+3. Turn on **Use TMDb Proxy** in Settings › Metadata & Images. AniShelf then sends TMDb requests through the developer’s relay server instead of directly to TMDb.
 
 If you already use a VPN or another proxy, leave **Use TMDb Proxy** off. Connecting to TMDb directly is usually faster and more reliable. Posters and other images don’t go through the relay, so they can still fail to load on some networks. To learn what the relay receives, see the [Privacy Policy](/privacy/#relay).
 
@@ -115,14 +115,14 @@ Either way, anime that exist in only one place are kept. If you aren’t sure wh
 
 ### iCloud Sync shows an error or sync issues {#icloud-issues}
 
-Open Settings and check the status under iCloud Sync.
+Open Settings › Sync & Data and check the status under iCloud Sync.
 
 1. If the last sync failed, tap **Retry**. If iCloud storage is full, free up space or upgrade your plan first.
 2. If an orange line such as “3 sync issues” appears under the status, tap it to open **Sync Issues**, which explains each problem:
    - **Entries not loaded:** AniShelf retries these automatically. If TMDb no longer lists an entry, you can tap **Discard from iCloud…** to delete it. The deletion syncs to your other devices.
    - **Changes not uploaded:** iCloud didn’t accept these changes. They stay on this device, and AniShelf tries again on later syncs.
    - **Unreadable records:** a newer version of AniShelf may have saved these. Update AniShelf on this device.
-3. If problems continue, tap **Rebuild iCloud Sync** in Settings. AniShelf fetches your iCloud library again and reconciles it with this device. It may ask you to [resolve a conflict](#icloud-conflict).
+3. If problems continue, tap **Rebuild iCloud Sync** in Settings › Sync & Data. AniShelf fetches your iCloud library again and reconciles it with this device. It may ask you to [resolve a conflict](#icloud-conflict).
 
 ### Something else isn’t working {#other-problems}
 
