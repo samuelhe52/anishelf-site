@@ -40,13 +40,15 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
   never break mid-word. Safari has no `word-break: auto-phrase`. Use `plain()`
   wherever a heading becomes plain text, such as ARIA labels.
 - Feature names and statuses follow the app's own localizations in
-  `MyAnimeList/Resources/Localizable.xcstrings`. Match the wording, not the spacing:
-  the app omits CJK–Latin spaces because Apple's text rendering adds the gap, but
-  the web doesn't do that everywhere, so the site types a space between CJK and
-  Latin text or digits in both Chinese and Japanese (`从 iCloud 删除…`, `提前 15 分钟`,
-  `AniShelf をサポート`, `15 分前`). The lock-screen mockup dates copy the system
-  format and stay unspaced.
-  `text-autospace` in `global.css` fills any gaps left untyped in supporting browsers.
+  `MyAnimeList/Resources/Localizable.xcstrings`.
+- CJK–Latin spacing follows each language's usual practice. Chinese copy types a
+  space between Han characters and Latin text or digits (`从 iCloud 删除…`,
+  `提前 15 分钟`), unlike the app, which relies on Apple's text rendering for the gap.
+  Japanese copy types no spaces, matching the app and normal Japanese writing
+  (`AniShelfをサポート`, `15分前`, `iOS 26以降`). Spaces between Latin words stay
+  (`TMDb IDを`). `text-autospace` in `global.css` adds the gap to unspaced text in
+  supporting browsers. The lock-screen mockup dates copy the system format and stay
+  unspaced.
 - The reminder mockup copies the app's real notification format
   (`S01E08 airs in 15 minutes.`).
 
