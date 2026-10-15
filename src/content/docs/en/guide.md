@@ -20,7 +20,7 @@ The first time you open AniShelf, it asks for a TMDb API key. The Movie Database
    - **Application Summary:** for example, “An anime library app for tracking the series and films I watch.”
    - Fill in your contact details, accept the terms, and click **Subscribe**.
 4. Go back to the [API settings page](https://www.themoviedb.org/settings/api) and copy the **API Key** near the bottom. Use the API Key, not the API Read Access Token.
-5. Paste the key into AniShelf when it asks. To change it later, open Settings › Metadata & Images and tap **Change API Key**.
+5. Paste the key into AniShelf when it asks. AniShelf checks the key, then asks you to choose the anime info language and the default poster. Tap **Start Using AniShelf** to open your library. To change the key later, open Settings › Metadata & Images and tap **Change API Key**.
 
 ## Add anime {#add}
 
@@ -136,6 +136,17 @@ Open Settings › Sync & Data and check the status under iCloud Sync.
    - **Changes not uploaded:** iCloud didn’t accept these changes. They stay on this device, and AniShelf tries again on later syncs.
    - **Unreadable records:** a newer version of AniShelf may have saved these. Update AniShelf on this device.
 3. If problems continue, tap **Rebuild iCloud Sync** in Settings › Sync & Data. AniShelf fetches your iCloud library again and reconciles it with this device. It may ask you to [resolve a conflict](#icloud-conflict).
+
+### iCloud Sync says iCloud Data Deleted {#icloud-deleted}
+
+This appears when AniShelf’s iCloud data was deleted in your device’s iCloud settings. Your library on this device is unchanged. In Settings › Sync & Data, choose what happens next:
+
+- **Upload This Library:** re-create AniShelf’s iCloud data from the library on this device. Your other devices sync with it again.
+- **Turn Off iCloud Sync:** keep using this library on this device only.
+
+### AniShelf asks you to update before opening your library {#update-required}
+
+A newer version of AniShelf saved your library, for example on another device or after you went back to an older build. Your library is safe: AniShelf hasn’t changed or moved it, and iCloud Sync is paused. Tap **Open App Store** and update AniShelf to open it.
 
 ### Something else isn’t working {#other-problems}
 
