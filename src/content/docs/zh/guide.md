@@ -20,7 +20,7 @@ AniShelf 支持 iOS 或 iPadOS 26 及以上版本的 iPhone 与 iPad；在搭载
    - **Application Summary**（应用概述）：例如 “An anime library app for tracking the series and films I watch.”
    - 填写联系信息，同意条款后点击 **Subscribe**。
 4. 回到 [API 设置页面](https://www.themoviedb.org/settings/api)，复制页面下方的 **API Key**。请复制 API Key，不要复制 API Read Access Token（读取访问令牌）。
-5. 按提示把密钥粘贴到 AniShelf 中。验证通过后，AniShelf 会请你选择动画信息语言和默认海报，点击 **开始使用AniShelf** 即可进入资料库。之后如需更换密钥，请打开设置 › 元数据与图片，点击 **更改API密钥**。
+5. 按提示把密钥粘贴到 AniShelf 中。验证通过后，AniShelf 会请你选择动画信息语言和默认海报，点击 **开始使用 AniShelf** 即可进入资料库。之后如需更换密钥，请打开设置 › 元数据与图片，点击 **更改API密钥**。
 
 ## 添加动画 {#add}
 
@@ -128,25 +128,25 @@ AniShelf 可以用英文、中文或日文显示标题、简介等动画信息�
 
 ### iCloud 同步出错或显示同步问题 {#icloud-issues}
 
-打开设置 › 同步与数据，查看“iCloud同步”下方的状态。
+打开设置 › 同步与数据，查看“iCloud 同步”下方的状态。
 
 1. 如果上次同步失败，点击 **重试**。如果 iCloud 储存空间已满，请先释放空间或升级储存空间方案。
-2. 如果状态下方出现橙色提示（例如“3个同步问题”），点击它可以打开 **同步问题**，查看每个问题的说明：
-   - **条目未加载**：AniShelf 会自动重试。如果 TMDb 上已不存在某个条目，可以点击 **从iCloud删除…** 删除它，删除操作会同步到其他设备。
+2. 如果状态下方出现橙色提示（例如“3 个同步问题”），点击它可以打开 **同步问题**，查看每个问题的说明：
+   - **条目未加载**：AniShelf 会自动重试。如果 TMDb 上已不存在某个条目，可以点击 **从 iCloud 删除…** 删除它，删除操作会同步到其他设备。
    - **更改未上传**：iCloud 未接受这些更改。它们仍保存在这台设备上，AniShelf 会在之后的同步中再次尝试上传。
    - **记录无法读取**：这些记录可能由更新版本的 AniShelf 保存。请更新这台设备上的 AniShelf。
-3. 如果问题仍然存在，在设置 › 同步与数据中点击 **重建iCloud同步**。AniShelf 会重新获取 iCloud 资料库，并与这台设备重新同步，期间可能需要[解决同步冲突](#icloud-conflict)。
+3. 如果问题仍然存在，在设置 › 同步与数据中点击 **重建 iCloud 同步**。AniShelf 会重新获取 iCloud 资料库，并与这台设备重新同步，期间可能需要[解决同步冲突](#icloud-conflict)。
 
-### iCloud 同步显示“iCloud数据已删除” {#icloud-deleted}
+### iCloud 同步显示“iCloud 数据已删除” {#icloud-deleted}
 
 如果在设备的 iCloud 设置中删除了 AniShelf 的 iCloud 数据，就会显示此状态。这台设备上的资料库不受影响。请在设置 › 同步与数据中选择下一步：
 
 - **上传此资料库**：用这台设备上的资料库重新创建 AniShelf 的 iCloud 数据，其他设备会重新与它同步。
-- **关闭iCloud同步**：只在这台设备上继续使用这个资料库。
+- **关闭 iCloud 同步**：只在这台设备上继续使用这个资料库。
 
 ### 打开资料库前提示更新 AniShelf {#update-required}
 
-你的资料库已由更新版本的 AniShelf 保存过，例如在其他设备上，或者你换回了旧版本。资料库安全无损：AniShelf 没有修改或移动它，iCloud 同步也会暂停。点击 **打开App Store**，更新 AniShelf 后即可打开资料库。
+你的资料库已由更新版本的 AniShelf 保存过，例如在其他设备上，或者你换回了旧版本。资料库安全无损：AniShelf 没有修改或移动它，iCloud 同步也会暂停。点击 **打开 App Store**，更新 AniShelf 后即可打开资料库。
 
 ### 遇到其他问题 {#other-problems}
 

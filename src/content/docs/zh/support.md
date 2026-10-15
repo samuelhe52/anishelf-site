@@ -38,4 +38,4 @@ AniShelf 由一位开发者利用业余时间维护，回复可能需要几天�
 
 ## 支持开发 {#support-development}
 
-AniShelf 免费且没有广告。如果你想支持它的开发，可以打赏：打开设置，点击 **支持AniShelf**。
+AniShelf 免费且没有广告。如果你想支持它的开发，可以打赏：打开设置，点击 **支持 AniShelf**。

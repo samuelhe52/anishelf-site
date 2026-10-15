@@ -120,6 +120,8 @@ body {
 :lang(ja) body {
   line-height: 1.8;
   letter-spacing: 0.01em;
+  /* Gaps between CJK and Latin text where copy has no typed space; skips typed spaces. */
+  text-autospace: normal;
 }
 
 :lang(ja) body {

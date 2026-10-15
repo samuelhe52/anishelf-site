@@ -40,7 +40,11 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
   never break mid-word. Safari has no `word-break: auto-phrase`. Use `plain()`
   wherever a heading becomes plain text, such as ARIA labels.
 - Feature names and statuses follow the app's own localizations in
-  `MyAnimeList/Resources/Localizable.xcstrings`.
+  `MyAnimeList/Resources/Localizable.xcstrings`. Match the wording, not the spacing:
+  the app omits CJK–Latin spaces because Apple's text rendering adds the gap, but
+  the web doesn't do that everywhere, so the site types a space between CJK and
+  Latin text or digits (`从 iCloud 删除…`, `提前 15 分钟`, `AniShelf をサポート`).
+  `text-autospace` in `global.css` fills any gaps left untyped in supporting browsers.
 - The reminder mockup copies the app's real notification format
   (`S01E08 airs in 15 minutes.`).
 
@@ -55,7 +59,8 @@ npm run og        # regenerate public/og/og-<locale>.png (needs `npx playwright 
   English page, and both translations, which note that the English version prevails.
 - The user guide is adapted from `AniShelf/docs/anishelf_overview*.md` for the web.
   It leaves download links and the feature tour to the landing page. Name app
-  controls with the app's own localized labels from `Localizable.xcstrings`.
+  controls with the app's own localized labels from `Localizable.xcstrings`, spaced
+  as described under Copy conventions.
 - In CJK Markdown, keep the colon outside bold text (`**番剧**：`). With `**番剧：**通过`,
   the bold doesn't close. Japanese pages put UI labels in 「」 instead of bold.
 
