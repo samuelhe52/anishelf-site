@@ -96,7 +96,9 @@ Tap the settings icon at the top right to open Settings, which also shows your l
 
 ## Change the anime info language {#language}
 
-AniShelf can show titles, overviews, and other anime info in English, Chinese, or Japanese. By default, it follows your device’s language. To choose one, open Settings, turn off **Follow System** under Anime Info Language, and pick a language.
+AniShelf can show titles, overviews, and other anime info in English, Chinese, or Japanese. By default, it follows your device’s language. To choose one, open Settings › Language, turn off **Follow System**, and pick a language.
+
+Posters prefer the anime’s original language by default. To show posters in your anime info language when TMDb has one, choose **Follow Anime Info Language** under Default Poster on the same page.
 
 The new language applies only to info that AniShelf fetches afterward. AniShelf asks whether to refresh your existing entries. Tap **Refresh** to update them now. With a large library, this can take a while. To refresh later, tap **Refresh Infos** in Settings › Metadata & Images.
 
