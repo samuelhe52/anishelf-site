@@ -425,7 +425,7 @@ const ja: Strings = {
   meta: {
     title: 'AniShelf — 観たアニメを、ぜんぶ記録',
     description:
-      'AniShelf は、アニメシリーズや劇場版を記録できる無料の iPhone・iPad・Mac アプリです。エピソード単位の進捗、スコア、放送リマインダー、iCloud同期、エクスポートに対応。',
+      'AniShelf は、アニメシリーズや劇場版を記録できる無料の iPhone・iPad・Mac アプリです。エピソード単位の進捗、スコア、放送リマインダー、iCloud 同期、エクスポートに対応。',
     ogAlt: 'AniShelf のアプリアイコンと見出し「観てきたアニメを、ひとつのライブラリに。」',
   },
   nav: {
@@ -490,7 +490,7 @@ const ja: Strings = {
     everywhere: {
       spine: '同期',
       title: 'どのデバイスでも、|同じライブラリ。',
-      body: 'iCloud同期で、ライブラリ、進捗、設定を iPhone・iPad・Mac で同じ状態に保ちます。iPad と Mac では、ライブラリの横にサイドパネルで詳細を表示できます。',
+      body: 'iCloud 同期で、ライブラリ、進捗、設定を iPhone・iPad・Mac で同じ状態に保ちます。iPad と Mac では、ライブラリの横にサイドパネルで詳細を表示できます。',
       points: [
         'データはあなた専用の iCloud データベースに保存。AniShelf のアカウントは不要',
         'いつでも復元できるフルバックアップ',
@@ -551,7 +551,7 @@ const ja: Strings = {
     blog: 'ブログ',
     tmdb: '本製品は TMDB API を使用していますが、TMDB による承認・認定を受けたものではありません。',
     apple:
-      'Apple、Appleのロゴ、iPhone、iPad、Mac は、米国およびその他の国や地域で登録された Apple Inc. の商標です。App Store は Apple Inc. のサービスマークです。',
+      'Apple、Apple のロゴ、iPhone、iPad、Mac は、米国およびその他の国や地域で登録された Apple Inc. の商標です。App Store は Apple Inc. のサービスマークです。',
     artwork: 'スクリーンショット内のアニメ画像の権利は、各権利者に帰属します。',
   },
   alt: {
