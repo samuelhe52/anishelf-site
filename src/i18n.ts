@@ -242,7 +242,7 @@ const en: Strings = {
   },
   outro: {
     title: 'Start your collection.',
-    body: 'Free on the App Store. Runs on iPhone and iPad with iOS 26 or later, and on Macs with Apple silicon running macOS 26 or later.',
+    body: 'Free on the App Store. Runs on iPhone and iPad with iOS 26 or later, and as a native Mac app on macOS 26 or later.',
     testflight: 'Try new features early on TestFlight',
   },
   docs: {
@@ -388,7 +388,7 @@ const zh: Strings = {
   },
   outro: {
     title: '开始整理|你的收藏。',
-    body: '在 App Store 免费下载。支持 iOS 26 及以上版本的 iPhone 与 iPad，以及搭载 Apple 芯片、运行 macOS 26 及以上版本的 Mac。',
+    body: '在 App Store 免费下载。支持 iOS 26 及以上版本的 iPhone 与 iPad，并提供适用于 macOS 26 及以上版本的原生 Mac App。',
     testflight: '在 TestFlight 抢先体验新功能',
   },
   docs: {
@@ -535,7 +535,7 @@ const ja: Strings = {
   },
   outro: {
     title: 'あなたのコレクションを、|はじめよう。',
-    body: 'App Storeで無料。iOS 26以降のiPhone・iPadと、macOS 26以降のAppleシリコン搭載Macに対応しています。',
+    body: 'App Storeで無料。iOS 26以降のiPhone・iPadと、macOS 26以降のMac（ネイティブアプリ）に対応しています。',
     testflight: 'TestFlightで新機能をいち早く',
   },
   docs: {

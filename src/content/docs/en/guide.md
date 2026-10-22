@@ -5,7 +5,7 @@ description: Set up AniShelf, add your first anime, and get the most out of trac
 
 ## Set up AniShelf {#setup}
 
-AniShelf runs on iPhone and iPad with iOS or iPadOS 26 or later. It also runs on Macs with Apple silicon and macOS 26 or later, as the iPad app.
+AniShelf runs on iPhone and iPad with iOS or iPadOS 26 or later, and as a native Mac app on macOS 26 or later. On Mac, the sidebar holds your library and categories, and the selected entry's details appear in the inspector beside it. Choose File › **New Window** to open another window. On iPad and Mac, each window keeps its own category, filters, sorting, and view mode.
 
 The first time you open AniShelf, it asks for a TMDb API key. The Movie Database (TMDb) supplies the titles, overviews, posters, and episode details you see in the app. A key is free for personal use. AniShelf is free and doesn't come with a shared key, so you request your own.
 
@@ -36,7 +36,7 @@ Tap the search button at the bottom right, then search for a series or film by n
 
 - Tap the icon at the bottom left to switch between the grid, list, and gallery views.
 - Use the status bar at the bottom center to show one status at a time, such as Watching.
-- Touch and hold an entry for more actions. In list view, swipe an entry left or right to update its status or delete it.
+- Touch and hold an entry for more actions. In list view, swipe an entry left or right to update its status or delete it. Swipe left and tap **Open**, or swipe all the way, to open it in another app. To skip the choice, pick an app under **Swipe Action Opens** in Settings › Appearance & Interaction.
 - To change many entries at once, tap **Select** at the top right of the list or grid view. You can change the status, score, favorite, and dates of the selected entries, or delete them.
 
 ## Organize with categories {#categories}
@@ -60,6 +60,10 @@ Double-tap an entry to open its detail page. There you can record:
 - your score and notes
 
 Episode progress is off by default. To turn it on, open Settings and turn on **Track Episode Progress** under **Library & Tracking**. The progress control then appears on the detail page while an entry is Watching. Turning the setting off hides your progress but doesn't delete it.
+
+To score an entry, tap a star. Tap the same star again to add a half star, such as 4.5, or drag across the stars to adjust the score.
+
+Tap **Open In…** to open the entry in Infuse, Kazumi, or bilibili, or on its homepage. Apps that aren't installed are listed as **Not Installed**.
 
 Scroll down for the overview, voice cast, and a summary of each episode. Tap the heart to favorite the entry, or the share button to make a poster you can send to friends. The **···** menu has more options, such as converting between a series and its seasons, or marking an entry as Dropped.
 
@@ -164,7 +168,7 @@ Not yet. Syncing watch data with other services is planned, but it’s a large p
 
 ### Does AniShelf work on versions earlier than iOS 26? {#older-versions}
 
-No. The app’s design relies on Liquid Glass, which needs iOS and iPadOS 26 or later.
+No. The app’s design relies on Liquid Glass, which needs iOS, iPadOS, and macOS 26 or later.
 
 ### Is there an Android version? {#android}
 
