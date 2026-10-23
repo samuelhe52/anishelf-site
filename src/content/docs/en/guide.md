@@ -26,8 +26,8 @@ The first time you open AniShelf, it asks for a TMDb API key. The Movie Database
 
 Tap the search button at the bottom right, then search for a series or film by name.
 
-- **Series:** use the slider below the results to add the whole series or individual seasons. Select the series, or one or more seasons, with the button at the top right of the result, then tap **Add To Library...**.
-- **Films:** select the film and tap **Add To Library...**.
+- **Series:** use the slider below the results to add the whole series or individual seasons. Select the series, or one or more seasons, with the button at the top right of the result, then tap **Add to Library**.
+- **Films:** select the film and tap **Add to Library**.
 - **Several at once:** tap **Batch Add** at the top right of the search page, then enter a list of titles or TMDb IDs.
 
 > Some shows air in parts but are released as a single season with continuous episode numbers. *Frieren: Beyond Journey’s End* is one: its “Season 1” holds all 38 episodes. For shows like this, add the whole series.
@@ -63,7 +63,7 @@ Episode progress is off by default. To turn it on, open Settings and turn on **T
 
 To score an entry, tap a star. Tap the same star again to add a half star, such as 4.5, or drag across the stars to adjust the score.
 
-Tap **Open In…** to open the entry in Infuse, Kazumi, or bilibili, or on its homepage. Apps that aren't installed are listed as **Not Installed**.
+Tap **Open In** to open the entry in Infuse, Kazumi, or bilibili, or on its homepage. Apps that aren't installed are listed as **Not Installed**.
 
 Scroll down for the overview, voice cast, and a summary of each episode. Tap the heart to favorite the entry, or the share button to make a poster you can send to friends. The **···** menu has more options, such as converting between a series and its seasons, or marking an entry as Dropped.
 
@@ -94,7 +94,7 @@ Tap the settings icon at the top right to open Settings, which also shows your l
 
 - **iCloud Sync:** turn it on for each device, and sign in to the same Apple Account on all of them. Your library, watch progress, and settings stay in sync. The first time you turn it on, AniShelf may ask which data to keep. See [Resolve an iCloud Sync conflict](#icloud-conflict).
 - **Backup & Restore:** **Backup** saves your whole library and settings to a `.mallib` file. Your TMDb API key isn’t included. **Restore** replaces your current library with the backup, so make a new backup first if you want to keep what you have now.
-- **Export as...:** save your library as TXT, CSV, TSV, JSON, or XLSX to read or use in other apps.
+- **Export as:** save your library as TXT, CSV, TSV, JSON, or XLSX to read or use in other apps.
 
 > Only `.mallib` backups can be restored. AniShelf can’t import an exported file. Turn off iCloud Sync before you restore a backup, then turn it on again afterward.
 

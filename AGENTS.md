@@ -9,7 +9,8 @@ from the maintainer and aren't obvious from the code:
   the word "shelf", 书架, or 本棚 in copy. Use library, collection, 资料库, 收藏,
   ライブラリ, or コレクション instead.
 - Never mention the maintainer's location.
-- AniShelf runs on iPhone, iPad, and Apple silicon Macs (as the iPad app).
+- AniShelf runs on iPhone and iPad with iOS or iPadOS 26 or later, and as a native
+  Mac app on macOS 26 or later.
   The Japanese-locale screenshots are used for every language on purpose.
 - Keep all three locales in sync. Edit copy in `src/i18n.ts`, and keep the
   `|` phrase markers in CJK headings. The guide, support, and privacy pages live
