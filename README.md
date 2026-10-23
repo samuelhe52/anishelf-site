@@ -6,6 +6,11 @@ English (`/`), Simplified Chinese (`/zh/`), and Japanese (`/ja/`) pages, plus a
 user guide, support page, and privacy policy in each language (`/guide/`,
 `/support/`, `/privacy/`, and their `/zh/` and `/ja/` versions).
 
+Cloudflare Web Analytics is loaded by `public/analytics.js` after `window.load`,
+preserving the current token, SPA mode and EU exclusion. The hostname-scoped
+Cloudflare rule and cutover instructions are maintained in the Blog repository
+under `docs/analytics.md`; deploy the loader before changing that rule.
+
 ## Commands
 
 ```bash
