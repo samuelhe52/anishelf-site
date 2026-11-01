@@ -1,11 +1,11 @@
 ---
 title: 隐私政策
-description: AniShelf 会保存哪些信息，会向 TMDb、TVMaze 和 iCloud 发送哪些信息，以及你可以做出的选择。
+description: AniShelf 会保存哪些信息，会向 TMDb、TVMaze、iCloud 和可选的智能功能服务商发送哪些信息，以及你可以做出的选择。
 ---
 
 > 本页为英文隐私政策的中文译本，仅供参考。如两者存在差异，以[英文版本](/privacy/)为准。
 
-生效日期：2026 年 10 月 2 日
+生效日期：2026 年 11 月 1 日
 
 AniShelf 是一款适用于 iPhone、iPad 和 Mac 的动画资料库管理 App。本隐私政策说明 App 会处理哪些信息、如何使用这些信息，以及你可以做出的选择。
 
@@ -15,6 +15,7 @@ AniShelf 是一款适用于 iPhone、iPad 和 Mac 的动画资料库管理 App�
 - 可选的 iCloud 同步会将资料库追踪数据和部分偏好设置保存在你私有的 iCloud 数据库中。
 - AniShelf 无需注册 AniShelf 账号。iCloud 同步使用你的 Apple 账户，TMDb 相关功能使用你自行提供的 TMDb API 密钥。
 - 搜索、元数据、图片和播出时间等功能会联系外部服务。
+- 可选的智能功能使用设备上的 Apple Intelligence，或使用你提供 API 密钥的 OpenAI 或 OpenRouter 账户。
 - AniShelf 不会出售你的个人信息。
 - AniShelf 不使用第三方广告 SDK。
 - AniShelf 不进行跨 App 追踪。
@@ -85,6 +86,14 @@ AniShelf 会下载你所浏览作品的海报或图片。这些图片可能会�
 
 你可以选择导出诊断报告或恢复包。恢复包包含保留的数据库，可能含有你的资料库和笔记；报告中的错误详情可能包含本地文件路径。AniShelf 不会自动将这些文件上传给发布者。请只将它们分享给你希望接收这些信息的对象。
 
+### 10. 可选的智能功能 {#smart-features}
+
+智能功能（例如通过描述创建分类）在你设置之前处于关闭状态。使用 Apple Intelligence 时，请求通过 Apple 的 Foundation Models 框架运行，并受 Apple 的条款约束。
+
+如果你改为添加 OpenAI 或 OpenRouter 的 API 密钥，AniShelf 会使用你的密钥，将每个请求直接从你的设备发送给该服务商。请求包含你输入的描述，以及 AniShelf 所检查作品的标题、首播年份、类型、制作公司、题材和简介的开头部分，不包含你的笔记、评分、观看日期或资料库标识符。服务商会收到你的 IP 地址和标准网络元数据，并根据其自身的条款和隐私政策处理请求，包括你账户中的数据保留或模型训练设置。
+
+AniShelf 将服务商密钥保存在设备的系统钥匙串中，这些密钥不会包含在备份或 CloudKit 同步中。在智能功能设置中移除密钥，会将其从钥匙串中删除。
+
 ## AniShelf 如何使用信息 {#use}
 
 AniShelf 使用其处理的信息来：
@@ -94,6 +103,7 @@ AniShelf 使用其处理的信息来：
 - 搜索 TMDb，获取作品元数据、海报和翻译
 - 在开启时通过 iCloud 同步资料库追踪数据和部分偏好设置
 - 获取 TVMaze 播出信息，并安排你开启的提醒
+- 在你请求时，使用你选择的后端运行智能功能
 - 在你请求时创建备份和恢复资料库
 - 在你请求时生成用于分享和导出的图片或文件
 - 维持 App 的功能和性能
@@ -115,7 +125,7 @@ AniShelf 目前不会：
 - 资料库数据和偏好设置通常保存在你的设备上。
 - 如果开启了 iCloud 同步，同步的数据也会保留在你私有的 CloudKit 数据库中。关闭同步只会停止该设备上的同步，不会删除已经存储在 iCloud 中的数据。
 - 同步完成后，资料库中的删除操作会同步到你的其他设备。为防止已删除的条目被旧设备恢复，会保留最少量的删除记录，包括条目标识符和删除时间。删除系列但保留其中的季时，可能会保留这些季所需的上级记录。
-- TMDb API 密钥保存在设备的钥匙串中。
+- TMDb API 密钥和智能功能服务商密钥保存在设备的钥匙串中。
 - 缓存的图片和临时导出文件可能会保留在设备存储中，直到被 App 或操作系统清除。
 - 你创建的备份会保存在你选择保存或分享的位置。
 - 关闭恢复提示后，保留的恢复数据库仍会留在设备上。删除当前资料库中的条目，不会删除这些保留的副本或单独导出的文件。
@@ -137,9 +147,16 @@ AniShelf 使用 TVMaze 进行节目匹配，并获取播出时间和即将播出
 
 [TVMaze 隐私政策](https://www.tvmaze.com/site/privacy)
 
+### OpenAI 和 OpenRouter {#openai-openrouter}
+
+如果你为智能功能添加了 OpenAI 或 OpenRouter 的 API 密钥，AniShelf 会将智能功能请求发送给该服务商。OpenRouter 会将每个请求转发给运行你所选模型的公司。
+
+[OpenAI 隐私政策](https://openai.com/policies/privacy-policy/)
+[OpenRouter 隐私政策](https://openrouter.ai/privacy)
+
 ### Apple iCloud 和系统服务 {#apple}
 
-AniShelf 使用 Apple 的 CloudKit 服务提供可选的 iCloud 同步，并使用 Apple 的系统服务实现通知、钥匙串存储和文件分享。Apple 对信息的处理受其自身隐私政策以及你的 Apple 账户和设备设置约束。
+AniShelf 使用 Apple 的 CloudKit 服务提供可选的 iCloud 同步，使用 Apple Intelligence 提供可选的智能功能，并使用 Apple 的系统服务实现通知、钥匙串存储和文件分享。Apple 对信息的处理受其自身隐私政策以及你的 Apple 账户和设备设置约束。
 
 [Apple 隐私政策](https://www.apple.com/legal/privacy/en-ww/)
 
@@ -156,6 +173,7 @@ AniShelf 并非面向 13 岁以下儿童，也不会有意收集儿童的个人�
 - 在 AniShelf 设置中开启或关闭 iCloud 同步
 - 关闭 TMDb 中转，让 API 请求直接发送到 TMDb
 - 关闭播出时间功能并移除播出提醒订阅
+- 不设置智能功能，或随时移除服务商密钥
 - 在系统设置中管理通知权限和通知预览
 - 在 App 内删除资料库条目
 - 在提供相应控制的地方删除缓存数据
@@ -165,7 +183,7 @@ AniShelf 并非面向 13 岁以下儿童，也不会有意收集儿童的个人�
 
 ## 国际用户 {#international}
 
-使用 AniShelf 时，发往 Apple iCloud、TMDb、TVMaze、可选中转服务器或相关内容提供方的请求，可能会根据这些提供方的基础设施和政策，在你所在国家或地区以外的地方处理。
+使用 AniShelf 时，发往 Apple iCloud、TMDb、TVMaze、可选中转服务器、智能功能服务商或相关内容提供方的请求，可能会根据这些提供方的基础设施和政策，在你所在国家或地区以外的地方处理。
 
 ## 本隐私政策的变更 {#changes}
 
