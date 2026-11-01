@@ -161,14 +161,14 @@ const en: Strings = {
       body: 'Search The Movie Database in English, Chinese, or Japanese. Add a whole series, a single season, or a film, or paste a list of titles and TMDb IDs to add them all at once.',
       points: [
         'Three ways to browse: a poster grid, a detailed list, and a gallery of large cards',
-        'Favorites, filters, and sorting that keep a large library tidy',
+        'Categories you build by hand or just by describing them, plus favorites, filters, and sorting',
         'Multi-select to change status, score, or dates for many entries at once',
       ],
     },
     track: {
       spine: 'Track',
       title: 'Down to the episode.',
-      body: 'Every entry keeps its own watch status, start and finish dates, episode progress, score, and notes. Episode summaries, cast, and TMDb ratings are a tap away.',
+      body: 'Every entry keeps its own watch status, start and finish dates, episode progress, score, and notes, with a note for each episode too. Episode summaries, cast, and TMDb ratings are a tap away.',
       statuses: ['Planned', 'Watching', 'Watched', 'Dropped'],
     },
     remind: {
@@ -308,14 +308,14 @@ const zh: Strings = {
       body: '用中文、英文或日文搜索 TMDb。可以添加整部系列、单独某一季或一部电影；也能粘贴一串标题或 TMDb ID，一次性批量添加。',
       points: [
         '三种浏览方式：海报网格、详细列表和大卡片图库',
-        '收藏、筛选与排序，资料库再大也井井有条',
+        '手动整理或一句话描述就能创建的分类，加上收藏、筛选与排序，资料库再大也井井有条',
         '多选条目，批量修改观看状态、评分或日期',
       ],
     },
     track: {
       spine: '追踪',
       title: '精确到每一集。',
-      body: '每个条目都有自己的观看状态、起止日期、观看进度、评分和笔记。每集摘要、声优阵容和 TMDb 评分，点一下就能看到。',
+      body: '每个条目都有自己的观看状态、起止日期、观看进度、评分和笔记，每一集也能单独记笔记。每集摘要、声优阵容和 TMDb 评分，点一下就能看到。',
       statuses: ['想看', '在看', '已看完', '中断'],
     },
     remind: {
@@ -454,14 +454,14 @@ const ja: Strings = {
       body: 'The Movie Databaseを日本語・英語・中国語で検索。シリーズ全体、特定のシーズン、劇場版を追加できます。タイトルやTMDb IDをまとめて貼り付ければ、一括追加も。',
       points: [
         'グリッド、リスト、大きなカードのギャラリー。3つの表示で眺められます',
-        'お気に入り、フィルター、並べ替えで、大きなライブラリもすっきり',
+        '手で分けても、言葉で説明するだけでも作れるカテゴリ。お気に入り、フィルター、並べ替えで、大きなライブラリもすっきり',
         '複数選択で、視聴状況・スコア・日付をまとめて変更',
       ],
     },
     track: {
       spine: '記録する',
       title: '1話ずつ、|きちんと。',
-      body: '作品ごとに、視聴状況、開始日と終了日、エピソードの進捗、スコア、ノートを記録。各話のあらすじやキャスト、TMDbのスコアもすぐに確認できます。',
+      body: '作品ごとに、視聴状況、開始日と終了日、エピソードの進捗、スコア、ノートを記録。ノートは1話ごとにも残せます。各話のあらすじやキャスト、TMDbのスコアもすぐに確認できます。',
       statuses: ['見たい', '視聴中', '視聴済', '中断'],
     },
     remind: {

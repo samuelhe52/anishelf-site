@@ -47,8 +47,20 @@ Categories let you group anime your own way, such as a season you're following o
 - **Switch categories:** tap the title at the top of the library, or choose **Category** in the status bar's menu at the bottom center. **All** shows your whole library. Status filters and sorting still apply inside a category.
 - **Manage categories:** choose **Edit Categories…** in the title menu, or tap **Manage Categories** in Settings, to rename, delete, or reorder categories. Deleting a category doesn't remove its anime from your library.
 - **Category tabs:** turn on **Sticky Category Strip** to keep category tabs below the navigation bar in list and grid views. Tap a tab to switch. Touch and hold a tab to rename or delete it, or choose **Reorder Tabs**, drag the tabs into place, and tap **Done**.
+- **One entry at a time:** touch and hold an entry (right-click on Mac) and choose **Categories**, or change its categories from the detail page. On Mac, you can also drag entries onto a category in the sidebar.
 
 Categories sync with iCloud Sync and are included in backups.
+
+## Create a category from a description {#smart-categories}
+
+With Smart Features, you can describe a category in your own words, such as “mecha shows I rated 4 stars or higher”, and AniShelf finds the matching anime in your library.
+
+1. Open Settings › Smart Features and choose a model. Apple Intelligence runs on your device when it’s supported and turned on. On iOS, iPadOS, and macOS 27 or later, you can instead add your own OpenAI or OpenRouter API key.
+2. With Library Categories on, choose **Describe…** from **Category** in the status bar’s menu or in the category manager. On Mac, it’s also in the sidebar.
+3. Type your description. AniShelf suggests a name, shows the filters it understood, and checks your anime one by one. Tap a poster to include it or leave it out.
+4. Tap **Create Category**.
+
+With OpenAI or OpenRouter, your description and some details of the anime being checked are sent to that provider. See the [Privacy Policy](/privacy/#smart-features).
 
 ## Track what you watch {#track}
 
@@ -57,7 +69,7 @@ Double-tap an entry to open its detail page. There you can record:
 - its watch status: Planned, Watching, Watched, or Dropped
 - start and finish dates
 - episode progress
-- your score and notes
+- your score, and notes for the whole entry or for each episode
 
 Episode progress is off by default. To turn it on, open Settings and turn on **Track Episode Progress** under **Library & Tracking**. The progress control then appears on the detail page while an entry is Watching. Turning the setting off hides your progress but doesn't delete it.
 
@@ -66,6 +78,16 @@ To score an entry, tap a star. Tap the same star again to add a half star, such 
 Tap **Open In** to open the entry in Infuse, Kazumi, or bilibili, or on its homepage. Apps that aren't installed are listed as **Not Installed**.
 
 Scroll down for the overview, voice cast, and a summary of each episode. Tap the heart to favorite the entry, or the share button to make a poster you can send to friends. The **···** menu has more options, such as converting between a series and its seasons, or marking an entry as Dropped.
+
+## Episode notes {#episode-notes}
+
+Series and seasons can keep a note for each episode alongside the overall note. Notes you wrote before this feature existed stay under **Overall**.
+
+- **Write a note:** in the Notes section of the detail page, tap **Overall** or an episode to edit its note. Tap **Other…** to pick another episode.
+- **From the episode list:** on iPhone and iPad, touch and hold an episode, then tap **Add Note** in its preview. On Mac, right-click the episode and choose **Add Note**.
+- **Move or delete a note:** touch and hold the episode’s note button (right-click on Mac), then choose **Move to Episode…** or **Delete Note**.
+
+A series and its seasons share episode notes, so a note written on a season also appears on its series. Episode notes sync with iCloud Sync and are included in backups and exports.
 
 ## Rewatch a show {#rewatch}
 
