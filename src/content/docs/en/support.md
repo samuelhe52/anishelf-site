@@ -5,11 +5,11 @@ description: Get help with AniShelf, report a bug, or suggest a feature.
 
 ## Find an answer {#answers}
 
-The [User Guide](/guide/) covers setup, including [getting a TMDb API key](/guide/#api-key) and [what to do when search finds nothing](/guide/#tmdb-connection). Its [FAQ](/guide/#faq) answers the most common questions.
+The [User Guide](/guide/) covers [getting a TMDb API key](/guide/#api-key), [what to do when search finds nothing](/guide/#tmdb-connection), and a [FAQ](/guide/#faq).
 
 ## Contact {#contact}
 
-- **Bugs and feature requests:** [open an issue on GitHub](https://github.com/samuelhe52/AniShelf/issues). Check whether someone has already reported it, and add to their issue if so.
+- **Bugs and feature requests:** [open an issue on GitHub](https://github.com/samuelhe52/AniShelf/issues). Search existing issues first, and add to a matching one.
 - **Anything else, including privacy questions:** email [samuelhe52@outlook.com](mailto:samuelhe52@outlook.com). Email works for bug reports too, if you don’t have a GitHub account.
 
 AniShelf is made by one developer in their spare time, so replies can take a few days.

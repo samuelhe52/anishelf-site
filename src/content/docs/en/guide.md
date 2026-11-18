@@ -5,9 +5,9 @@ description: Set up AniShelf, add your first anime, and get the most out of trac
 
 ## Set up AniShelf {#setup}
 
-AniShelf runs on iPhone and iPad with iOS or iPadOS 26 or later, and as a native Mac app on macOS 26 or later. On Mac, the sidebar holds your library and categories, and the selected entry's details appear in the inspector beside it. Choose File › **New Window** to open another window. On iPad and Mac, each window keeps its own category, filters, sorting, and view mode.
+AniShelf runs on iPhone and iPad with iOS or iPadOS 26 or later, and as a native Mac app on macOS 26 or later.
 
-The first time you open AniShelf, it asks for a TMDb API key. The Movie Database (TMDb) supplies the titles, overviews, posters, and episode details you see in the app. A key is free for personal use. AniShelf is free and doesn't come with a shared key, so you request your own.
+The first time you open AniShelf, it asks for a TMDb API key. The Movie Database (TMDb) supplies the titles, posters, and episode details. A key is free for personal use, and you request your own.
 
 ## Get a TMDb API key {#api-key}
 
@@ -37,11 +37,12 @@ Tap the search button at the bottom right, then search for a series or film by n
 - Tap the icon at the bottom left to switch between the grid, list, and gallery views.
 - Use the status bar at the bottom center to show one status at a time, such as Watching.
 - Touch and hold an entry for more actions. In list view, swipe an entry left or right to update its status or delete it. Swipe left and tap **Open**, or swipe all the way, to open it in another app. To skip the choice, pick an app under **Swipe Action Opens** in Settings › Appearance & Interaction.
+- On Mac, the sidebar holds your library and categories, and the selected entry's details appear in the inspector beside it. Choose File › **New Window** to open another window. On iPad and Mac, each window keeps its own category, filters, sorting, and view mode.
 - To change many entries at once, tap **Select** at the top right of the list or grid view. You can change the status, score, favorite, and dates of the selected entries, or delete them.
 
 ## Organize with categories {#categories}
 
-Categories let you group anime your own way, such as a season you're following or shows you watch with friends. They're off by default. To turn them on, open Settings › Library & Tracking and turn on **Library Categories**.
+Categories are off by default. To turn them on, open Settings › Library & Tracking and turn on **Library Categories**.
 
 - **Add anime to a category:** in list or grid view, tap **Select**, choose some anime, and tap **Category**. Pick a category to add or remove the selected anime, or tap **New Category…** to create one with them. The menu stays open, so you can pick several categories.
 - **Switch categories:** tap the title at the top of the library, or choose **Category** in the status bar's menu at the bottom center. **All** shows your whole library. Status filters and sorting still apply inside a category.
@@ -81,7 +82,7 @@ Scroll down for the overview, voice cast, and a summary of each episode. Tap the
 
 ## Episode notes {#episode-notes}
 
-Series and seasons can keep a note for each episode alongside the overall note. Notes you wrote before this feature existed stay under **Overall**.
+Series and seasons can keep a note for each episode alongside the overall note.
 
 - **Write a note:** in the Notes section of the detail page, tap **Overall** or an episode to edit its note. Tap **Other…** to pick another episode.
 - **From the episode list:** on iPhone and iPad, touch and hold an episode, then tap **Add Note** in its preview. On Mac, right-click the episode and choose **Add Note**.
@@ -93,12 +94,10 @@ A series and its seasons share episode notes, so a note written on a season also
 
 To watch something again, open its detail page and change its status from Watched to Watching. AniShelf asks **Are You Rewatching?**
 
-- **Start Rewatch** marks the entry as Rewatching and clears its episode progress, so you can track the rewatch from episode 1.
+- **Start Rewatch** marks the entry as Rewatching and clears its episode progress.
 - **Not a Rewatch** only changes the status.
 
-When you mark a rewatch as Watched, AniShelf adds one to its rewatch count. If you change it to any other status, the rewatch ends without being counted.
-
-A badge next to the watch status shows the current watch, such as **Watch #2**, or how many times you’ve rewatched the entry. Tap it to turn **Rewatching** on or off, or to correct **Times Rewatched**. In the library, the count appears next to the status, such as “Watched ×2”.
+Marking a rewatch as Watched adds one to the entry's rewatch count. Any other status ends the rewatch without counting it. Tap the badge next to the watch status to turn **Rewatching** on or off, or to correct **Times Rewatched**.
 
 ## Airing reminders {#reminders}
 
@@ -120,6 +119,8 @@ Tap the settings icon at the top right to open Settings, which also shows your l
 
 > Only `.mallib` backups can be restored. AniShelf can’t import an exported file. Turn off iCloud Sync before you restore a backup, then turn it on again afterward.
 
+With iCloud Sync on, you can also read your library from the command line with [anishelf-cli](/#terminal).
+
 ## Change the anime info language {#language}
 
 AniShelf can show titles, overviews, and other anime info in English, Chinese, or Japanese. By default, it follows your device’s language. To choose one, open Settings › Language, turn off **Follow System**, and pick a language.
@@ -127,8 +128,6 @@ AniShelf can show titles, overviews, and other anime info in English, Chinese, o
 Posters prefer the anime’s original language by default. To show posters in your anime info language when TMDb has one, choose **Follow Anime Info Language** under Default Poster on the same page.
 
 The new language applies only to info that AniShelf fetches afterward. AniShelf asks whether to refresh your existing entries. Tap **Refresh** to update them now. With a large library, this can take a while. To refresh later, tap **Refresh Infos** in Settings › Metadata & Images.
-
-With iCloud Sync on, you can also read your library from the command line with [anishelf-cli](/#terminal).
 
 ## Troubleshooting {#troubleshooting}
 
@@ -182,11 +181,11 @@ See [Support](/support/) to report a bug or get help.
 
 ### Can I watch or download anime with AniShelf? {#streaming}
 
-No. AniShelf keeps track of what you watch, wherever you watch it. It doesn’t stream, download, or link to episodes, and it isn’t a manga or novel reader.
+No. AniShelf only keeps track of what you watch. It doesn’t stream, download, or link to episodes, and it isn’t a manga or novel reader.
 
 ### Can AniShelf sync with AniList, Bangumi, or TMDb? {#other-services}
 
-Not yet. Syncing watch data with other services is planned, but it’s a large project and has no release date.
+Not yet. Syncing watch data with other services is planned, with no release date.
 
 ### Does AniShelf work on versions earlier than iOS 26? {#older-versions}
 

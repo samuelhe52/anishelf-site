@@ -5,11 +5,11 @@ description: AniShelfの使い方のヘルプ、不具合の報告、機能の�
 
 ## 答えを探す {#answers}
 
-[ユーザーガイド](/ja/guide/)では、[TMDbのAPIキーの取得方法](/ja/guide/#api-key)や[検索結果が出ないときの対処法](/ja/guide/#tmdb-connection)など、初期設定について説明しています。よくある質問は[FAQ](/ja/guide/#faq)にまとめています。
+[ユーザーガイド](/ja/guide/)では、[TMDbのAPIキーの取得方法](/ja/guide/#api-key)や[検索結果が出ないときの対処法](/ja/guide/#tmdb-connection)を説明しています。[FAQ](/ja/guide/#faq)もご覧ください。
 
 ## お問い合わせ {#contact}
 
-- **不具合の報告と機能のリクエスト**：[GitHubでIssueを作成](https://github.com/samuelhe52/AniShelf/issues)してください。同じ内容がすでに報告されていないか確認し、あればそのIssueに情報を追加してください。
+- **不具合の報告と機能のリクエスト**：[GitHubでIssueを作成](https://github.com/samuelhe52/AniShelf/issues)してください。先に既存のIssueを検索し、同じものがあればそちらに情報を追加してください。
 - **そのほかのお問い合わせ（プライバシーに関するご質問を含む）**：[samuelhe52@outlook.com](mailto:samuelhe52@outlook.com)までメールでご連絡ください。GitHubアカウントをお持ちでない場合は、不具合の報告もメールで受け付けています。
 
 AniShelfは開発者1人が空き時間に開発しているため、返信まで数日かかることがあります。

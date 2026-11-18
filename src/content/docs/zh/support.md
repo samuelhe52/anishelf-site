@@ -5,11 +5,11 @@ description: 获取 AniShelf 的使用帮助，报告 Bug 或提出功能建议�
 
 ## 查找答案 {#answers}
 
-[使用指南](/zh/guide/)介绍了初始设置，包括[如何申请 TMDb API 密钥](/zh/guide/#api-key)和[搜索不到结果时怎么办](/zh/guide/#tmdb-connection)。其中的[常见问题](/zh/guide/#faq)解答了大部分常见疑问。
+[使用指南](/zh/guide/)介绍了[如何申请 TMDb API 密钥](/zh/guide/#api-key)、[搜索不到结果时怎么办](/zh/guide/#tmdb-connection)，并附有[常见问题](/zh/guide/#faq)。
 
 ## 联系方式 {#contact}
 
-- **Bug 与功能建议**：请[在 GitHub 上提交 issue](https://github.com/samuelhe52/AniShelf/issues)。提交前可以先搜索一下，如果已经有人报告过，直接在那个 issue 下补充即可。
+- **Bug 与功能建议**：请[在 GitHub 上提交 issue](https://github.com/samuelhe52/AniShelf/issues)。提交前请先搜索现有 issue，有相同的就在其下补充。
 - **其他问题（包括隐私相关问题）**：请发送邮件至 [samuelhe52@outlook.com](mailto:samuelhe52@outlook.com)。没有 GitHub 账号的话，也可以通过邮件报告 Bug。
 
 AniShelf 由一位开发者利用业余时间维护，回复可能需要几天时间，感谢理解。
