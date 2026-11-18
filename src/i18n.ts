@@ -101,7 +101,6 @@ export type Strings = {
       copy: string;
       copied: string;
       agents: string;
-      readOnly: string;
     };
   };
   notes: {
@@ -148,7 +147,7 @@ const en: Strings = {
   hero: {
     kicker: 'For iPhone, iPad & Mac',
     titleLines: ['Every anime', 'you’ve watched,', 'all in one place.'],
-    lede: 'AniShelf is a library for anime series and films. Track every episode, score and remember what you finish, and get a nudge when the next one airs.',
+    lede: 'AniShelf is a library for anime series and films. Log progress episode by episode, rate and add notes to what you finish, and get a reminder when a new episode airs.',
     testflight: 'Or join the TestFlight beta',
     facts: ['Free', 'No account', 'Open source'],
   },
@@ -173,8 +172,8 @@ const en: Strings = {
     },
     remind: {
       spine: 'Remind',
-      title: 'Never miss the new episode.',
-      body: 'See broadcast times for currently airing shows, then turn on reminders. AniShelf schedules a notification for each new episode, early or right on time.',
+      title: 'Know when the next episode airs.',
+      body: 'See broadcast times for currently airing shows, then turn on reminders. AniShelf schedules a notification for each new episode, anywhere from an hour before airtime to an hour after, and you can set the timing per show.',
       lockDate: 'Saturday, August 8',
       now: 'now',
       airsNow: (ep) => `${ep} is airing now.`,
@@ -191,8 +190,8 @@ const en: Strings = {
     },
     reflect: {
       spine: 'Reflect',
-      title: 'Look back on everything you’ve watched.',
-      body: 'Library stats count what you’ve finished, what’s in progress, and what you love. It also breaks your library down into series, seasons, and films, with your total watch time.',
+      title: 'Your watching, in numbers.',
+      body: 'Library stats count your entries by watch status and favorites, split them into series, seasons, and films, and total your watch time.',
     },
     everywhere: {
       spine: 'Sync',
@@ -208,13 +207,11 @@ const en: Strings = {
     terminal: {
       spine: 'Terminal',
       title: 'Your library, from the command line.',
-      body: 'anishelf-cli gives you the ani command: read-only access to your synced AniShelf library. List, search, summarize, and export it as JSON from any terminal.',
+      body: 'anishelf-cli gives you the ani command for your synced AniShelf library. List, search, summarize, and export it as JSON from any terminal. It’s read-only, so it never changes your library.',
       install: 'Install with uv',
       copy: 'Copy',
       copied: 'Copied',
-      agents:
-        'Working with an AI agent? Point it to the anishelf-cli skill and it can set itself up.',
-      readOnly: 'Read-only by design. ani never writes back to your library.',
+      agents: 'SKILL.md lets an AI agent install and use ani for you.',
     },
   },
   notes: {
@@ -231,7 +228,7 @@ const en: Strings = {
       },
       {
         title: 'Private by default',
-        body: 'No sign-up, no ads, no tracking. Your library lives on your device and, if you turn on sync, in your private iCloud.',
+        body: 'No ads, no tracking. Your library stays on your device, and in your private iCloud if you turn on sync.',
       },
       {
         title: 'Open source',
@@ -308,7 +305,7 @@ const zh: Strings = {
       body: '用中文、英文或日文搜索 TMDb。可以添加整部系列、单独某一季或一部电影；也能粘贴一串标题或 TMDb ID，一次性批量添加。',
       points: [
         '三种浏览方式：海报网格、详细列表和大卡片图库',
-        '手动整理或一句话描述就能创建的分类，加上收藏、筛选与排序，资料库再大也井井有条',
+        '手动整理或一句话描述就能创建的分类，加上收藏、筛选与排序',
         '多选条目，批量修改观看状态、评分或日期',
       ],
     },
@@ -321,7 +318,7 @@ const zh: Strings = {
     remind: {
       spine: '提醒',
       title: '新一集，|不再错过。',
-      body: '查看连载中番剧的播出时间，并开启提醒。AniShelf 会为每一集新番安排通知，可以提前，也可以准点。',
+      body: '查看连载中番剧的播出时间，并开启提醒。AniShelf 会为每一集新番安排通知，时间可设在播出前后一小时内，每部作品也能单独设置。',
       lockDate: '8月8日 星期六',
       now: '现在',
       airsNow: (ep) => `${ep} 正在播出。`,
@@ -339,7 +336,7 @@ const zh: Strings = {
     reflect: {
       spine: '回顾',
       title: '回顾|你看过的一切。',
-      body: '资料库统计会告诉你看完了多少、在看多少、收藏了多少，还能按动画系列、单季和电影分类统计，并显示总观看时长。',
+      body: '资料库统计会列出各观看状态和收藏的作品数，按动画系列、单季和电影分类汇总，并显示总观看时长。',
     },
     everywhere: {
       spine: '同步',
@@ -355,12 +352,11 @@ const zh: Strings = {
     terminal: {
       spine: '终端',
       title: '在命令行里|翻看资料库。',
-      body: 'anishelf-cli 提供 ani 命令，以只读方式访问你已同步的 AniShelf 资料库：在任意终端里列出、搜索、统计，或导出为 JSON。',
+      body: 'anishelf-cli 提供 ani 命令，可在任意终端里列出、搜索、统计你已同步的 AniShelf 资料库，或导出为 JSON。它只读取数据，不会改动你的资料库。',
       install: '使用 uv 安装',
       copy: '复制',
       copied: '已复制',
-      agents: '在用 AI Agent？把 anishelf-cli 的 skill 交给它，它可以自己完成安装。',
-      readOnly: '设计上只读，ani 不会改动你的资料库。',
+      agents: '把 SKILL.md 交给 AI Agent，它就能替你安装并使用 ani。',
     },
   },
   notes: {
@@ -373,11 +369,11 @@ const zh: Strings = {
       },
       {
         title: '它是记录工具，不是播放器',
-        body: 'AniShelf 不提供在线播放或下载，只负责记录你在别处看过的番。它也不是漫画或小说阅读器。',
+        body: 'AniShelf 不提供在线播放或下载，只负责记录你在别处看过的番。',
       },
       {
         title: '默认保护隐私',
-        body: '无需注册，没有广告，也不追踪。资料库保存在你的设备上；开启同步后，也只存放在你私有的 iCloud 里。',
+        body: '没有广告，也不追踪。资料库保存在你的设备上；开启同步后，也只存放在你私有的 iCloud 里。',
       },
       {
         title: '开源',
@@ -454,7 +450,7 @@ const ja: Strings = {
       body: 'The Movie Databaseを日本語・英語・中国語で検索。シリーズ全体、特定のシーズン、劇場版を追加できます。タイトルやTMDb IDをまとめて貼り付ければ、一括追加も。',
       points: [
         'グリッド、リスト、大きなカードのギャラリー。3つの表示で眺められます',
-        '手で分けても、言葉で説明するだけでも作れるカテゴリ。お気に入り、フィルター、並べ替えで、大きなライブラリもすっきり',
+        '手で分けても、言葉で説明するだけでも作れるカテゴリに、お気に入り、フィルター、並べ替え',
         '複数選択で、視聴状況・スコア・日付をまとめて変更',
       ],
     },
@@ -467,7 +463,7 @@ const ja: Strings = {
     remind: {
       spine: '知らせる',
       title: '新しい話を、|見逃さない。',
-      body: '放送中の作品の放送時間を確認して、リマインダーをオンに。新しいエピソードごとに通知を設定します。少し前にも、放送時刻ちょうどにも。',
+      body: '放送中の作品の放送時間を確認して、リマインダーをオンに。新しいエピソードごとに通知を設定します。タイミングは放送の1時間前から1時間後まで、作品ごとに選べます。',
       lockDate: '8月8日(土)',
       now: '今',
       airsNow: (ep) => `${ep}は現在放送中です。`,
@@ -485,7 +481,7 @@ const ja: Strings = {
     reflect: {
       spine: 'ふり返る',
       title: 'これまでの視聴を、|ふり返る。',
-      body: 'ライブラリの統計で、観終えた作品、視聴中の作品、お気に入りの数がひと目でわかります。シリーズ・シーズン・映画の内訳と、合計の再生時間も確認できます。',
+      body: 'ライブラリの統計で、視聴状況ごとの作品数とお気に入りの数がひと目でわかります。シリーズ・シーズン・映画の内訳と、合計の再生時間も確認できます。',
     },
     everywhere: {
       spine: '同期',
@@ -501,13 +497,11 @@ const ja: Strings = {
     terminal: {
       spine: 'ターミナル',
       title: 'ライブラリを、|コマンドラインから。',
-      body: 'anishelf-cliはaniコマンドで、同期済みのAniShelfライブラリを読み取り専用で扱えます。どのターミナルからでも一覧・検索・統計、JSONへのエクスポートが可能です。',
+      body: 'anishelf-cliのaniコマンドで、同期済みのAniShelfライブラリを、どのターミナルからでも一覧・検索・統計、JSONへエクスポートできます。読み取り専用なので、ライブラリを書き換えることはありません。',
       install: 'uvでインストール',
       copy: 'コピー',
       copied: 'コピーしました',
-      agents:
-        'AIエージェントと一緒に使うなら、anishelf-cliのスキルを渡すだけでセットアップできます。',
-      readOnly: '読み取り専用の設計。aniがライブラリを書き換えることはありません。',
+      agents: 'SKILL.mdをAIエージェントに渡せば、aniのインストールから利用まで任せられます。',
     },
   },
   notes: {
@@ -524,7 +518,7 @@ const ja: Strings = {
       },
       {
         title: 'プライバシー重視',
-        body: '登録不要、広告なし、トラッキングなし。ライブラリはデバイスに保存され、同期をオンにした場合もあなた専用のiCloudにだけ保存されます。',
+        body: '広告とトラッキングはありません。ライブラリはデバイスに保存され、同期をオンにした場合もあなた専用のiCloudにだけ保存されます。',
       },
       {
         title: 'オープンソース',
